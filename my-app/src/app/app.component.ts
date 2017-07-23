@@ -6,7 +6,7 @@ export class Hero {
 }
 
 @Component({
-    selector: 'app-root',
+    selector: 'my-app',
     template: `
     <h1>{{title}}</h1>
     <h2>{{hero.name}} details!</h2>
