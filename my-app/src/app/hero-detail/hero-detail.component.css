@@ -1,3 +1,4 @@
+/* HeroDetailComponent's private CSS styles */
 label {
   display: inline-block;
   width: 3em;
@@ -24,6 +25,6 @@ button:hover {
 }
 button:disabled {
   background-color: #eee;
-  color: #ccc; 
+  color: #ccc;
   cursor: auto;
 }
