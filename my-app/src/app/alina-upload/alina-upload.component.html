@@ -1,0 +1,14 @@
+<div>
+	<hr>
+	<ng4-files-click (filesSelect)="filesSelect($event)" [configId]="'my-image-config'">
+		<span>Upload</span>
+	</ng4-files-click>
+
+	<hr>
+
+	<ng4-files-drop (filesSelect)="filesSelect($event)" [configId]="'my-video-config'">
+		<div style="display: inline-block; height: 100px; width: 100px; background-color: gray">
+			{{selectedFiles}}
+		</div>
+	</ng4-files-drop>
+</div>

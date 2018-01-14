@@ -17,14 +17,20 @@ import { HeroService }          from './hero.service';
 import { MessageService }       from './message.service';
 import { MessagesComponent }    from './messages/messages.component';
 
+//region File Upload
+import { Ng4FilesModule } from './ng4-files';
+import { AlinaUploadComponent } from './alina-upload/alina-upload.component';
+//endregion File Upload
+
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    Ng4FilesModule,
 
-    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+      // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
     HttpClientInMemoryWebApiModule.forRoot(
@@ -37,7 +43,8 @@ import { MessagesComponent }    from './messages/messages.component';
     HeroesComponent,
     HeroDetailComponent,
     MessagesComponent,
-    HeroSearchComponent
+    HeroSearchComponent,
+    AlinaUploadComponent,
   ],
   providers: [ HeroService, MessageService ],
   bootstrap: [ AppComponent ]
