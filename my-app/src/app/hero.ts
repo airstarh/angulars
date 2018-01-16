@@ -1,4 +1,9 @@
 export class Hero {
   id: number;
-  name: string;
+  name: string = 'name';
+  firstname: string = 'firstname';
+
+  constructor() {
+
+  }
 }
