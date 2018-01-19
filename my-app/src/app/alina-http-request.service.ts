@@ -10,46 +10,68 @@ export class AlinaHttpRequestService {
     constructor(private _HttpClient: HttpClient,) {
     }
 
-    public URL: string = 'http://alinazero/restAccept/index';
+    public URL: string = 'http://alinazero/alinaRestAccept/index';
+
     public httpHeaders: {} = {
         'Content-Type': 'application/json; charset=utf-8'
     };
 
+    public set(anObject: {}, propertyName: string, value: any) {
+        anObject[propertyName] = value;
+    };
+
     public send(method: string = 'get',
-                data: any = null,
-                options: {} = {}): Observable<any> {
-
-        let _HttpClient: HttpClient = this._HttpClient;
+                data: any      = false,
+                options: {}    = {}
+    ): Observable<any> {
+        let _HttpClient: HttpClient   = this._HttpClient;
         let _Observable: Observable<any>;
-        const opts: any = {};
-
-        opts.headers = new HttpHeaders(this.httpHeaders);
+        let _HttpParams: HttpParams;
+        const httpRequestOptions: any = {};
+        httpRequestOptions.headers    = new HttpHeaders(this.httpHeaders);
 
         switch (method) {
+            // POST
             case 'post':
+                _Observable = _HttpClient[method](this.URL, data, httpRequestOptions);
+                break;
+            // PUT
             case 'put':
+                _Observable = _HttpClient[method](this.URL, data, httpRequestOptions);
+                break;
+            // DELETE
             case 'delete':
+
+                if (data) {
+                    const toSend              = typeof data === 'number' ? {"id": data} : data;
+                    _HttpParams               = new HttpParams({
+                                                                   fromObject: toSend
+                                                               });
+                    httpRequestOptions.params = _HttpParams;
+                }
+
+
+                _Observable = _HttpClient[method](this.URL, httpRequestOptions);
+                break;
+
             case 'get':
             default:
 
                 if (data) {
-                    const _HttpParams = new HttpParams({
-                        fromObject: data
-                    });
-                    opts.params = _HttpParams;
+                    _HttpParams               = new HttpParams({
+                                                                   fromObject: data
+                                                               });
+                    httpRequestOptions.params = _HttpParams;
                 }
 
-                _Observable = _HttpClient[method](this.URL, opts);
+                _Observable = _HttpClient[method](this.URL, httpRequestOptions);
                 break;
         }
 
         return _Observable
             .pipe(
                 tap(resp => {
-                        console.log("Send ++++++++++");
-                        console.log(resp);
-                    }
-                ),
+                }),
                 catchError(this.handleError('Error Send', []))
             );
     }

@@ -8,6 +8,8 @@ import {AlinaHttpRequestService} from "../alina-http-request.service";
 })
 export class AlinaRestCallComponent implements OnInit {
 
+    ownData:any = {};
+
     constructor(private _AlinaHttpRequestService: AlinaHttpRequestService) {
     }
 
@@ -15,15 +17,19 @@ export class AlinaRestCallComponent implements OnInit {
     }
 
     submitForm(f) {
-        console.log("submitForm ++++++++++");
+        console.log("Data from Form ++++++++++");
         console.log(f);
 
-        let v = f.value;
+        let toSend = f.value;
 
-        this._AlinaHttpRequestService.send('get', v)
+        this._AlinaHttpRequestService.send('get', toSend)
             .subscribe(resp => {
-                console.log("submitForm _AlinaHttpRequestService  ++++++++++");
+
+
+                console.log("Response from Server ++++++++++");
                 console.log(resp);
+
+                this.ownData = resp['data'];
             });
     }
 

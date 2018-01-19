@@ -1,7 +1,7 @@
 export class Hero {
   id: number;
   name: string = 'name';
-  firstname: string = 'firstname';
+  firstname?: string = 'firstname';
 
   constructor() {
 

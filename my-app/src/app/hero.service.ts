@@ -14,7 +14,7 @@ const httpOptions = {
 @Injectable()
 export class HeroService {
 
-    private heroesUrl = 'http://alinazero/restAccept/index';  // URL to web api
+    private heroesUrl = 'http://alinazero/alinaRestAccept/index';  // URL to web api
 
     constructor(private http: HttpClient,
                 private messageService: MessageService) {
