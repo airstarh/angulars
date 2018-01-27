@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
@@ -18,6 +18,8 @@ import {MessageService} from './message.service';
 import {MessagesComponent} from './messages/messages.component';
 import {AlinaRestCallComponent} from './alina-rest-call/alina-rest-call.component';
 import {AlinaHttpRequestService} from "./alina-http-request.service";
+import { AlinaRestCall2Component } from './alina-rest-call-2/alina-rest-call-2.component';
+import {SignupFormComponent} from "./signup-form/signup-form.component";
 
 @NgModule({
     imports: [
@@ -25,6 +27,7 @@ import {AlinaHttpRequestService} from "./alina-http-request.service";
         FormsModule,
         AppRoutingModule,
         HttpClientModule,
+        ReactiveFormsModule
 
         // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
         // and returns simulated server responses.
@@ -40,7 +43,9 @@ import {AlinaHttpRequestService} from "./alina-http-request.service";
         HeroDetailComponent,
         MessagesComponent,
         HeroSearchComponent,
-        AlinaRestCallComponent
+        AlinaRestCallComponent,
+        AlinaRestCall2Component,
+        SignupFormComponent
     ],
     providers: [HeroService, MessageService, AlinaHttpRequestService],
     bootstrap: [AppComponent]

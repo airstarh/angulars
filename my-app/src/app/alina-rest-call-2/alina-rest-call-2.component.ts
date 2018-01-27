@@ -1,12 +1,13 @@
+///<reference path="../alina-http-request.service.ts"/>
 import {Component, OnInit} from '@angular/core';
 import {AlinaHttpRequestService} from "../alina-http-request.service";
 
 @Component({
-    selector: 'app-alina-rest-call',
-    templateUrl: './alina-rest-call.component.html',
-    styleUrls: ['./alina-rest-call.component.css']
+    selector: 'app-alina-rest-call-2',
+    templateUrl: './alina-rest-call-2.component.html',
+    styleUrls: ['./alina-rest-call-2.component.css']
 })
-export class AlinaRestCallComponent implements OnInit {
+export class AlinaRestCall2Component implements OnInit {
 
     ownData: any = {};
 

@@ -1,0 +1,24 @@
+<form [formGroup]="formBla">
+	<div class="form-group">
+		<label for="username">Username</label>
+		<input
+				formControlName ="username"
+				id="username"
+				type="text"
+				class="form-control">
+		<div *ngIf="username.touched && username.invalid" class="alert alert-danger">
+			<div *ngIf="username.errors.required">Required!</div>
+			<div *ngIf="username.errors.minlength">Too short! No less than {{username.errors.minlength.requiredLength}}</div>
+			<div *ngIf="username.errors.cannotContainSpace">NO SPACES!!!</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="password">Password</label>
+		<input
+				formControlName ="password"
+				id="password"
+				type="text"
+				class="form-control">
+	</div>
+	<button class="btn btn-primary" type="submit">Sign Up</button>
+</form>
