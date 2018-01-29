@@ -1,24 +1,47 @@
-<form [formGroup]="formBla">
-	<div class="form-group">
-		<label for="username">Username</label>
-		<input
-				formControlName ="username"
-				id="username"
-				type="text"
-				class="form-control">
-		<div *ngIf="username.touched && username.invalid" class="alert alert-danger">
-			<div *ngIf="username.errors.required">Required!</div>
-			<div *ngIf="username.errors.minlength">Too short! No less than {{username.errors.minlength.requiredLength}}</div>
-			<div *ngIf="username.errors.cannotContainSpace">NO SPACES!!!</div>
+<form [formGroup]="formBla" (ngSubmit)="formSubmitBla">
+	<div *ngIf="formBla.errors" class="aler alert-danger">
+		Something goes wrong.
+	</div>
+	<div formGroupName="accountBla">
+		<div class="form-group">
+			<label for="username">Username</label>
+			<input
+					formControlName="username"
+					id="username"
+					type="text"
+					class="form-control">
+			<div *ngIf="username.pending">Thinking...</div>
+			<div *ngIf="username.touched && username.invalid" class="alert alert-danger">
+				<div *ngIf="username.errors.required">Required!</div>
+				<div *ngIf="username.errors.minlength">Too short! No less than
+					{{username.errors.minlength.requiredLength}}
+				</div>
+				<div *ngIf="username.errors.cannotContainSpace">NO SPACES!!!</div>
+				<div *ngIf="username.errors.notUnique">NOT UNIQUE!!!</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="password">Password</label>
+			<input
+					formControlName="password"
+					id="password"
+					type="text"
+					class="form-control">
 		</div>
 	</div>
-	<div class="form-group">
-		<label for="password">Password</label>
-		<input
-				formControlName ="password"
-				id="password"
-				type="text"
-				class="form-control">
-	</div>
+
+	<input type="text" class="form-control"
+	       (keyup.enter)="addTopicBla(topicFormVar)"
+	       #topicFormVar
+	>
+	<ul class="list-group">
+		<li
+				*ngFor="let item of topicsFormArrayBla.controls"
+				(click)="deleteTopicBla(item)"
+				class="list-group-item">
+			{{item.value}}
+		</li>
+	</ul>
+
 	<button class="btn btn-primary" type="submit">Sign Up</button>
 </form>
