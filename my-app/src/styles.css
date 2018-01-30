@@ -56,7 +56,7 @@ nav a:hover {
   background-color: #CFD8DC;
 }
 nav a.active {
-  color: #039be5;
+  color: red;
 }
 
 /* everywhere else */

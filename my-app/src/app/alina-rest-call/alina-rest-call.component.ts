@@ -22,12 +22,17 @@ export class AlinaRestCallComponent implements OnInit {
 
         let toSend = f.value;
 
-        this._AlinaHttpRequestService.send('get', toSend)
+        this._AlinaHttpRequestService.send('post', toSend)
             .subscribe(resp => {
                 this.ownData = resp['data'];
 
                 console.log("Response from Server ++++++++++");
                 console.log(resp);
             });
+    }
+
+    readState(f) {
+        console.log("(1) Own Data ++++++++++");
+        console.log(this.ownData);
     }
 }
