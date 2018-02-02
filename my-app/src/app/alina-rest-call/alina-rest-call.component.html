@@ -7,21 +7,33 @@
 		</div>
 
 		<div>
-		<label for="lastname">lastname</label>
-		<input ngModel name="lastname" type="text" id="lastname">
+			<label for="lastname">lastname</label>
+			<input ngModel name="lastname" type="text" id="lastname">
 		</div>
 
 		<button type="button"
 		        (click)="readState(f)"
-		>State</button>&nbsp;
+		>State
+		</button>&nbsp;
 
 		<button type="submit">Submit</button>
 
 	</form>
 </div>
 
-<table>
-	<tr *ngFor="let item of ownData">
-		<td ng-repeat="(a, v) in item">{{a}} {{v}}</td>
-	</tr>
-</table>
+<div style="overflow-x: scroll">
+	<table class="table">
+		<tr *ngFor="let item of ownData">
+			<td *ngFor='let prop of item | values'>
+				<span *ngIf="isType(item[prop], 'string')">{{item[prop]}}</span>
+				<ul *ngIf="isType(item[prop], 'object')">
+					<li *ngFor='let subItem of item[prop]'>
+						<div *ngFor='let p of subItem | values'>
+							{{p}} : {{subItem[p]}}
+						</div>
+					</li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+</div>

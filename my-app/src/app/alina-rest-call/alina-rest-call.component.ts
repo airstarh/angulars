@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AlinaHttpRequestService} from "../alina-http-request.service";
+import {ValuesPipe} from "../pipes/values-pipe";
 
 @Component({
     selector: 'app-alina-rest-call',
@@ -38,5 +39,9 @@ export class AlinaRestCallComponent implements OnInit {
     readState(f) {
         console.log("(1) Own Data ++++++++++");
         console.log(this.ownData);
+    }
+
+    isType(v, t) {
+        return typeof v === t;
     }
 }

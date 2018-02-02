@@ -2,12 +2,9 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-
 import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
 import {InMemoryDataService} from './in-memory-data.service';
-
 import {AppRoutingModule} from './app-routing.module';
-
 import {AppComponent} from './app.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {HeroDetailComponent} from './hero-detail/hero-detail.component';
@@ -21,6 +18,7 @@ import {AlinaHttpRequestService} from "./alina-http-request.service";
 import { AlinaRestCall2Component } from './alina-rest-call-2/alina-rest-call-2.component';
 import {SignupFormComponent} from "./signup-form/signup-form.component";
 import { AlinaFormBuildComponent } from './alina-form-build/alina-form-build.component';
+import {ValuesPipe} from "./pipes/values-pipe";
 
 @NgModule({
     imports: [
@@ -47,7 +45,8 @@ import { AlinaFormBuildComponent } from './alina-form-build/alina-form-build.com
         AlinaRestCallComponent,
         AlinaRestCall2Component,
         SignupFormComponent,
-        AlinaFormBuildComponent
+        AlinaFormBuildComponent,
+        ValuesPipe
     ],
     providers: [HeroService, MessageService, AlinaHttpRequestService],
     bootstrap: [AppComponent]
