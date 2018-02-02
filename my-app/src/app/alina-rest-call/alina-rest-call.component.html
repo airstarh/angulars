@@ -22,7 +22,6 @@
 
 <table>
 	<tr *ngFor="let item of ownData">
-		<td>{{item.firstname}}</td>
-		<td>{{item.lastname}}</td>
+		<td ng-repeat="(a, v) in item">{{a}} {{v}}</td>
 	</tr>
 </table>
