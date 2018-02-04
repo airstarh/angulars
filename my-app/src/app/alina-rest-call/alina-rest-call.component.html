@@ -1,14 +1,11 @@
 <div>
 	<form ngForm #f="ngForm" (ngSubmit)="submitForm(f)">
 
-		<div>
-			<label for="firstname">firstname</label>
-			<input ngModel name="firstname" type="text" id="firstname">
-		</div>
-
-		<div>
-			<label for="lastname">lastname</label>
-			<input ngModel name="lastname" type="text" id="lastname">
+		<div class="form-group">
+			<label for="model">model</label>
+			<select [(ngModel)]="model" name="model" id="model" class="form-control">
+				<option *ngFor="let m of models" [value]="m">{{m}}</option>
+			</select>
 		</div>
 
 		<button type="button"

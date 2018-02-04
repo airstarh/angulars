@@ -1,3 +1,8 @@
+.alina-стеукув-div {
+  width: 90%;
+  margin: 0 auto 0 auto;
+}
+
 /* AppComponent's private CSS styles */
 h1 {
   font-size: 1.2em;
@@ -28,3 +33,5 @@ nav a.active {
   background-color: #000;
   color: #fff;
 }
+
+

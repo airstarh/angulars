@@ -10,21 +10,31 @@ import {ValuesPipe} from "../pipes/values-pipe";
 export class AlinaRestCallComponent implements OnInit {
 
     ownData: any = [];
+    model = 'user';
+    models = [
+        ' ',
+        'user',
+        'role',
+        'article',
+        'blablabla',
+    ];
 
     constructor(private _AlinaHttpRequestService: AlinaHttpRequestService) {
     }
 
     ngOnInit() {
+        this.submitForm({});
     }
 
     submitForm(f) {
         console.log("Data from Form ++++++++++");
-        console.log(f);
+        console.log(f.value);
 
         //let toSend = f.value;
         let toSend = {
             cmd: "model",
-            m: "user"
+            isAjax: true,
+            m: this.model
         };
 
         this._AlinaHttpRequestService.send('get', toSend)
