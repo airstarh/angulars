@@ -15,7 +15,6 @@ import {MessageService} from './message.service';
 import {MessagesComponent} from './messages/messages.component';
 import {AlinaRestCallComponent} from './alina-rest-call/alina-rest-call.component';
 import {AlinaHttpRequestService} from "./alina-http-request.service";
-import { AlinaRestCall2Component } from './alina-rest-call-2/alina-rest-call-2.component';
 import {SignupFormComponent} from "./signup-form/signup-form.component";
 import { AlinaFormBuildComponent } from './alina-form-build/alina-form-build.component';
 import {ValuesPipe} from "./pipes/values-pipe";
@@ -43,7 +42,6 @@ import {ValuesPipe} from "./pipes/values-pipe";
         MessagesComponent,
         HeroSearchComponent,
         AlinaRestCallComponent,
-        AlinaRestCall2Component,
         SignupFormComponent,
         AlinaFormBuildComponent,
         ValuesPipe

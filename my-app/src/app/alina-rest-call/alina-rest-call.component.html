@@ -1,9 +1,15 @@
 <div>
-	<form ngForm #f="ngForm" (ngSubmit)="submitForm(f)">
+	<form ngForm #f="ngForm" (ngSubmit)="getModels(f)">
 
 		<div class="form-group">
-			<label for="model">model</label>
-			<select [(ngModel)]="model" name="model" id="model" class="form-control">
+			<label for="model-name">Table name</label>
+			<select
+					[(ngModel)]="modelName"
+					name="model"
+					id="model-name"
+					class="form-control"
+					(change)="getModels()"
+			>
 				<option *ngFor="let m of models" [value]="m">{{m}}</option>
 			</select>
 		</div>
@@ -18,12 +24,29 @@
 	</form>
 </div>
 
-<div style="overflow-x: scroll">
+<ng-template #loading>
+	<div>Loading...</div>
+</ng-template>
+
+<div style="overflow-x: scroll" *ngIf="ownData.length > 0 else loading">
 	<table class="table">
-		<tr *ngFor="let item of ownData">
+		<thead>
+		<tr>
+			<td>Actions</td>
+			<td *ngFor='let prop of ownData[0] | values'>
+				{{prop}}
+			</td>
+		</tr>
+		</thead>
+		<tbody>
+		<tr *ngFor="let item of ownData; let isEven=even" [style.background-color]="isEven ? '#ebebeb' : '#fff'">
+			<td>
+				<button class="btn">Edit</button>
+				<button class="btn">Delete</button>
+			</td>
 			<td *ngFor='let prop of item | values'>
 				<span *ngIf="isType(item[prop], 'string')">{{item[prop]}}</span>
-				<ul *ngIf="isType(item[prop], 'object')">
+				<ul *ngIf="isType(item[prop], 'array')">
 					<li *ngFor='let subItem of item[prop]'>
 						<div *ngFor='let p of subItem | values'>
 							{{p}} : {{subItem[p]}}
@@ -32,5 +55,6 @@
 				</ul>
 			</td>
 		</tr>
+		</tbody>
 	</table>
 </div>

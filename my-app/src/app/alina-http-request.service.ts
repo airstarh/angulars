@@ -21,14 +21,13 @@ export class AlinaHttpRequestService {
     };
 
     public send(method: string = 'get',
-                data: any      = false,
-                options: {}    = {}
-    ): Observable<any> {
-        let _HttpClient: HttpClient   = this._HttpClient;
+                data: any = false,
+                options: {} = {}): Observable<any> {
+        let _HttpClient: HttpClient = this._HttpClient;
         let _Observable: Observable<any>;
         let _HttpParams: HttpParams;
         const httpRequestOptions: any = {};
-        httpRequestOptions.headers    = new HttpHeaders(this.httpHeaders);
+        httpRequestOptions.headers = new HttpHeaders(this.httpHeaders);
 
         switch (method) {
             // POST
@@ -43,10 +42,10 @@ export class AlinaHttpRequestService {
             case 'delete':
 
                 if (data) {
-                    const toSend              = typeof data === 'number' ? {"id": data} : data;
-                    _HttpParams               = new HttpParams({
-                                                                   fromObject: toSend
-                                                               });
+                    const toSend = typeof data === 'number' ? {"id": data} : data;
+                    _HttpParams = new HttpParams({
+                        fromObject: toSend
+                    });
                     httpRequestOptions.params = _HttpParams;
                 }
 
@@ -58,9 +57,9 @@ export class AlinaHttpRequestService {
             default:
 
                 if (data) {
-                    _HttpParams               = new HttpParams({
-                                                                   fromObject: data
-                                                               });
+                    _HttpParams = new HttpParams({
+                        fromObject: data
+                    });
                     httpRequestOptions.params = _HttpParams;
                 }
 

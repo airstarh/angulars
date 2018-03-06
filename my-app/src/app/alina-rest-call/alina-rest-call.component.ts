@@ -10,7 +10,7 @@ import {ValuesPipe} from "../pipes/values-pipe";
 export class AlinaRestCallComponent implements OnInit {
 
     ownData: any = [];
-    model = 'user';
+    modelName = 'user';
     models = [
         ' ',
         'user',
@@ -23,18 +23,17 @@ export class AlinaRestCallComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.submitForm({});
+        this.getModels();
     }
 
-    submitForm(f) {
-        console.log("Data from Form ++++++++++");
-        console.log(f.value);
+    getModels() {
+        this.ownData = [];
 
         //let toSend = f.value;
         let toSend = {
             cmd: "model",
             isAjax: true,
-            m: this.model
+            m: this.modelName
         };
 
         this._AlinaHttpRequestService.send('get', toSend)
@@ -51,7 +50,15 @@ export class AlinaRestCallComponent implements OnInit {
         console.log(this.ownData);
     }
 
-    isType(v, t) {
-        return typeof v === t;
+    isType(v, isT) {
+        isT = isT.toLowerCase();
+        let type = typeof v;
+
+        if (isT === 'array') {
+            if (type === 'object') {
+                return v instanceof Array
+            }
+        }
+        return type === isT;
     }
 }
