@@ -29,11 +29,15 @@
 					class="form-control">
 		</div>
 	</div>
+	<button class="btn btn-primary" type="submit">Sign Up</button>
+	<div></div>
 
+	<label> Add Topic :-)
 	<input type="text" class="form-control"
-	       (keyup.enter)="addTopicBla(topicFormVar)"
 	       #topicFormVar
+	       (keyup.enter)="addTopicBla(topicFormVar)"
 	>
+	</label>
 	<ul class="list-group">
 		<li
 				*ngFor="let item of topicsFormArrayBla.controls"
@@ -42,6 +46,4 @@
 			{{item.value}}
 		</li>
 	</ul>
-
-	<button class="btn btn-primary" type="submit">Sign Up</button>
 </form>
