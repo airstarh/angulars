@@ -1,9 +1,14 @@
 import { Directive, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[ad-host]',
+  selector: '[directive-ad-host]',
 })
 export class AdDirective {
-  constructor(public viewContainerRef: ViewContainerRef) { }
+  constructor(public _CNSTR_viewContainerRef: ViewContainerRef) {
+
+    console.log("_CNSTR_viewContainerRef ++++++++++");
+    console.log(_CNSTR_viewContainerRef);
+
+  }
 }
 
