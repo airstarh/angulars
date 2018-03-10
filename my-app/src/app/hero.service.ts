@@ -14,7 +14,7 @@ const httpOptions = {
 @Injectable()
 export class HeroService {
 
-    private heroesUrl = 'http://alinazero/alinaRestAccept/index';  // URL to web api
+    private heroesUrl = 'http://alinazero/alinaRestAccept/NgHeroes';  // URL to web api
 
     constructor(private http: HttpClient,
                 private messageService: MessageService) {
@@ -65,7 +65,7 @@ export class HeroService {
             // if not search term, return empty hero array.
             return of([]);
         }
-        return this.http.get<Hero[]>(`api/heroes/?name=${term}`).pipe(
+        return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${term}`).pipe(
             tap(_ => this.log(`found heroes matching "${term}"`)),
             catchError(this.handleError<Hero[]>('searchHeroes', []))
         );

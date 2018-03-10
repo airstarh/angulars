@@ -20,7 +20,7 @@ export class HeroesComponent implements OnInit {
   getHeroes(): void {
     this.heroService.getHeroes()
     .subscribe(resp => {
-        this.heroes = resp['data']
+        this.heroes = resp
     });
   }
 
@@ -29,7 +29,7 @@ export class HeroesComponent implements OnInit {
     if (!name) { return; }
     this.heroService.addHero({ name } as Hero)
       .subscribe(resp => {
-        this.heroes.push(resp['data']);
+        this.heroes.push(resp);
       });
   }
 
