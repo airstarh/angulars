@@ -10,17 +10,19 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {HeroDetailComponent} from './hero-detail/hero-detail.component';
 import {HeroesComponent} from './heroes/heroes.component';
 import {HeroSearchComponent} from './hero-search/hero-search.component';
-import {HeroService} from './hero.service';
-import {MessageService} from './message.service';
-import {MessagesComponent} from './messages/messages.component';
-import {AlinaRestCallComponent} from './alina-rest-call/alina-rest-call.component';
-import {AlinaHttpRequestService} from "./alina-http-request.service";
-import {SignupFormComponent} from "./signup-form/signup-form.component";
+import {HeroService}               from './hero.service';
+import {MessageService}            from './message.service';
+import {MessagesComponent}         from './messages/messages.component';
+import {AlinaRestCallComponent}    from './alina-rest-call/alina-rest-call.component';
+import {AlinaHttpRequestService}   from "./alina-http-request.service";
+import {SignupFormComponent}       from "./signup-form/signup-form.component";
 import { AlinaFormBuildComponent } from './alina-form-build/alina-form-build.component';
-import {ValuesPipe} from "./pipes/values-pipe";
+import {ValuesPipe}                from "./pipes/values-pipe";
+import {AlinaModModule}            from "./alina-mod/alina-mod.module";
 
 @NgModule({
     imports: [
+        AlinaModModule,
         BrowserModule,
         FormsModule,
         AppRoutingModule,
