@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
+import {Injectable}                          from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import {of} from 'rxjs/observable/of';
-import {catchError, map, tap} from 'rxjs/operators';
+import {Observable}                          from 'rxjs/Observable';
+import {of}                                  from 'rxjs/observable/of';
+import {catchError, map, tap}                from 'rxjs/operators';
 
 @Injectable()
 export class AlinaHttpRequestService {
@@ -14,6 +14,7 @@ export class AlinaHttpRequestService {
 
     public httpHeaders: {} = {
         'Content-Type': 'application/json; charset=utf-8'
+        //ToDo: Auth Token here.
     };
 
     public set(anObject: {}, propertyName: string, value: any) {
@@ -21,55 +22,47 @@ export class AlinaHttpRequestService {
     };
 
     public send(method: string = 'get',
-                data: any = false,
-                options: {} = {}): Observable<any> {
-        let _HttpClient: HttpClient = this._HttpClient;
+                data: any      = false,
+                options: any   = {}): Observable<any> {
+        let _HttpClient: HttpClient   = this._HttpClient;
         let _Observable: Observable<any>;
-        let _HttpParams: HttpParams;
         const httpRequestOptions: any = {};
-        httpRequestOptions.headers = new HttpHeaders(this.httpHeaders);
+        httpRequestOptions.headers    = this.httpHeaders;
+        httpRequestOptions.params     = {};
+        options.headers ? Object.assign(httpRequestOptions.headers, options.headers) : null;
+        options.params ? Object.assign(httpRequestOptions.params, options.params) : null;
 
         switch (method) {
             // POST
             case 'post':
-                _Observable = _HttpClient[method](this.URL, data, httpRequestOptions);
+                _Observable = _HttpClient.post(this.URL, data, httpRequestOptions);
                 break;
             // PUT
             case 'put':
-                _Observable = _HttpClient[method](this.URL, data, httpRequestOptions);
+                _Observable = _HttpClient.put(this.URL, data, httpRequestOptions);
                 break;
             // DELETE
             case 'delete':
-
                 if (data) {
-                    const toSend = typeof data === 'number' ? {"id": data} : data;
-                    _HttpParams = new HttpParams({
-                        fromObject: toSend
-                    });
-                    httpRequestOptions.params = _HttpParams;
+                    httpRequestOptions.params = typeof data === 'number' ? {"id": data} : data;
                 }
-
-
-                _Observable = _HttpClient[method](this.URL, httpRequestOptions);
+                _Observable = _HttpClient.delete(this.URL, httpRequestOptions);
                 break;
 
             case 'get':
             default:
-
                 if (data) {
-                    _HttpParams = new HttpParams({
-                        fromObject: data
-                    });
-                    httpRequestOptions.params = _HttpParams;
+                    httpRequestOptions.params = data;
                 }
-
-                _Observable = _HttpClient[method](this.URL, httpRequestOptions);
+                _Observable = _HttpClient.get(this.URL, httpRequestOptions);
                 break;
         }
 
         return _Observable
             .pipe(
                 tap(resp => {
+                    console.log("Alina Service Resp ++++++++++");
+                    console.log(resp);
                 }),
                 catchError(this.handleError('Error Send', []))
             );

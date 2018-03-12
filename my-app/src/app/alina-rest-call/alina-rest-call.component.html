@@ -2,7 +2,7 @@
 	<form ngForm #f="ngForm" (ngSubmit)="getModels(f)">
 
 		<div class="form-group">
-			<label for="model-name">Table name</label>
+			<label for="model-name">Table name ({{modelName}})</label>
 			<select
 					[(ngModel)]="modelName"
 					name="model"
@@ -14,12 +14,12 @@
 			</select>
 		</div>
 
-		<button type="button"
-		        (click)="readState(f)"
-		>State
+		<button type="button" class="btn btn-info"
+		        (click)="logAllCurrentModels(f)"
+		>Console Log all Current models
 		</button>&nbsp;
 
-		<button type="submit">Submit</button>
+		<button type="submit" class="btn btn-info">Show me!</button>
 
 	</form>
 </div>
@@ -31,7 +31,7 @@
 <div style="overflow-x: scroll" *ngIf="ownData.length > 0 else loading">
 	<table class="table">
 		<thead>
-		<tr>
+		<tr style="color:white;background-color: black">
 			<td>Actions</td>
 			<td *ngFor='let prop of ownData[0] | values'>
 				{{prop}}
@@ -41,8 +41,11 @@
 		<tbody>
 		<tr *ngFor="let item of ownData; let isEven=even" [style.background-color]="isEven ? '#ebebeb' : '#fff'">
 			<td>
-				<button class="btn">Edit</button>
-				<button class="btn">Delete</button>
+				<button class="btn btn-info" (click)="logModelState(item)">State</button>
+				<button class="btn btn-success">Edit</button>
+				<button class="btn btn-warning" (click)="saveModel(item)">Save</button>
+				<button class="btn btn-danger">Delete</button>
+				<button class="btn">Cancel</button>
 			</td>
 			<td *ngFor='let prop of item | values'>
 				<span *ngIf="isType(item[prop], 'string')">{{item[prop]}}</span>

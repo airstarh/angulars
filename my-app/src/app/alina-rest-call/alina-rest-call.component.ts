@@ -1,17 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit}       from '@angular/core';
 import {AlinaHttpRequestService} from "../alina-http-request.service";
-import {ValuesPipe} from "../pipes/values-pipe";
+import {ValuesPipe}              from "../pipes/values-pipe";
 
 @Component({
-    selector: 'app-alina-rest-call',
-    templateUrl: './alina-rest-call.component.html',
-    styleUrls: ['./alina-rest-call.component.css']
-})
+               selector:    'app-alina-rest-call',
+               templateUrl: './alina-rest-call.component.html',
+               styleUrls:   ['./alina-rest-call.component.css']
+           })
 export class AlinaRestCallComponent implements OnInit {
 
     ownData: any = [];
-    modelName = 'user';
-    models = [
+    modelName    = 'role';
+    models       = [
         ' ',
         'user',
         'role',
@@ -31,27 +31,24 @@ export class AlinaRestCallComponent implements OnInit {
 
         //let toSend = f.value;
         let toSend = {
-            cmd: "model",
+            cmd:    "model",
             isAjax: true,
-            m: this.modelName
+            m:      this.modelName
         };
 
         this._AlinaHttpRequestService.send('get', toSend)
             .subscribe(resp => {
                 this.ownData = resp.data;
-
-                console.log("Response from Server ++++++++++");
-                console.log(resp);
             });
     }
 
-    readState(f) {
+    logAllCurrentModels() {
         console.log("(1) Own Data ++++++++++");
         console.log(this.ownData);
     }
 
     isType(v, isT) {
-        isT = isT.toLowerCase();
+        isT      = isT.toLowerCase();
         let type = typeof v;
 
         if (isT === 'array') {
@@ -60,5 +57,25 @@ export class AlinaRestCallComponent implements OnInit {
             }
         }
         return type === isT;
+    }
+
+    logModelState(iten) {
+        console.log("Current Item ++++++++++");
+        console.log(iten);
+    }
+
+    saveModel(item) {
+        let data         = item;
+        let options: any = {};
+        options.params   = {
+            cmd:    "model",
+            isAjax: true,
+            m:      this.modelName
+        };
+
+        this._AlinaHttpRequestService.send('put', data, options)
+            .subscribe(resp => {
+                item = resp.data;
+            });
     }
 }
