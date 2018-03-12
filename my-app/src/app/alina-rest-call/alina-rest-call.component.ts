@@ -10,7 +10,7 @@ import {ValuesPipe}              from "../pipes/values-pipe";
 export class AlinaRestCallComponent implements OnInit {
 
     ownData: any = [];
-    modelName    = 'role';
+    modelName    = 'article';
     models       = [
         ' ',
         'user',
@@ -18,6 +18,8 @@ export class AlinaRestCallComponent implements OnInit {
         'article',
         'blablabla',
     ];
+
+    search:any = {};
 
     constructor(private _AlinaHttpRequestService: AlinaHttpRequestService) {
     }
@@ -64,6 +66,15 @@ export class AlinaRestCallComponent implements OnInit {
         console.log(iten);
     }
 
+    logSearch() {
+        console.log("Search ++++++++++");
+        console.log(this.search);
+    }
+
+    clearSearch() {
+        this.search = {};
+    }
+
     saveModel(item) {
         let data         = item;
         let options: any = {};
@@ -75,7 +86,17 @@ export class AlinaRestCallComponent implements OnInit {
 
         this._AlinaHttpRequestService.send('put', data, options)
             .subscribe(resp => {
-                item = resp.data;
+                item = Object.assign(item, resp.data);
             });
+
+        item.editMode = false;
+    }
+
+    stateEditModeOn(item) {
+        item.editMode = true;
+    }
+
+    cancalItem(item) {
+        item.editMode = false;
     }
 }

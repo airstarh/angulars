@@ -37,18 +37,32 @@
 				{{prop}}
 			</td>
 		</tr>
+		<tr style="color:white;background-color: black">
+			<td>
+				<button class="btn btn-info" (click)="logSearch()">Log Search</button>
+				<button class="btn btn-danger" (click)="clearSearch()">Clear Search</button>
+			</td>
+			<td *ngFor='let prop of ownData[0] | values'>
+				<div>
+					<input [(ngModel)] = "search[prop]" placeholder="{{prop}}">
+				</div>
+			</td>
+		</tr>
 		</thead>
 		<tbody>
 		<tr *ngFor="let item of ownData; let isEven=even" [style.background-color]="isEven ? '#ebebeb' : '#fff'">
 			<td>
 				<button class="btn btn-info" (click)="logModelState(item)">State</button>
-				<button class="btn btn-success">Edit</button>
+				<button class="btn btn-success" (click)="stateEditModeOn(item)">Edit</button>
 				<button class="btn btn-warning" (click)="saveModel(item)">Save</button>
 				<button class="btn btn-danger">Delete</button>
-				<button class="btn">Cancel</button>
+				<button class="btn" (click)="cancalItem(item)">Cancel</button>
 			</td>
 			<td *ngFor='let prop of item | values'>
 				<span *ngIf="isType(item[prop], 'string')">{{item[prop]}}</span>
+				<div *ngIf="isType(item[prop], 'string') && item.editMode">
+					<input type="text" [(ngModel)]="item[prop]">
+				</div>
 				<ul *ngIf="isType(item[prop], 'array')">
 					<li *ngFor='let subItem of item[prop]'>
 						<div *ngFor='let p of subItem | values'>
