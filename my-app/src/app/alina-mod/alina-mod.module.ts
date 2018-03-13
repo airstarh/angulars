@@ -1,11 +1,17 @@
-import {NgModule}                                                 from '@angular/core';
-import {CommonModule}                                             from '@angular/common';
-import {RatatataComponent}                                        from './ratatata/ratatata.component';
+import {NgModule}                from '@angular/core';
+import {CommonModule}            from '@angular/common';
+import {RatatataComponent}       from './ratatata/ratatata.component';
 /**region Material Design*/
 import 'hammerjs';
-import {BrowserAnimationsModule}                                  from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule}                       from '@angular/material';
-import {MatDatepickerModule, MatNativeDateModule, MatInputModule} from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {
+    MatButtonModule
+    , MatCheckboxModule
+    , MatDatepickerModule
+    , MatNativeDateModule
+    , MatInputModule
+}                                from '@angular/material';
+
 /**endregion Material Design*/
 
 @NgModule({

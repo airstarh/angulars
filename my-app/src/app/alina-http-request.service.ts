@@ -3,11 +3,15 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable}                          from 'rxjs/Observable';
 import {of}                                  from 'rxjs/observable/of';
 import {catchError, map, tap}                from 'rxjs/operators';
+import {MessageService}                      from "./message.service";
 
 @Injectable()
 export class AlinaHttpRequestService {
 
-    constructor(private _HttpClient: HttpClient,) {
+    constructor(
+        private _HttpClient: HttpClient,
+        public _MessageService: MessageService,
+        ) {
     }
 
     public URL: string = 'http://alinazero/alinaRestAccept/index';
@@ -61,8 +65,17 @@ export class AlinaHttpRequestService {
         return _Observable
             .pipe(
                 tap(resp => {
+
                     console.log("Alina Service Resp ++++++++++");
                     console.log(resp);
+
+                    if (resp.messages) {
+                        resp.messages.forEach(item => {
+                            this._MessageService.add(item);
+                        });
+                    }
+
+
                 }),
                 catchError(this.handleError('Error Send', []))
             );
