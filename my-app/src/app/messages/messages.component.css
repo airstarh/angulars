@@ -1,20 +1,31 @@
-#popupContainerFixed{
-  position: fixed;
-  left:0;
-  top:0;
-  width:100%;
-  height:100%;
+#popupContainerFixed {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
 
-  border: #039be5 solid 15px;
+    background: rgba(0, 0, 0, 0.2);
 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap:nowrap;
-  align-content:center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    align-content: center;
 }
 
 .popupItems {
-  display:inline-block;
+    display: inline-block;
+    margin: 0 auto 5px auto;
+    max-width: 95%;
+}
+
+pre {
+    word-break: break-all; /* webkit */
+    word-wrap: break-word;
+    white-space: pre;
+    white-space: -moz-pre-wrap; /* fennec */
+    white-space: pre-wrap;
+    white-space: pre \9; /* IE7+ */
 }

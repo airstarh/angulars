@@ -1,8 +1,14 @@
-<div id="popupContainerFixed" *ngIf="messageService.messages.length > 0">
+<div
+		id="popupContainerFixed"
+		tabindex="0"
+		*ngIf="_MessageService.messages.length"
+		[@mStateEmpty]="_MessageService.stateEmpty"
+		(click)="_MessageService.clear()"
+>
 	<div
-			*ngFor='let message of messageService.messages'
+			*ngFor="let message of _MessageService.messages"
 			class="popupItems {{message.status}}"
 	>
-		{{message.text}}
+		<pre>{{message.text ? message.text : _MessageService.messages | json}}</pre>
 	</div>
 </div>

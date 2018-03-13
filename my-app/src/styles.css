@@ -8,8 +8,26 @@ Initially taken from:
 @link: https://getbootstrap.com/docs/3.3/examples/theme/#about
 */
 body {
-    padding-top: 70px;
-    padding-bottom: 30px;
+    display: block;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+body #div-body {
+    display: block;
+    position: fixed;
+    left:0;
+    top:0;
+    padding: 0;
+    margin: 0;
+    overflow: scroll;
+    height: 100%;
+    width: 100%;
+    border: #ffca3c solid 2px;
 }
 
 .theme-dropdown .dropdown-menu {
