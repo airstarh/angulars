@@ -19,11 +19,13 @@ import {SignupFormComponent}       from "./signup-form/signup-form.component";
 import { AlinaFormBuildComponent } from './alina-form-build/alina-form-build.component';
 import {ValuesPipe}                from "./pipes/values-pipe";
 import {AlinaModModule}            from "./alina-mod/alina-mod.module";
+import {BrowserAnimationsModule}   from "@angular/platform-browser/animations";
 
 @NgModule({
     imports: [
         AlinaModModule,
         BrowserModule,
+        BrowserAnimationsModule,
         FormsModule,
         AppRoutingModule,
         HttpClientModule,

@@ -1,5 +1,8 @@
 <div id="popupContainerFixed" *ngIf="messageService.messages.length > 0">
-  <div class="popupItems" *ngFor='let message of messageService.messages'>
-    {{message | json }}
-  </div>
+	<div
+			*ngFor='let message of messageService.messages'
+			class="popupItems {{message.status}}"
+	>
+		{{message.text}}
+	</div>
 </div>
