@@ -28,7 +28,7 @@
 	<div><h1>Loading...</h1></div>
 </ng-template>
 
-<div style="overflow-x: scroll" *ngIf="ownData.length > 0 else loading">
+<div class="table-responsive" *ngIf="ownData.length > 0 else loading">
 	<table class="table">
 		<thead>
 		<tr style="color:white;background-color: black">
@@ -58,7 +58,8 @@
 				<button class="btn btn-danger">Delete</button>
 				<button class="btn" (click)="cancalItem(item)">Cancel</button>
 			</td>
-			<td *ngFor='let prop of item | values'>
+			<td *ngFor='let prop of item | values'>&nbsp;
+				<b>{{prop}}:</b><br>
 				<span *ngIf="isType(item[prop], 'string')">{{item[prop]}}</span>
 				<div *ngIf="isType(item[prop], 'string') && item.editMode">
 					<input type="text" [(ngModel)]="item[prop]">

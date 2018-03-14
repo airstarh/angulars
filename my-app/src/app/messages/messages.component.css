@@ -20,12 +20,3 @@
     margin: 0 auto 5px auto;
     max-width: 95%;
 }
-
-pre {
-    word-break: break-all; /* webkit */
-    word-wrap: break-word;
-    white-space: pre;
-    white-space: -moz-pre-wrap; /* fennec */
-    white-space: pre-wrap;
-    white-space: pre \9; /* IE7+ */
-}
