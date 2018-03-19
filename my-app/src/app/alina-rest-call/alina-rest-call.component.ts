@@ -28,36 +28,38 @@ export class AlinaRestCallComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.resetSort();
+		this.recallSearch();
+		this.fNames  = [];
+		this.ownData = [];
 		this.getModels();
 	}
 
 	/*region CRUD*/
 
 	onChangeTable() {
+		this.recallSearch();
 		this.fNames  = [];
 		this.ownData = [];
 		this.getModels();
 	}
 
 	onChangeSearch() {
-		this.ownData = [];
 		this.rememberSearch();
+		this.ownData = [];
 		this.getModels();
 	}
 
 	getModels() {
-		this.restoreSearch();
 		let toSend = {
 			cmd:    "model",
 			isAjax: true,
 			m:      this.tableName,
 		};
 
-		this.search.sa = this.sort.sortAsc.join(',');
-		this.search.sn = this.sort.sortName.join(',');
+		this.search.sn = this.search.sort.sortName.join(',');
+		this.search.sa = this.search.sort.sortAsc.join(',');
 
-		toSend         = Object.assign(toSend, this.search);
+		toSend = Object.assign(toSend, this.search);
 
 		this._AlinaHttpRequestService.send('get', toSend)
 		    .subscribe(resp => {
@@ -126,43 +128,43 @@ export class AlinaRestCallComponent implements OnInit {
 		this._GlobalDataStorageService.httpSearchParams[this.tableName] = this.search;
 	}
 
-	restoreSearch() {
+	recallSearch() {
 		this.search = this._GlobalDataStorageService.httpSearchParams[this.tableName] || {};
+		if (!this.search.sort) {
+			this.search.sort = this.resetSort();
+		}
 	}
 
 	/**region Sort*/
-	public sort = {
-		sortName: ['id'],
-		sortAsc:  [true]
-	};
-
-	//ToDo: True legacy!!!
 	sortTable($event, prop) {
-		if (!this.sort.sortName) {this.resetSort()}
+		let sort = this.search.sort;
+
 		let i = 0;
 		if ($event.ctrlKey) {
 			i = 1;
 		}
 		let asc = true;
-		if (this.sort.sortName[i]) {
-			asc = (prop === this.sort.sortName[i])
-				? !this.sort.sortAsc[i]
+		if (sort.sortName[i]) {
+			asc = (prop === sort.sortName[i])
+				? !sort.sortAsc[i]
 				: true;
 		}
-		if (i === 0 && this.sort.sortName.length > 1) {
-			this.resetSort();
+		if (i === 0 && sort.sortName.length > 1) {
+			this.search.sort = sort = this.resetSort();
 			asc = true;
 		}
-		this.sort.sortName[i] = prop;
-		this.sort.sortAsc[i]  = asc;
-		this.getModels();
+		sort.sortName[i] = prop;
+		sort.sortAsc[i]  = asc;
+		this.onChangeSearch();
 	}
 
 	resetSort() {
-		this.sort.sortName    = [];
-		this.sort.sortAsc     = [];
-		this.sort.sortName[0] = 'id';
-		this.sort.sortAsc[0]  = true;
+		let sort: any    = {};
+		sort.sortName    = [];
+		sort.sortAsc     = [];
+		sort.sortName[0] = 'id';
+		sort.sortAsc[0]  = true;
+		return sort;
 	}
 
 	/**endregion Sort*/

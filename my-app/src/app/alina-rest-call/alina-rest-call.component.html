@@ -43,10 +43,10 @@
 					(click)="sortTable($event, prop)"
 					class="sorting"
 					[ngClass]="{
-						'sorting_asc': sort.sortName.indexOf(prop)=== 0 && sort.sortAsc[0],
-						'sorting_desc': sort.sortName.indexOf(prop)=== 0 && !sort.sortAsc[0],
-						'sorting_asc_ii': sort.sortName.indexOf(prop)=== 1 && sort.sortAsc[1],
-						'sorting_desc_ii': sort.sortName.indexOf(prop)=== 1 && !sort.sortAsc[1]
+						'sorting_asc': search.sort.sortName.indexOf(prop)=== 0 && search.sort.sortAsc[0],
+						'sorting_desc': search.sort.sortName.indexOf(prop)=== 0 && !search.sort.sortAsc[0],
+						'sorting_asc_ii': search.sort.sortName.indexOf(prop)=== 1 && search.sort.sortAsc[1],
+						'sorting_desc_ii': search.sort.sortName.indexOf(prop)=== 1 && !search.sort.sortAsc[1]
 						}"
 			>
 				<span>{{prop}}</span>
