@@ -20,6 +20,7 @@ import { AlinaFormBuildComponent } from './alina-form-build/alina-form-build.com
 import {ValuesPipe}                from "./pipes/values-pipe";
 import {AlinaModModule}            from "./alina-mod/alina-mod.module";
 import {BrowserAnimationsModule}   from "@angular/platform-browser/animations";
+import {GlobalDataStorageService}  from "./services/global-data-storage.service";
 
 @NgModule({
     imports: [
@@ -50,7 +51,7 @@ import {BrowserAnimationsModule}   from "@angular/platform-browser/animations";
         AlinaFormBuildComponent,
         ValuesPipe
     ],
-    providers: [HeroService, MessageService, AlinaHttpRequestService],
+    providers: [HeroService, MessageService, AlinaHttpRequestService, GlobalDataStorageService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

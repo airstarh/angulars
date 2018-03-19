@@ -35,6 +35,7 @@ export class MessagesComponent implements OnInit {
 
 	@HostListener('document:keydown', ['$event'])
 	handleKeyboardEvent(event: KeyboardEvent) {
+		event.stopPropagation();
 		if (event.key === 'Escape') {
 			this._MessageService.clear();
 		}

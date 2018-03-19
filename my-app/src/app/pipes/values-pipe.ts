@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
-@Pipe({name: 'values'})
+@Pipe({name: 'pArrayOfKeys'})
 export class ValuesPipe implements PipeTransform {
     transform(value: {}, args?: any[]): any[] {
         // create instance vars to store keys and final output

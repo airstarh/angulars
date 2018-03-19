@@ -2,13 +2,13 @@
 	<form ngForm #f="ngForm" (ngSubmit)="getModels(f)">
 
 		<div class="form-group">
-			<label for="model-name">Table name ({{modelName}})</label>
+			<label for="table-name">Table name ({{tableName}})</label>
 			<select
-					[(ngModel)]="modelName"
-					name="model"
-					id="model-name"
+					[(ngModel)]="tableName"
+					name="tableName"
+					id="table-name"
 					class="form-control"
-					(change)="getModels()"
+					(change)="onChangeTable()"
 			>
 				<option *ngFor="let m of models" [value]="m">{{m}}</option>
 			</select>
@@ -19,8 +19,7 @@
 		>Console Log all Current models
 		</button>&nbsp;
 
-		<button type="submit" class="btn btn-info">Show me!</button>
-
+		<button type="button" class="btn btn-info" (click)="logComponent()">Log Component</button>
 	</form>
 </div>
 
@@ -28,29 +27,53 @@
 	<div><h1>Loading...</h1></div>
 </ng-template>
 
-<div class="table-responsive" *ngIf="ownData.length > 0 else loading">
-	<table class="table">
+<ng-template #noData>
+	<tr>
+		<td [attr.colspan]="fNames.length?fNames.length:1"><h1>No results.</h1></td>
+	</tr>
+</ng-template>
+
+<div class="table-responsive" *ngIf="fNames.length > 0; else loading">
+	<table class="table dataTable">
 		<thead>
-		<tr style="color:white;background-color: black">
-			<td>Actions</td>
-			<td *ngFor='let prop of ownData[0] | values'>
-				{{prop}}
-			</td>
+		<tr>
+			<th>Actions</th>
+			<th
+					*ngFor='let prop of fNames'
+					(click)="sortTable($event, prop)"
+					class="sorting"
+					[ngClass]="{
+						'sorting_asc': sort.sortName.indexOf(prop)=== 0 && sort.sortAsc[0],
+						'sorting_desc': sort.sortName.indexOf(prop)=== 0 && !sort.sortAsc[0],
+						'sorting_asc_ii': sort.sortName.indexOf(prop)=== 1 && sort.sortAsc[1],
+						'sorting_desc_ii': sort.sortName.indexOf(prop)=== 1 && !sort.sortAsc[1]
+						}"
+			>
+				<span>{{prop}}</span>
+			</th>
 		</tr>
-		<tr style="color:white;background-color: black">
-			<td>
+		<tr>
+			<th>
 				<button class="btn btn-info" (click)="logSearch()">Log Search</button>
 				<button class="btn btn-danger" (click)="clearSearch()">Clear Search</button>
-			</td>
-			<td *ngFor='let prop of ownData[0] | values'>
+			</th>
+			<th *ngFor='let prop of fNames'>
 				<div>
-					<input [(ngModel)]="search[prop]" placeholder="{{prop}}">
+					<input
+							[(ngModel)]="search[prop]"
+							placeholder="{{prop}}"
+							(change)="onChangeSearch()"
+					>
 				</div>
-			</td>
+			</th>
 		</tr>
 		</thead>
-		<tbody>
-		<tr *ngFor="let item of ownData; let isEven=even" [style.background-color]="isEven ? '#ebebeb' : '#fff'">
+
+		<tbody *ngIf="ownData.length > 0; else noData">
+		<tr
+				*ngFor="let item of ownData; let isEven=even"
+				[ngClass]="{'even': isEven, 'odd': !isEven}"
+		>
 			<td>
 				<button class="btn btn-info" (click)="logModelState(item)">State</button>
 				<button class="btn btn-success" (click)="stateEditModeOn(item)">Edit</button>
@@ -58,7 +81,7 @@
 				<button class="btn btn-danger">Delete</button>
 				<button class="btn" (click)="cancalItem(item)">Cancel</button>
 			</td>
-			<td *ngFor='let prop of item | values'>&nbsp;
+			<td *ngFor='let prop of fNames'>&nbsp;
 				<b>{{prop}}:</b><br>
 				<span *ngIf="isType(item[prop], 'string')">{{item[prop]}}</span>
 				<div *ngIf="isType(item[prop], 'string') && item.editMode">
@@ -66,7 +89,7 @@
 				</div>
 				<ul *ngIf="isType(item[prop], 'array')">
 					<li *ngFor='let subItem of item[prop]'>
-						<div *ngFor='let p of subItem | values'>
+						<div *ngFor='let p of subItem | pArrayOfKeys'>
 							{{p}} : {{subItem[p]}}
 						</div>
 					</li>

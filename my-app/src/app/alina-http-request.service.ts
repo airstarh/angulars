@@ -66,7 +66,7 @@ export class AlinaHttpRequestService {
             .pipe(
                 tap(resp => {
 
-                    console.log("Alina Service Resp ++++++++++");
+                    console.log("Alina Response From Server ++++++++++");
                     console.log(resp);
 
                     if (resp.messages) {
@@ -74,8 +74,6 @@ export class AlinaHttpRequestService {
                             this._MessageService.add(item);
                         });
                     }
-
-
                 }),
                 catchError(this.handleError('Error Send', []))
             );
