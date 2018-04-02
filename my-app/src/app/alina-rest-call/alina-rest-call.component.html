@@ -15,11 +15,11 @@
 		</div>
 
 		<button type="button" class="btn btn-info"
-		        (click)="logAllCurrentModels(f)"
+		        (click)="consoleLog(ownData)"
 		>Console Log all Current models
 		</button>&nbsp;
 
-		<button type="button" class="btn btn-info" (click)="logComponent()">Log Component</button>
+		<button type="button" class="btn btn-info" (click)="consoleLog()">Log Component</button>
 	</form>
 </div>
 
@@ -54,18 +54,20 @@
 		</tr>
 		<tr>
 			<th>
-				<button class="btn btn-info" (click)="logSearch()">Log Search</button>
+				<button class="btn btn-info" (click)="consoleLog(search)">Log Search</button>
 				<button class="btn btn-danger" (click)="clearSearch()">Clear Search</button>
 			</th>
+			<!--region Search Fields-->
 			<th *ngFor='let prop of fNames'>
 				<div>
 					<input
 							[(ngModel)]="search[prop]"
 							placeholder="{{prop}}"
-							(change)="onChangeSearch()"
+							(keyup)="onChangeSearch($event, prop)"
 					>
 				</div>
 			</th>
+			<!--endregion Search Fields-->
 		</tr>
 		</thead>
 
@@ -75,11 +77,11 @@
 				[ngClass]="{'even': isEven, 'odd': !isEven}"
 		>
 			<td>
-				<button class="btn btn-info" (click)="logModelState(item)">State</button>
+				<button class="btn btn-info" (click)="consoleLog(item)">State</button>
 				<button class="btn btn-success" (click)="stateEditModeOn(item)">Edit</button>
 				<button class="btn btn-warning" (click)="saveModel(item)">Save</button>
 				<button class="btn btn-danger">Delete</button>
-				<button class="btn" (click)="cancalItem(item)">Cancel</button>
+				<button class="btn" (click)="canceItem(item)">Cancel</button>
 			</td>
 			<td *ngFor='let prop of fNames'>&nbsp;
 				<b>{{prop}}:</b><br>

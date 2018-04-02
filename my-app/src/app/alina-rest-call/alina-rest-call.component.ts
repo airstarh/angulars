@@ -2,190 +2,200 @@ import {Component, OnInit}        from '@angular/core';
 import {AlinaHttpRequestService}  from "../alina-http-request.service";
 import {ValuesPipe}               from "../pipes/values-pipe";
 import {GlobalDataStorageService} from "../services/global-data-storage.service";
+import {Subject}                  from 'rxjs/Subject';
+import {
+    debounceTime, distinctUntilChanged
+    , tap
+}                                 from "rxjs/operators";
+import {_switch}                  from "rxjs/operator/switch";
+
 
 @Component({
-	           selector:    'app-alina-rest-call',
-	           templateUrl: './alina-rest-call.component.html',
-	           styleUrls:   ['./alina-rest-call.component.css']
+               selector:    'app-alina-rest-call',
+               templateUrl: './alina-rest-call.component.html',
+               styleUrls:   ['./alina-rest-call.component.css']
            })
 export class AlinaRestCallComponent implements OnInit {
 
-	ownData: any     = [];
-	fNames: string[] = [];
-	tableName        = 'article';
-	models           = [
-		' ',
-		'user',
-		'role',
-		'article',
-		'blablabla',
-	];
+    ownData: any     = [];
+    fNames: string[] = [];
+    tableName        = 'article';
+    models           = [
+        ' ',
+        'user',
+        'role',
+        'article',
+        'blablabla',
+    ];
 
-	search: any = {};
+    search: any      = {};
+    private _Subject = new Subject<any>();
 
-	constructor(private _AlinaHttpRequestService: AlinaHttpRequestService
-		, public _GlobalDataStorageService: GlobalDataStorageService) {
-	}
+    constructor(
+        private _AlinaHttpRequestService: AlinaHttpRequestService
+        , public _GlobalDataStorageService: GlobalDataStorageService
+    ) { }
 
-	ngOnInit() {
-		this.recallSearch();
-		this.fNames  = [];
-		this.ownData = [];
-		this.getModels();
-	}
+    ngOnInit() {
+        this.initSearchSubject();
+        this.recallSearch();
+        this.reFetch();
+    }
 
-	/*region CRUD*/
+    initSearchSubject() {
+        this._Subject
+            .pipe(
+                debounceTime(1500),
+                distinctUntilChanged(),
+            )
+            .subscribe({next: (v) => this.reFetch()})
+    }
 
-	onChangeTable() {
-		this.recallSearch();
-		this.fNames  = [];
-		this.ownData = [];
-		this.getModels();
-	}
+    /*region CRUD*/
 
-	onChangeSearch() {
-		this.rememberSearch();
-		this.ownData = [];
-		this.getModels();
-	}
+    onChangeTable() {
+        this.recallSearch();
+        this.fNames = [];
+        this.reFetch();
+    }
 
-	getModels() {
-		let toSend = {
-			cmd:    "model",
-			isAjax: true,
-			m:      this.tableName,
-		};
+    onChangeSearch($event?, fieldName?) {
+        let value = '';
+        if ($event) {
+            if ($event.keyCode === 27) {return}
+            /** esc */
 
-		this.search.sn = this.search.sort.sortName.join(',');
-		this.search.sa = this.search.sort.sortAsc.join(',');
+            value = $event.target.value;
+        }
+        this.rememberSearch();
+        this._Subject.next(value);
+    }
 
-		toSend = Object.assign(toSend, this.search);
+    reFetch = () => {
+        this.ownData = [];
+        this.getModels();
+    };
 
-		this._AlinaHttpRequestService.send('get', toSend)
-		    .subscribe(resp => {
-			    if (resp.data.length > 0) {
-				    this.ownData = resp.data;
-				    this.fNames  = (new ValuesPipe).transform(this.ownData[0])
-			    }
-		    });
-	}
+    getModels() {
+        let toSend = {
+            cmd:    "model",
+            isAjax: true,
+            m:      this.tableName,
+        };
 
-	saveModel(item) {
-		let data         = item;
-		let options: any = {};
-		options.params   = {
-			cmd:    "model",
-			isAjax: true,
-			m:      this.tableName
-		};
+        this.search.sn = this.search.sort.sortName.join(',');
+        this.search.sa = this.search.sort.sortAsc.join(',');
 
-		this._AlinaHttpRequestService.send('put', data, options)
-		    .subscribe(resp => {
-			    item = Object.assign(item, resp.data);
-		    });
-		item.editMode = false;
-	}
+        toSend = Object.assign(toSend, this.search);
 
-	cancalItem(item) {
-		item.editMode = false;
-	}
+        this._AlinaHttpRequestService.send('get', toSend)
+            .subscribe(resp => {
+                if (resp.data.length > 0) {
+                    this.ownData = resp.data;
+                    this.fNames  = (new ValuesPipe).transform(this.ownData[0])
+                }
+            });
+    }
 
-	/*endregion CRUD*/
+    saveModel(item) {
+        let data         = item;
+        let options: any = {};
+        options.params   = {
+            cmd:    "model",
+            isAjax: true,
+            m:      this.tableName
+        };
 
-	/*region Log*/
+        this._AlinaHttpRequestService.send('put', data, options)
+            .subscribe(resp => {
+                item = Object.assign(item, resp.data);
+            });
+        item.editMode = false;
+    }
 
-	logComponent() {
-		console.log("this ++++++++++");
-		console.log(this);
-	}
+    canceItem(item) {
+        item.editMode = false;
+    }
 
-	logAllCurrentModels() {
-		console.log("(1) Own Data ++++++++++");
-		console.log(this.ownData);
-	}
+    /*endregion CRUD*/
 
-	logModelState(iten) {
-		console.log("Current Item ++++++++++");
-		console.log(iten);
-	}
+    /*region Log*/
+    consoleLog(data) {
+        if (!data) {data = this; }
+        console.log("xxx ++++++++++");
+        console.log(data);
+    }
+    /*endregion Log*/
 
-	logSearch() {
-		console.log("Search ++++++++++");
-		console.log(this.search);
+    /*region Search*/
+    clearSearch() {
+        this.search = {};
+        this.search.sort = this.resetSort();
+        this.reFetch();
+    }
 
-		console.log("this._GlobalDataStorageService ++++++++++");
-		console.log(this._GlobalDataStorageService);
-	}
+    rememberSearch() {
+        this._GlobalDataStorageService.httpSearchParams[this.tableName] = this.search;
+    }
 
-	/*endregion Log*/
+    recallSearch() {
+        this.search = this._GlobalDataStorageService.httpSearchParams[this.tableName] || {};
+        if (!this.search.sort) {
+            this.search.sort = this.resetSort();
+        }
+    }
 
-	/*region Search*/
-	clearSearch() {
-		this.search = {};
-	}
+    /*region Sort*/
+    sortTable($event, prop) {
+        let sort = this.search.sort;
 
-	rememberSearch() {
-		this._GlobalDataStorageService.httpSearchParams[this.tableName] = this.search;
-	}
+        let i = 0;
+        if ($event.ctrlKey) {
+            i = 1;
+        }
+        let asc = true;
+        if (sort.sortName[i]) {
+            asc = (prop === sort.sortName[i])
+                ? !sort.sortAsc[i]
+                : true;
+        }
+        if (i === 0 && sort.sortName.length > 1) {
+            this.search.sort = sort = this.resetSort();
+            asc = true;
+        }
+        sort.sortName[i] = prop;
+        sort.sortAsc[i]  = asc;
+        this.onChangeSearch();
+    }
 
-	recallSearch() {
-		this.search = this._GlobalDataStorageService.httpSearchParams[this.tableName] || {};
-		if (!this.search.sort) {
-			this.search.sort = this.resetSort();
-		}
-	}
+    resetSort() {
+        let sort: any    = {};
+        sort.sortName    = [];
+        sort.sortAsc     = [];
+        sort.sortName[0] = 'id';
+        sort.sortAsc[0]  = true;
+        return sort;
+    }
 
-	/**region Sort*/
-	sortTable($event, prop) {
-		let sort = this.search.sort;
+    /*endregion Sort*/
+    /*endregion Search*/
 
-		let i = 0;
-		if ($event.ctrlKey) {
-			i = 1;
-		}
-		let asc = true;
-		if (sort.sortName[i]) {
-			asc = (prop === sort.sortName[i])
-				? !sort.sortAsc[i]
-				: true;
-		}
-		if (i === 0 && sort.sortName.length > 1) {
-			this.search.sort = sort = this.resetSort();
-			asc = true;
-		}
-		sort.sortName[i] = prop;
-		sort.sortAsc[i]  = asc;
-		this.onChangeSearch();
-	}
+    /*region Helpers*/
+    stateEditModeOn(item) {
+        item.editMode = true;
+    }
 
-	resetSort() {
-		let sort: any    = {};
-		sort.sortName    = [];
-		sort.sortAsc     = [];
-		sort.sortName[0] = 'id';
-		sort.sortAsc[0]  = true;
-		return sort;
-	}
+    isType(v, isT) {
+        isT      = isT.toLowerCase();
+        let type = typeof v;
 
-	/**endregion Sort*/
-	/*endregion Search*/
+        if (isT === 'array') {
+            if (type === 'object') {
+                return v instanceof Array
+            }
+        }
+        return type === isT;
+    }
 
-	/*region Helpers*/
-	stateEditModeOn(item) {
-		item.editMode = true;
-	}
-
-	isType(v, isT) {
-		isT      = isT.toLowerCase();
-		let type = typeof v;
-
-		if (isT === 'array') {
-			if (type === 'object') {
-				return v instanceof Array
-			}
-		}
-		return type === isT;
-	}
-
-	/*endregion Helpers*/
+    /*endregion Helpers*/
 }

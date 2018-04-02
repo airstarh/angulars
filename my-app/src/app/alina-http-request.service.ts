@@ -1,15 +1,23 @@
 import {Injectable}                          from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable}                          from 'rxjs/Observable';
 import {of}                                  from 'rxjs/observable/of';
-import {catchError, map, tap}                from 'rxjs/operators';
+import {
+	catchError
+	, debounceTime
+	, throttleTime
+	, map
+	, tap
+}                                            from 'rxjs/operators';
 import {MessageService}                      from "./message.service";
 
 @Injectable()
 export class AlinaHttpRequestService {
 
-	constructor(private _HttpClient: HttpClient,
-	            public _MessageService: MessageService,) {
+	constructor(
+		private _HttpClient: HttpClient,
+		public _MessageService: MessageService,
+	) {
 	}
 
 	public URL: string = 'http://alinazero/alinaRestAccept/index';
@@ -23,9 +31,11 @@ export class AlinaHttpRequestService {
 		anObject[propertyName] = value;
 	};
 
-	public send(method: string = 'get',
-	            data: any      = false,
-	            options: any   = {}): Observable<any> {
+	public send(
+		method: string = 'get',
+		data: any      = false,
+		options: any   = {}
+	): Observable<any> {
 		let _HttpClient: HttpClient   = this._HttpClient;
 		let _Observable: Observable<any>;
 		const httpRequestOptions: any = {};
@@ -62,6 +72,7 @@ export class AlinaHttpRequestService {
 
 		return _Observable
 			.pipe(
+				//throttleTime(1500),
 				tap(
 					resp => {
 						console.log("Alina Response From Server ++++++++++");
