@@ -31,6 +31,10 @@ export class AlinaRestCallComponent implements OnInit {
     search: any      = {};
     private _Subject = new Subject<any>();
 
+    /*region Pager Properties*/
+
+    /*endregion Pager Properties*/
+
     constructor(
         private _AlinaHttpRequestService: AlinaHttpRequestService
         , public _GlobalDataStorageService: GlobalDataStorageService
@@ -62,8 +66,8 @@ export class AlinaRestCallComponent implements OnInit {
     onChangeSearch($event?, fieldName?) {
         let value = '';
         if ($event) {
-            if ($event.keyCode === 27) {return}
             /** esc */
+            if ($event.keyCode === 27) {return}
 
             value = $event.target.value;
         }
@@ -71,8 +75,18 @@ export class AlinaRestCallComponent implements OnInit {
         this._Subject.next(value);
     }
 
+    onChangePager() {
+        this.rememberSearch();
+        this.reFetch();
+    }
+
+    onGoToPager(pageN) {
+        this.search.pager.pageCurrentNumber = pageN;
+        this.onChangePager();
+    }
+
     reFetch = () => {
-        this.ownData = [];
+        //this.ownData = [];
         this.getModels();
     };
 
@@ -86,6 +100,9 @@ export class AlinaRestCallComponent implements OnInit {
         this.search.sn = this.search.sort.sortName.join(',');
         this.search.sa = this.search.sort.sortAsc.join(',');
 
+        this.search.p  = this.search.pager.pageCurrentNumber;
+        this.search.ps = this.search.pager.pageSize;
+
         toSend = Object.assign(toSend, this.search);
 
         this._AlinaHttpRequestService.send('get', toSend)
@@ -93,6 +110,14 @@ export class AlinaRestCallComponent implements OnInit {
                 if (resp.data.length > 0) {
                     this.ownData = resp.data;
                     this.fNames  = (new ValuesPipe).transform(this.ownData[0])
+                }
+
+                //ToDo: Doubtful...
+                if (resp.meta) {
+                    resp.meta.rowsTotal ? this.search.pager.rowsTotal = resp.meta.rowsTotal : null;
+                    resp.meta.pageCurrentNumber ? this.search.pager.pageCurrentNumber = resp.meta.pageCurrentNumber : null;
+                    resp.meta.pageSize ? this.search.pager.pageSize = resp.meta.pageSize : null;
+                    this.calcPagesTotal();
                 }
             });
     }
@@ -125,12 +150,14 @@ export class AlinaRestCallComponent implements OnInit {
         console.log("xxx ++++++++++");
         console.log(data);
     }
+
     /*endregion Log*/
 
     /*region Search*/
     clearSearch() {
-        this.search = {};
-        this.search.sort = this.resetSort();
+        this.search      = {};
+        this.search.sort = this.getDefaultSortObject();
+        this.rememberSearch();
         this.reFetch();
     }
 
@@ -141,7 +168,10 @@ export class AlinaRestCallComponent implements OnInit {
     recallSearch() {
         this.search = this._GlobalDataStorageService.httpSearchParams[this.tableName] || {};
         if (!this.search.sort) {
-            this.search.sort = this.resetSort();
+            this.search.sort = this.getDefaultSortObject();
+        }
+        if (!this.search.pager) {
+            this.search.pager = this.getDefaultPagerObject();
         }
     }
 
@@ -160,7 +190,7 @@ export class AlinaRestCallComponent implements OnInit {
                 : true;
         }
         if (i === 0 && sort.sortName.length > 1) {
-            this.search.sort = sort = this.resetSort();
+            this.search.sort = sort = this.getDefaultSortObject();
             asc = true;
         }
         sort.sortName[i] = prop;
@@ -168,7 +198,7 @@ export class AlinaRestCallComponent implements OnInit {
         this.onChangeSearch();
     }
 
-    resetSort() {
+    getDefaultSortObject() {
         let sort: any    = {};
         sort.sortName    = [];
         sort.sortAsc     = [];
@@ -178,6 +208,27 @@ export class AlinaRestCallComponent implements OnInit {
     }
 
     /*endregion Sort*/
+
+    /*region Page*/
+    getDefaultPagerObject() {
+        let pager: any          = {};
+        pager.rowsTotal         = 0;
+        pager.pageCurrentNumber = 1;
+        pager.pageSize          = -1;
+        return pager;
+    }
+
+    calcPagesTotal() {
+        let rowsTotal = this.search.pager.rowsTotal;
+        let pageSize  = this.search.pager.pageSize;
+        if (pageSize <= 0) {pageSize = this.search.pager.pageSize = rowsTotal}
+        let pagesTotal               = Math.ceil(rowsTotal / pageSize);
+        this.search.pager.pagesTotal = pagesTotal;
+        //this.search.pager.pagesTotalArray = Array.apply(null, {length: pagesTotal}).map(Function.call, Number);
+        this.search.pager.pagesTotalArray = new Array(pagesTotal).fill(0).map(function(v,i){return i+1});
+    }
+
+    /*endregion Page*/
     /*endregion Search*/
 
     /*region Helpers*/
