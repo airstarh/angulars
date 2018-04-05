@@ -8,6 +8,7 @@ import {
     , tap
 }                                 from "rxjs/operators";
 import {_switch}                  from "rxjs/operator/switch";
+import {forEach}                  from "@angular/router/src/utils/collection";
 
 
 @Component({
@@ -31,10 +32,6 @@ export class AlinaRestCallComponent implements OnInit {
     search: any      = {};
     private _Subject = new Subject<any>();
 
-    /*region Pager Properties*/
-
-    /*endregion Pager Properties*/
-
     constructor(
         private _AlinaHttpRequestService: AlinaHttpRequestService
         , public _GlobalDataStorageService: GlobalDataStorageService
@@ -57,8 +54,10 @@ export class AlinaRestCallComponent implements OnInit {
 
     /*region CRUD*/
 
+    /*region Event Handlers */
     onChangeTable() {
         this.recallSearch();
+        this.search.pager.pageCurrentNumber = 1;
         this.fNames = [];
         this.reFetch();
     }
@@ -71,6 +70,7 @@ export class AlinaRestCallComponent implements OnInit {
 
             value = $event.target.value;
         }
+        this.search.pager.pageCurrentNumber = 1;
         this.rememberSearch();
         this._Subject.next(value);
     }
@@ -84,6 +84,7 @@ export class AlinaRestCallComponent implements OnInit {
         this.search.pager.pageCurrentNumber = pageN;
         this.onChangePager();
     }
+    /*endregion Event Handlers */
 
     reFetch = () => {
         //this.ownData = [];
@@ -122,16 +123,27 @@ export class AlinaRestCallComponent implements OnInit {
             });
     }
 
+    addModel(){
+        let newEmptyModel:any = {};
+        this.fNames.forEach(function(v){
+            newEmptyModel[v] = '';
+        });
+        newEmptyModel.isNew = true;
+        newEmptyModel.editMode = true;
+        this.ownData.unshift(newEmptyModel);
+    }
+
     saveModel(item) {
         let data         = item;
         let options: any = {};
+        let method = item.isNew ? 'post' : 'put';
         options.params   = {
             cmd:    "model",
             isAjax: true,
             m:      this.tableName
         };
 
-        this._AlinaHttpRequestService.send('put', data, options)
+        this._AlinaHttpRequestService.send(method, data, options)
             .subscribe(resp => {
                 item = Object.assign(item, resp.data);
             });
@@ -157,6 +169,7 @@ export class AlinaRestCallComponent implements OnInit {
     clearSearch() {
         this.search      = {};
         this.search.sort = this.getDefaultSortObject();
+        this.search.pager = this.getDefaultPagerObject();
         this.rememberSearch();
         this.reFetch();
     }
@@ -214,7 +227,7 @@ export class AlinaRestCallComponent implements OnInit {
         let pager: any          = {};
         pager.rowsTotal         = 0;
         pager.pageCurrentNumber = 1;
-        pager.pageSize          = -1;
+        pager.pageSize          = 2;
         return pager;
     }
 

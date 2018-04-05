@@ -2,7 +2,7 @@ thead{
     background-color: #000;
     color: #fff;
 }
-.even {
+.odd {
     background-color: #CFD8DC;
 }
 
@@ -37,3 +37,7 @@ thead .sorting.sorting_desc_ii:after {
 .sorting_asc_ii {
     content: "\2193 \2193";
 }
+
+/*region pager */
+.pager button {margin-right: 2px;}
+/*endregion pager */
