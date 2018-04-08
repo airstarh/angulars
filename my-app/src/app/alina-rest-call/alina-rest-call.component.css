@@ -47,4 +47,12 @@ thead .sorting.sorting_desc_ii:after {
     background-color: green;
     color: white;
 }
+.mat-black {
+    background-color: black;
+    color: white;
+}
+.mat-black.active {
+    background-color: green;
+}
+
 /*endregion MAT*/

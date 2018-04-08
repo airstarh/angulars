@@ -84,7 +84,6 @@ export class AlinaRestCallComponent implements OnInit {
 
     onChangeTable() {
         this.recallSearch();
-        this.search.pager.pageCurrentNumber = 1;
         this.fNames = [];
         this.reFetch();
     }

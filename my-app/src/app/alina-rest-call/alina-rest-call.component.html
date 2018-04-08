@@ -11,6 +11,21 @@
 <!--region Pages-->
 <ng-template #pager>
 	<div class="pager">
+
+
+		<button mat-mini-fab color="black" (click)="onGoToPager(1)"> <<<</button>
+		<button
+				mat-mini-fab color="black"
+				*ngFor='let pageN of search.pager.pagesTotalArray'
+				(click)="onGoToPager(pageN)"
+				[ngClass]="{
+						'active': pageN == search.pager.pageCurrentNumber
+						}"
+		>
+			{{pageN}}
+		</button>
+		<button mat-mini-fab color="black" (click)="onGoToPager(search.pager.pagesTotal)"> >>> </button>
+		&nbsp;
 		<mat-form-field>
 			<mat-select placeholder="Page Size" [(ngModel)]="search.pager.pageSize" (change)="onChangePager()">
 				<mat-option value="2">2</mat-option>
@@ -24,20 +39,7 @@
 				<mat-option value="100">100</mat-option>
 				<mat-option value="1000000">All</mat-option>
 			</mat-select>
-		</mat-form-field>&nbsp;
-
-		<button class="btn" (click)="onGoToPager(1)"> <<<</button>
-		<button
-				*ngFor='let pageN of search.pager.pagesTotalArray'
-				class="btn"
-				(click)="onGoToPager(pageN)"
-				[ngClass]="{
-						'btn-info': pageN == search.pager.pageCurrentNumber
-						}"
-		>
-			{{pageN}}
-		</button>
-		<button class="btn" (click)="onGoToPager(search.pager.pagesTotal)"> >>> </button>
+		</mat-form-field>
 	</div>
 </ng-template>
 <!--endregion Pages-->
@@ -45,7 +47,7 @@
 <div>&nbsp;</div>
 <div>
 	<button mat-raised-button color="green" type="button" (click)="consoleLog(ownData)">Log ownData</button>&nbsp;
-	<button type="button" class="btn btn-info" (click)="consoleLog()">Log Component</button>
+	<button mat-raised-button color="green" type="button" (click)="consoleLog()">Log Component</button>
 </div>
 <div>&nbsp;</div>
 <div>
@@ -70,8 +72,9 @@
 	</div>
 </div>
 <div>&nbsp;</div>
-<ng-container *ngTemplateOutlet="pager"></ng-container>
+
 <div class="table-responsive" *ngIf="fNames.length > 0; else loading">
+	<ng-container *ngTemplateOutlet="pager"></ng-container>
 	<table class="table dataTable">
 		<thead>
 		<tr>
@@ -139,5 +142,5 @@
 		</tr>
 		</tbody>
 	</table>
+	<ng-container *ngTemplateOutlet="pager"></ng-container>
 </div>
-<ng-container *ngTemplateOutlet="pager"></ng-container>
