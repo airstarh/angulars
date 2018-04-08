@@ -41,3 +41,10 @@ thead .sorting.sorting_desc_ii:after {
 /*region pager */
 .pager button {margin-right: 2px;}
 /*endregion pager */
+
+/*region MAT*/
+.mat-green {
+    background-color: green;
+    color: white;
+}
+/*endregion MAT*/

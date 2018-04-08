@@ -4,11 +4,13 @@ import {ValuesPipe}               from "../pipes/values-pipe";
 import {GlobalDataStorageService} from "../services/global-data-storage.service";
 import {Subject}                  from 'rxjs/Subject';
 import {
-    debounceTime, distinctUntilChanged
-    , tap
-}                                 from "rxjs/operators";
+    debounceTime, distinctUntilChanged, startWith
+    , map
+} from "rxjs/operators";
 import {_switch}                  from "rxjs/operator/switch";
 import {forEach}                  from "@angular/router/src/utils/collection";
+import {FormControl}              from "@angular/forms";
+import {Observable}               from "rxjs/Observable";
 
 
 @Component({
@@ -32,12 +34,17 @@ export class AlinaRestCallComponent implements OnInit {
     search: any      = {};
     private _Subject = new Subject<any>();
 
+    myControl: FormControl = new FormControl();
+    filteredOptions: Observable<string[]>;
+
+
     constructor(
         private _AlinaHttpRequestService: AlinaHttpRequestService
         , public _GlobalDataStorageService: GlobalDataStorageService
     ) { }
 
     ngOnInit() {
+        this.initFilteredOptions();
         this.initSearchSubject();
         this.recallSearch();
         this.reFetch();
@@ -52,9 +59,29 @@ export class AlinaRestCallComponent implements OnInit {
             .subscribe({next: (v) => this.reFetch()})
     }
 
+    /*region AM */
+    initFilteredOptions() {
+        this.filteredOptions = this.myControl.valueChanges
+            .pipe(
+                startWith(''),
+                map(val => this.filter(val))
+            );
+    }
+
+    filter(val: string): string[] {
+        return this.models.filter(option =>
+            option.toLowerCase().indexOf(val.toLowerCase()) !== -1);
+    }
+    /*endregion AM */
+
     /*region CRUD*/
 
     /*region Event Handlers */
+    onSelectionChanged(event){
+        this.tableName = event.option.value;
+        this.onChangeTable();
+    }
+
     onChangeTable() {
         this.recallSearch();
         this.search.pager.pageCurrentNumber = 1;

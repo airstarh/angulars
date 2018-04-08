@@ -21,6 +21,13 @@ import {ValuesPipe}                from "./pipes/values-pipe";
 import {AlinaModModule}            from "./alina-mod/alina-mod.module";
 import {BrowserAnimationsModule}   from "@angular/platform-browser/animations";
 import {GlobalDataStorageService}  from "./services/global-data-storage.service";
+import {MatButtonModule}           from "@angular/material";
+import {MatCheckboxModule}           from "@angular/material";
+import {MatDatepickerModule}           from "@angular/material";
+import {MatNativeDateModule}           from "@angular/material";
+import {MatInputModule}           from "@angular/material";
+import {MatAutocompleteModule}           from "@angular/material";
+import {MatSelectModule}           from "@angular/material";
 
 @NgModule({
     imports: [
@@ -30,7 +37,15 @@ import {GlobalDataStorageService}  from "./services/global-data-storage.service"
         FormsModule,
         AppRoutingModule,
         HttpClientModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatInputModule,
+        MatAutocompleteModule,
+        MatSelectModule
+
 
         // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
         // and returns simulated server responses.

@@ -11,10 +11,21 @@
 <!--region Pages-->
 <ng-template #pager>
 	<div class="pager">
-		<input
-				[(ngModel)]="search.pager.pageSize"
-				(keydown.enter)="onChangePager()"
-		>&nbsp;
+		<mat-form-field>
+			<mat-select placeholder="Page Size" [(ngModel)]="search.pager.pageSize" (change)="onChangePager()">
+				<mat-option value="2">2</mat-option>
+				<mat-option value="3">3</mat-option>
+				<mat-option value="5">5</mat-option>
+				<mat-option value="10">10</mat-option>
+				<mat-option value="15">15</mat-option>
+				<mat-option value="20">20</mat-option>
+				<mat-option value="25">25</mat-option>
+				<mat-option value="50">50</mat-option>
+				<mat-option value="100">100</mat-option>
+				<mat-option value="1000000">All</mat-option>
+			</mat-select>
+		</mat-form-field>&nbsp;
+
 		<button class="btn" (click)="onGoToPager(1)"> <<<</button>
 		<button
 				*ngFor='let pageN of search.pager.pagesTotalArray'
@@ -31,36 +42,35 @@
 </ng-template>
 <!--endregion Pages-->
 
-
+<div>&nbsp;</div>
 <div>
-	<form ngForm #f="ngForm" (ngSubmit)="getModels(f)">
-
-		<div class="form-group">
-			<label for="table-name">Table name ({{tableName}})</label>
-			<select
-					[(ngModel)]="tableName"
-					name="tableName"
-					id="table-name"
-					class="form-control"
-					(change)="onChangeTable()"
-			>
-				<option *ngFor="let m of models" [value]="m">{{m}}</option>
-			</select>
-		</div>
-	</form>
-</div>
-
-
-<div>
-	<button type="button" class="btn btn-info"
-	        (click)="consoleLog(ownData)"
-	>Log ownData
-	</button>&nbsp;
+	<button mat-raised-button color="green" type="button" (click)="consoleLog(ownData)">Log ownData</button>&nbsp;
 	<button type="button" class="btn btn-info" (click)="consoleLog()">Log Component</button>
 </div>
-
+<div>&nbsp;</div>
+<div>
+	<div>
+		<mat-form-field class="example-full-width">
+			<input type="text" placeholder="Type in a Current Table" aria-label="Number" matInput [formControl]="myControl"
+			       [matAutocomplete]="auto">
+			<mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)">
+				<mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+					{{ option }}
+				</mat-option>
+			</mat-autocomplete>
+		</mat-form-field>
+		&nbsp;currently it is&nbsp;
+		<mat-form-field>
+			<mat-select placeholder="Select Current Table" [(ngModel)]="tableName" (change)="onChangeTable()">
+				<mat-option *ngFor="let m of models" [value]="m">
+					{{m}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+</div>
+<div>&nbsp;</div>
 <ng-container *ngTemplateOutlet="pager"></ng-container>
-
 <div class="table-responsive" *ngIf="fNames.length > 0; else loading">
 	<table class="table dataTable">
 		<thead>
