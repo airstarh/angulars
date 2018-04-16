@@ -134,18 +134,7 @@ export class AlinaRestCallComponent implements OnInit {
 
         this._AlinaHttpRequestService.send('get', toSend)
             .subscribe(resp => {
-                if (resp.data.length > 0) {
-                    this.ownData = resp.data;
-                    this.fNames  = (new ValuesPipe).transform(this.ownData[0])
-                }
-
-                //ToDo: Doubtful...
-                if (resp.meta) {
-                    resp.meta.rowsTotal ? this.search.pager.rowsTotal = resp.meta.rowsTotal : null;
-                    resp.meta.pageCurrentNumber ? this.search.pager.pageCurrentNumber = resp.meta.pageCurrentNumber : null;
-                    resp.meta.pageSize ? this.search.pager.pageSize = resp.meta.pageSize : null;
-                    this.calcPagesTotal();
-                }
+                this.processResponse(resp);
             });
     }
 
@@ -287,5 +276,28 @@ export class AlinaRestCallComponent implements OnInit {
         return type === isT;
     }
 
+    processResponse(resp){
+        if (resp.data.length > 0) {
+            this.ownData = resp.data;
+            this.fNames  = (new ValuesPipe).transform(this.ownData[0]);
+
+            /*region Shown Fields*/
+            if (!this.search.oShownFields) {
+                this.search.oShownFields = this.fNames.slice();
+                for (let i = 0; i < this.fNames.length; i++) {
+                    this.search.oShownFields[this.fNames[i]] = true;
+                }
+            }
+            /*endregion Shown Fields*/
+        }
+
+        //ToDo: Doubtful...
+        if (resp.meta) {
+            resp.meta.rowsTotal ? this.search.pager.rowsTotal = resp.meta.rowsTotal : null;
+            resp.meta.pageCurrentNumber ? this.search.pager.pageCurrentNumber = resp.meta.pageCurrentNumber : null;
+            resp.meta.pageSize ? this.search.pager.pageSize = resp.meta.pageSize : null;
+            this.calcPagesTotal();
+        }
+    }
     /*endregion Helpers*/
 }

@@ -72,6 +72,20 @@
 	</div>
 </div>
 <div>&nbsp;</div>
+<!--region Shown Fields-->
+<div>
+	<div *ngFor='let prop of fNames'>
+		<section class="example-section">
+			<mat-checkbox
+					class="example-margin"
+					[(ngModel)]="search.oShownFields[prop]"
+					(change)="rememberSearch()"
+			>{{prop}}</mat-checkbox>
+		</section>
+	</div>
+</div>
+<div>&nbsp;</div>
+<!--endregion Shown Fields-->
 
 <div class="table-responsive" *ngIf="fNames.length > 0; else loading">
 	<ng-container *ngTemplateOutlet="pager"></ng-container>
@@ -90,7 +104,7 @@
 						'sorting_desc_ii': search.sort.sortName.indexOf(prop)=== 1 && !search.sort.sortAsc[1]
 						}"
 			>
-				<span>{{prop}}</span>
+				<span *ngIf="search.oShownFields[prop]">{{prop}}</span>
 			</th>
 		</tr>
 		<tr>
@@ -101,7 +115,7 @@
 			</th>
 			<!--region Search Fields-->
 			<th *ngFor='let prop of fNames'>
-				<div>
+				<div *ngIf="search.oShownFields[prop]">
 					<input
 							[(ngModel)]="search[prop]"
 							placeholder="{{prop}}"
@@ -126,18 +140,20 @@
 				<button class="btn" (click)="canceItem(item)">Cancel</button>
 			</td>
 			<td *ngFor='let prop of fNames'>&nbsp;
-				<b>{{prop}}:</b><br>
-				<span *ngIf="isType(item[prop], 'string')">{{item[prop]}}</span>
-				<div *ngIf="isType(item[prop], 'string') && item.editMode">
-					<input type="text" [(ngModel)]="item[prop]">
+				<div *ngIf="search.oShownFields[prop]">
+					<b>{{prop}}:</b><br>
+					<span *ngIf="isType(item[prop], 'string')">{{item[prop]}}</span>
+					<div *ngIf="isType(item[prop], 'string') && item.editMode">
+						<input type="text" [(ngModel)]="item[prop]">
+					</div>
+					<ul *ngIf="isType(item[prop], 'array')">
+						<li *ngFor='let subItem of item[prop]'>
+							<div *ngFor='let p of subItem | pArrayOfKeys'>
+								{{p}} : {{subItem[p]}}
+							</div>
+						</li>
+					</ul>
 				</div>
-				<ul *ngIf="isType(item[prop], 'array')">
-					<li *ngFor='let subItem of item[prop]'>
-						<div *ngFor='let p of subItem | pArrayOfKeys'>
-							{{p}} : {{subItem[p]}}
-						</div>
-					</li>
-				</ul>
 			</td>
 		</tr>
 		</tbody>
