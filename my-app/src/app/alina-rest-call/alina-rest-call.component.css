@@ -1,35 +1,47 @@
-thead{
+thead {
     background-color: #000;
     color: #fff;
 }
+
 .odd {
     background-color: #CFD8DC;
 }
 
+thead th {
+    white-space: nowrap; /* Chrome */
+}
+
+.excludedItem{
+    display: none;
+}
+
+/*region SORTing*/
 thead .sorting:after {
-    display: block;
-    float:right;
+    display: inline-block;
+    /*float:right;*/
     content: "\2191 \2193";
     opacity: .5;
+    cursor: pointer;
 }
-thead .sorting.sorting_asc:after
-, thead .sorting.sorting_desc:after
-, thead .sorting.sorting_asc_ii:after
-, thead .sorting.sorting_desc_ii:after
-{
+
+thead .sorting.sorting_asc:after, thead .sorting.sorting_desc:after, thead .sorting.sorting_asc_ii:after, thead .sorting.sorting_desc_ii:after {
     opacity: 1;
 }
+
 thead .sorting.sorting_asc:after {
 
     content: "\2191"
 }
+
 thead .sorting.sorting_desc:after {
     content: "\2193"
 }
+
 thead .sorting.sorting_asc_ii:after {
 
     content: "\2191 \2191"
 }
+
 thead .sorting.sorting_desc_ii:after {
     content: "\2193 \2193"
 }
@@ -37,9 +49,13 @@ thead .sorting.sorting_desc_ii:after {
 .sorting_asc_ii {
     content: "\2193 \2193";
 }
+/*endregion SORTing*/
 
 /*region pager */
-.pager button {margin-right: 2px;}
+.pager button {
+    margin-right: 2px;
+}
+
 /*endregion pager */
 
 /*region MAT*/
@@ -47,10 +63,12 @@ thead .sorting.sorting_desc_ii:after {
     background-color: green;
     color: white;
 }
+
 .mat-black {
     background-color: black;
     color: white;
 }
+
 .mat-black.active {
     background-color: green;
 }

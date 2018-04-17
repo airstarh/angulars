@@ -54,7 +54,7 @@ export class AlinaRestCallComponent implements OnInit {
         this._Subject
             .pipe(
                 debounceTime(1500),
-                distinctUntilChanged(),
+                //distinctUntilChanged(),
             )
             .subscribe({next: (v) => this.reFetch()})
     }
@@ -109,6 +109,10 @@ export class AlinaRestCallComponent implements OnInit {
     onGoToPager(pageN) {
         this.search.pager.pageCurrentNumber = pageN;
         this.onChangePager();
+    }
+
+    onChangeShownField(){
+        this.rememberSearch()
     }
     /*endregion Event Handlers */
 
@@ -283,7 +287,7 @@ export class AlinaRestCallComponent implements OnInit {
 
             /*region Shown Fields*/
             if (!this.search.oShownFields) {
-                this.search.oShownFields = this.fNames.slice();
+                this.search.oShownFields = {};
                 for (let i = 0; i < this.fNames.length; i++) {
                     this.search.oShownFields[this.fNames[i]] = true;
                 }
