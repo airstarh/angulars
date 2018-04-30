@@ -1,7 +1,7 @@
 import {Component, OnInit}        from '@angular/core';
-import {AlinaHttpRequestService}  from "../alina-http-request.service";
-import {ValuesPipe}               from "../pipes/values-pipe";
-import {GlobalDataStorageService} from "../services/global-data-storage.service";
+import {AlinaHttpRequestService}  from "../../alina-http-request.service";
+import {ValuesPipe}               from "../../pipes/values-pipe";
+import {GlobalDataStorageService} from "../../services/global-data-storage.service";
 import {Subject}                  from 'rxjs/Subject';
 import {
     debounceTime, distinctUntilChanged, startWith

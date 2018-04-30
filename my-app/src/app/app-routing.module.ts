@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent }   from './dashboard/dashboard.component';
 import { HeroesComponent }      from './heroes/heroes.component';
 import { HeroDetailComponent }  from './hero-detail/hero-detail.component';
-import {AlinaRestCallComponent} from "./alina-rest-call/alina-rest-call.component";
+import {AlinaRestCallComponent} from "./components/alina-rest-call/alina-rest-call.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/list', pathMatch: 'full' },
