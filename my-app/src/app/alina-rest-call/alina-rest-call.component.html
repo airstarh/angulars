@@ -27,6 +27,8 @@
 	</div>
 </div>
 <div>&nbsp;</div>
+<ng-container *ngTemplateOutlet="pager"></ng-container>
+<div>&nbsp;</div>
 <!--region Shown Fields-->
 <div class="nav">
 	<span *ngFor='let prop of fNames' class="fields rounded">
@@ -56,7 +58,6 @@
 <!--endregion Shown Fields-->
 
 <div class="table-responsive" *ngIf="fNames.length > 0; else loading">
-	<ng-container *ngTemplateOutlet="pager"></ng-container>
 	<table class="table dataTable">
 		<thead>
 		<tr>
@@ -121,7 +122,7 @@
 				<button class="btn btn-success" (click)="stateEditModeOn(item)">Edit</button>
 				<button class="btn btn-warning" (click)="saveModel(item)">Save</button>
 				<button class="btn btn-danger">Delete</button>
-				<button class="btn" (click)="canceItem(item)">Cancel</button>
+				<button class="btn" (click)="cancelItem(item)">Cancel</button>
 			</td>
 			<td *ngFor='let prop of fNames'
 			    [ngClass]="{

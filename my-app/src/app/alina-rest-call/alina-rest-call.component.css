@@ -80,9 +80,13 @@ thead th {
     background-color: green;
 }
 
-.hover-highlighted:hover {
+.hover-highlighted:hover
+, .hover-highlighted:hover:after
+, .hover-highlighted:hover:before
+{
     background-color: yellow;
     color: black;
+    cursor: pointer;
 }
 
 .fields {

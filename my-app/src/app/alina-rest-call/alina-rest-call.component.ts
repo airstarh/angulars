@@ -152,7 +152,7 @@ export class AlinaRestCallComponent implements OnInit {
     };
 
     getModels() {
-        let toSend = {
+        let getString = {
             cmd:    "model",
             isAjax: true,
             m:      this.tableName,
@@ -164,9 +164,9 @@ export class AlinaRestCallComponent implements OnInit {
         this.search.p  = this.search.pager.pageCurrentNumber;
         this.search.ps = this.search.pager.pageSize;
 
-        toSend = Object.assign(toSend, this.search);
+        getString = Object.assign(getString, this.search);
 
-        this._AlinaHttpRequestService.send('get', toSend)
+        this._AlinaHttpRequestService.send('get', getString)
             .subscribe(resp => {
                 this.processResponse(resp);
             });
@@ -199,8 +199,29 @@ export class AlinaRestCallComponent implements OnInit {
         item.editMode = false;
     }
 
-    canceItem(item) {
+    cancelItem(item) {
+
+        if (item.isNew) {
+            item.editMode = false;
+            this.ownData.splice(0, 1);
+            return;
+        }
+
+        let method    = 'get';
+        let getString = {
+            cmd:    "modelOne",
+            isAjax: true,
+            m:      this.tableName,
+            mId:    item.id
+        };
+
+        this._AlinaHttpRequestService.send(method, getString)
+            .subscribe(resp => {
+                item = Object.assign(item, resp.data);
+            });
         item.editMode = false;
+
+
     }
 
     /*endregion CRUD*/
