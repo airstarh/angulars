@@ -207,6 +207,8 @@ export class AlinaRestCallComponent implements OnInit {
             return;
         }
 
+        //ToDo: Abstract model pkName!!!
+
         let method    = 'get';
         let getString = {
             cmd:    "modelOne",
