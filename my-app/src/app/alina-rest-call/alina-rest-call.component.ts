@@ -6,7 +6,7 @@ import {Subject}                  from 'rxjs/Subject';
 import {
     debounceTime, distinctUntilChanged, startWith
     , map
-} from "rxjs/operators";
+}                                 from "rxjs/operators";
 import {_switch}                  from "rxjs/operator/switch";
 import {forEach}                  from "@angular/router/src/utils/collection";
 import {FormControl}              from "@angular/forms";
@@ -14,12 +14,13 @@ import {Observable}               from "rxjs/Observable";
 
 
 @Component({
-               selector:    'app-alina-rest-call',
-               templateUrl: './alina-rest-call.component.html',
-               styleUrls:   ['./alina-rest-call.component.css']
-           })
+    selector:    'app-alina-rest-call',
+    templateUrl: './alina-rest-call.component.html',
+    styleUrls:   ['./alina-rest-call.component.css']
+})
 export class AlinaRestCallComponent implements OnInit {
 
+    /*region Init*/
     ownData: any     = [];
     fNames: string[] = [];
     tableName        = 'article';
@@ -59,7 +60,9 @@ export class AlinaRestCallComponent implements OnInit {
             .subscribe({next: (v) => this.reFetch()})
     }
 
-    /*region AM */
+    /*endregion Init*/
+
+    /*region  Autocomplete Field for Models List*/
     initFilteredOptions() {
         this.filteredOptions = this.myControl.valueChanges
             .pipe(
@@ -72,12 +75,12 @@ export class AlinaRestCallComponent implements OnInit {
         return this.models.filter(option =>
             option.toLowerCase().indexOf(val.toLowerCase()) !== -1);
     }
-    /*endregion AM */
 
-    /*region CRUD*/
+    /*endregion Autocomplete Field for Models List*/
+
 
     /*region Event Handlers */
-    onSelectionChanged(event){
+    onSelectionChanged(event) {
         this.tableName = event.option.value;
         this.onChangeTable();
     }
@@ -111,11 +114,38 @@ export class AlinaRestCallComponent implements OnInit {
         this.onChangePager();
     }
 
-    onChangeShownField(){
+    onChangeShownField() {
+        this.search.fNames = this.fNames;
         this.rememberSearch()
     }
+
+    moveEarlier(prop){
+        let i = this.fNames.indexOf(prop);
+        if (i === -1) {return;}
+        if (i === 0) {return;}
+
+        let to = i-1;
+        let tmp = this.fNames[to];
+        this.fNames[to] = this.fNames[i];
+        this.fNames[i] = tmp;
+        this.onChangeShownField();
+    }
+
+    moveLater(prop){
+        let i = this.fNames.indexOf(prop);
+        if (i === -1) {return;}
+        if (i === this.fNames.length-1) {return;}
+
+        let to = i+1;
+        let tmp = this.fNames[to];
+        this.fNames[to] = this.fNames[i];
+        this.fNames[i] = tmp;
+        this.onChangeShownField();
+    }
+
     /*endregion Event Handlers */
 
+    /*region CRUD*/
     reFetch = () => {
         //this.ownData = [];
         this.getModels();
@@ -142,12 +172,12 @@ export class AlinaRestCallComponent implements OnInit {
             });
     }
 
-    addModel(){
-        let newEmptyModel:any = {};
-        this.fNames.forEach(function(v){
+    addModel() {
+        let newEmptyModel: any = {};
+        this.fNames.forEach(function (v) {
             newEmptyModel[v] = '';
         });
-        newEmptyModel.isNew = true;
+        newEmptyModel.isNew    = true;
         newEmptyModel.editMode = true;
         this.ownData.unshift(newEmptyModel);
     }
@@ -155,7 +185,7 @@ export class AlinaRestCallComponent implements OnInit {
     saveModel(item) {
         let data         = item;
         let options: any = {};
-        let method = item.isNew ? 'post' : 'put';
+        let method       = item.isNew ? 'post' : 'put';
         options.params   = {
             cmd:    "model",
             isAjax: true,
@@ -186,8 +216,8 @@ export class AlinaRestCallComponent implements OnInit {
 
     /*region Search*/
     clearSearch() {
-        this.search      = {};
-        this.search.sort = this.getDefaultSortObject();
+        this.search       = {};
+        this.search.sort  = this.getDefaultSortObject();
         this.search.pager = this.getDefaultPagerObject();
         this.rememberSearch();
         this.reFetch();
@@ -254,10 +284,10 @@ export class AlinaRestCallComponent implements OnInit {
         let rowsTotal = this.search.pager.rowsTotal;
         let pageSize  = this.search.pager.pageSize;
         if (pageSize <= 0) {pageSize = this.search.pager.pageSize = rowsTotal}
-        let pagesTotal               = Math.ceil(rowsTotal / pageSize);
-        this.search.pager.pagesTotal = pagesTotal;
+        let pagesTotal                    = Math.ceil(rowsTotal / pageSize);
+        this.search.pager.pagesTotal      = pagesTotal;
         //this.search.pager.pagesTotalArray = Array.apply(null, {length: pagesTotal}).map(Function.call, Number);
-        this.search.pager.pagesTotalArray = new Array(pagesTotal).fill(0).map(function(v,i){return i+1});
+        this.search.pager.pagesTotalArray = new Array(pagesTotal).fill(0).map(function (v, i) {return i + 1});
     }
 
     /*endregion Page*/
@@ -280,10 +310,19 @@ export class AlinaRestCallComponent implements OnInit {
         return type === isT;
     }
 
-    processResponse(resp){
+    processResponse(resp) {
         if (resp.data.length > 0) {
             this.ownData = resp.data;
-            this.fNames  = (new ValuesPipe).transform(this.ownData[0]);
+
+            /*region fNames*/
+            if (!this.search.fNames) {
+                this.fNames        = (new ValuesPipe).transform(this.ownData[0]);
+                this.search.fNames = this.fNames;
+            } else {
+                this.fNames = this.search.fNames;
+            }
+            /*endregion fNames*/
+
 
             /*region Shown Fields*/
             if (!this.search.oShownFields) {
@@ -303,5 +342,6 @@ export class AlinaRestCallComponent implements OnInit {
             this.calcPagesTotal();
         }
     }
+
     /*endregion Helpers*/
 }

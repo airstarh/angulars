@@ -63,4 +63,11 @@ pre {
 .mat-checkbox-inner-container {
     background-color: rgba(255,255,255,1);
 }
+mat-icon {
+    cursor: pointer;
+}
+
+label {
+    margin: 0;
+}
 /*endregion MAT*/

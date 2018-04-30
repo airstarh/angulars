@@ -16,37 +16,44 @@ thead th {
 }
 
 /*region SORTing*/
-thead .sorting:after {
+.sorting:after {
     display: inline-block;
     /*float:right;*/
     content: "\2191 \2193";
-    opacity: .5;
+    opacity: .9;
+    color:#DDDDDD;
     cursor: pointer;
+    height:100%;
+    width: 1.5em;
 }
 
-thead .sorting.sorting_asc:after, thead .sorting.sorting_desc:after, thead .sorting.sorting_asc_ii:after, thead .sorting.sorting_desc_ii:after {
+.sorting.sorting_asc:after
+, .sorting.sorting_desc:after
+, .sorting.sorting_asc_ii:after
+, .sorting.sorting_desc_ii:after {
     opacity: 1;
+    color: yellow;
 }
 
-thead .sorting.sorting_asc:after {
+.sorting.sorting_asc:after {
 
     content: "\2191"
 }
 
-thead .sorting.sorting_desc:after {
+.sorting.sorting_desc:after {
     content: "\2193"
 }
 
-thead .sorting.sorting_asc_ii:after {
+.sorting.sorting_asc_ii:after {
 
     content: "\2191 \2191"
 }
 
-thead .sorting.sorting_desc_ii:after {
+.sorting.sorting_desc_ii:after {
     content: "\2193 \2193"
 }
 
-.sorting_asc_ii {
+.sorting.sorting_asc_ii {
     content: "\2193 \2193";
 }
 /*endregion SORTing*/
@@ -73,4 +80,31 @@ thead .sorting.sorting_desc_ii:after {
     background-color: green;
 }
 
+.hover-highlighted:hover {
+    background-color: yellow;
+    color: black;
+}
+
+.fields {
+    background-color: skyblue;
+    margin-right: 2px;
+    margin-bottom: 2px;
+    border: #039be5 solid 1px;
+    padding:0;
+    align-items:stretch;
+    display:flex;
+}
+
+.fields .mat-icon
+,.fields .mat-checkbox{
+    height:100%;
+}
+
+.fields > span {
+    /*border: #000 solid 1px;*/
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    align-content:center;
+}
 /*endregion MAT*/
