@@ -1,27 +1,26 @@
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
+import {NgModule}                         from '@angular/core';
+import {BrowserModule}                    from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
-import {InMemoryDataService} from './in-memory-data.service';
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {DashboardComponent}        from './dashboard/dashboard.component';
-import {HeroDetailComponent}       from './hero-detail/hero-detail.component';
-import {HeroesComponent}           from './heroes/heroes.component';
-import {HeroSearchComponent}       from './hero-search/hero-search.component';
-import {HeroService}               from './hero.service';
-import {MessageService}            from './message.service';
-import {MessagesComponent}         from './messages/messages.component';
+import {HttpClientModule}                 from '@angular/common/http';
+import {HttpClientInMemoryWebApiModule}   from 'angular-in-memory-web-api';
+import {InMemoryDataService}              from './services/in-memory-data.service';
+import {AppRoutingModule}                 from './app-routing.module';
+import {AppComponent}              from './app.component';
+import {DashboardComponent}        from './components/dashboard/dashboard.component';
+import {HeroDetailComponent}       from './components/hero-detail/hero-detail.component';
+import {HeroesComponent}           from './components/heroes/heroes.component';
+import {HeroSearchComponent}       from './components/hero-search/hero-search.component';
+import {HeroService}               from './services/hero.service';
+import {MessageService}            from './services/message.service';
+import {MessagesComponent}         from './components/messages/messages.component';
 import {AlinaRestCallComponent}    from './components/alina-rest-call/alina-rest-call.component';
-import {AlinaHttpRequestService}   from "./alina-http-request.service";
-import {SignupFormComponent}       from "./signup-form/signup-form.component";
-import { AlinaFormBuildComponent } from './alina-form-build/alina-form-build.component';
+import {AlinaHttpRequestService}   from "./services/alina-http-request.service";
+import { AlinaFormBuildComponent } from './components/alina-form-build/alina-form-build.component';
 import {ValuesPipe}                from "./pipes/values-pipe";
 import {AlinaModModule}            from "./alina-mod/alina-mod.module";
 import {BrowserAnimationsModule}   from "@angular/platform-browser/animations";
 import {GlobalDataStorageService}  from "./services/global-data-storage.service";
-import {MatButtonModule} from "@angular/material";
+import {MatButtonModule}           from "@angular/material";
 import {MatCheckboxModule}         from "@angular/material";
 import {MatDatepickerModule}       from "@angular/material";
 import {MatNativeDateModule}       from "@angular/material";
@@ -64,7 +63,6 @@ import {MatIconModule}           from "@angular/material";
         MessagesComponent,
         HeroSearchComponent,
         AlinaRestCallComponent,
-        SignupFormComponent,
         AlinaFormBuildComponent,
         ValuesPipe
     ],

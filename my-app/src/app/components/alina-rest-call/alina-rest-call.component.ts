@@ -1,5 +1,5 @@
 import {Component, OnInit}        from '@angular/core';
-import {AlinaHttpRequestService}  from "../../alina-http-request.service";
+import {AlinaHttpRequestService}  from "../../services/alina-http-request.service";
 import {ValuesPipe}               from "../../pipes/values-pipe";
 import {GlobalDataStorageService} from "../../services/global-data-storage.service";
 import {Subject}                  from 'rxjs/Subject';
@@ -11,7 +11,6 @@ import {_switch}                  from "rxjs/operator/switch";
 import {forEach}                  from "@angular/router/src/utils/collection";
 import {FormControl}              from "@angular/forms";
 import {Observable}               from "rxjs/Observable";
-import any = jasmine.any;
 
 
 @Component({
