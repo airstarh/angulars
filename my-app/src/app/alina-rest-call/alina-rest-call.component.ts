@@ -11,6 +11,7 @@ import {_switch}                  from "rxjs/operator/switch";
 import {forEach}                  from "@angular/router/src/utils/collection";
 import {FormControl}              from "@angular/forms";
 import {Observable}               from "rxjs/Observable";
+import any = jasmine.any;
 
 
 @Component({
@@ -32,7 +33,7 @@ export class AlinaRestCallComponent implements OnInit {
         'blablabla',
     ];
 
-    search: any      = {};
+    states: any      = {};
     private _Subject = new Subject<any>();
 
     myControl: FormControl = new FormControl();
@@ -45,6 +46,7 @@ export class AlinaRestCallComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.states.seatchFilter = {};
         this.initFilteredOptions();
         this.initSearchSubject();
         this.recallSearch();
@@ -99,23 +101,25 @@ export class AlinaRestCallComponent implements OnInit {
 
             value = $event.target.value;
         }
-        this.search.pager.pageCurrentNumber = 1;
+        this.states.pager.pageCurrentNumber = 1;
         this.rememberSearch();
         this._Subject.next(value);
     }
 
-    onChangePager() {
+    onChangePageSize() {
+        this.states.pager.pageCurrentNumber = 1;
         this.rememberSearch();
         this.reFetch();
     }
 
-    onGoToPager(pageN) {
-        this.search.pager.pageCurrentNumber = pageN;
-        this.onChangePager();
+    onGoToPage(pageN) {
+        this.states.pager.pageCurrentNumber = pageN;
+        this.rememberSearch();
+        this.reFetch();
     }
 
     onChangeShownField() {
-        this.search.fNames = this.fNames;
+        this.states.fNames = this.fNames;
         this.rememberSearch()
     }
 
@@ -152,19 +156,19 @@ export class AlinaRestCallComponent implements OnInit {
     };
 
     getModels() {
-        let getString = {
+        let getString:any = {
             cmd:    "model",
             isAjax: true,
             m:      this.tableName,
         };
 
-        this.search.sn = this.search.sort.sortName.join(',');
-        this.search.sa = this.search.sort.sortAsc.join(',');
+        getString.sn = this.states.sort.sortName.join(',');
+        getString.sa = this.states.sort.sortAsc.join(',');
 
-        this.search.p  = this.search.pager.pageCurrentNumber;
-        this.search.ps = this.search.pager.pageSize;
+        getString.p  = this.states.pager.pageCurrentNumber;
+        getString.ps = this.states.pager.pageSize;
 
-        getString = Object.assign(getString, this.search);
+        getString = Object.assign(getString, this.states.searchParams);
 
         this._AlinaHttpRequestService.send('get', getString)
             .subscribe(resp => {
@@ -239,30 +243,33 @@ export class AlinaRestCallComponent implements OnInit {
 
     /*region Search*/
     clearSearch() {
-        this.search       = {};
-        this.search.sort  = this.getDefaultSortObject();
-        this.search.pager = this.getDefaultPagerObject();
+        this.states       = {};
+        this.states.sort  = this.getDefaultSortObject();
+        this.states.pager = this.getDefaultPagerObject();
         this.rememberSearch();
         this.reFetch();
     }
 
     rememberSearch() {
-        this._GlobalDataStorageService.httpSearchParams[this.tableName] = this.search;
+        this._GlobalDataStorageService.httpSearchParams[this.tableName] = this.states;
     }
 
     recallSearch() {
-        this.search = this._GlobalDataStorageService.httpSearchParams[this.tableName] || {};
-        if (!this.search.sort) {
-            this.search.sort = this.getDefaultSortObject();
+        this.states = this._GlobalDataStorageService.httpSearchParams[this.tableName] || {};
+        if (!this.states.searchParams) {
+            this.states.searchParams = {};
         }
-        if (!this.search.pager) {
-            this.search.pager = this.getDefaultPagerObject();
+        if (!this.states.sort) {
+            this.states.sort = this.getDefaultSortObject();
+        }
+        if (!this.states.pager) {
+            this.states.pager = this.getDefaultPagerObject();
         }
     }
 
     /*region Sort*/
     sortTable($event, prop) {
-        let sort = this.search.sort;
+        let sort = this.states.sort;
 
         let i = 0;
         if ($event.ctrlKey) {
@@ -275,7 +282,7 @@ export class AlinaRestCallComponent implements OnInit {
                 : true;
         }
         if (i === 0 && sort.sortName.length > 1) {
-            this.search.sort = sort = this.getDefaultSortObject();
+            this.states.sort = sort = this.getDefaultSortObject();
             asc = true;
         }
         sort.sortName[i] = prop;
@@ -304,13 +311,13 @@ export class AlinaRestCallComponent implements OnInit {
     }
 
     calcPagesTotal() {
-        let rowsTotal = this.search.pager.rowsTotal;
-        let pageSize  = this.search.pager.pageSize;
-        if (pageSize <= 0) {pageSize = this.search.pager.pageSize = rowsTotal}
+        let rowsTotal = this.states.pager.rowsTotal;
+        let pageSize  = this.states.pager.pageSize;
+        if (pageSize <= 0) {pageSize = this.states.pager.pageSize = rowsTotal}
         let pagesTotal                    = Math.ceil(rowsTotal / pageSize);
-        this.search.pager.pagesTotal      = pagesTotal;
-        //this.search.pager.pagesTotalArray = Array.apply(null, {length: pagesTotal}).map(Function.call, Number);
-        this.search.pager.pagesTotalArray = new Array(pagesTotal).fill(0).map(function (v, i) {return i + 1});
+        this.states.pager.pagesTotal      = pagesTotal;
+        //this.states.pager.pagesTotalArray = Array.apply(null, {length: pagesTotal}).map(Function.call, Number);
+        this.states.pager.pagesTotalArray = new Array(pagesTotal).fill(0).map(function (v, i) {return i + 1});
     }
 
     /*endregion Page*/
@@ -338,20 +345,20 @@ export class AlinaRestCallComponent implements OnInit {
             this.ownData = resp.data;
 
             /*region fNames*/
-            if (!this.search.fNames) {
+            if (!this.states.fNames) {
                 this.fNames        = (new ValuesPipe).transform(this.ownData[0]);
-                this.search.fNames = this.fNames;
+                this.states.fNames = this.fNames;
             } else {
-                this.fNames = this.search.fNames;
+                this.fNames = this.states.fNames;
             }
             /*endregion fNames*/
 
 
             /*region Shown Fields*/
-            if (!this.search.oShownFields) {
-                this.search.oShownFields = {};
+            if (!this.states.oShownFields) {
+                this.states.oShownFields = {};
                 for (let i = 0; i < this.fNames.length; i++) {
-                    this.search.oShownFields[this.fNames[i]] = true;
+                    this.states.oShownFields[this.fNames[i]] = true;
                 }
             }
             /*endregion Shown Fields*/
@@ -359,9 +366,9 @@ export class AlinaRestCallComponent implements OnInit {
 
         //ToDo: Doubtful...
         if (resp.meta) {
-            resp.meta.rowsTotal ? this.search.pager.rowsTotal = resp.meta.rowsTotal : null;
-            resp.meta.pageCurrentNumber ? this.search.pager.pageCurrentNumber = resp.meta.pageCurrentNumber : null;
-            resp.meta.pageSize ? this.search.pager.pageSize = resp.meta.pageSize : null;
+            resp.meta.rowsTotal ? this.states.pager.rowsTotal = resp.meta.rowsTotal : null;
+            resp.meta.pageCurrentNumber ? this.states.pager.pageCurrentNumber = resp.meta.pageCurrentNumber : null;
+            resp.meta.pageSize ? this.states.pager.pageSize = resp.meta.pageSize : null;
             this.calcPagesTotal();
         }
     }

@@ -35,7 +35,7 @@
 		<span class="hover-highlighted"><mat-icon aria-label="Move Earlier" (click)="moveEarlier(prop)">◂</mat-icon></span>
 		<span>
 			<mat-checkbox
-					[(ngModel)]="search.oShownFields[prop]"
+					[(ngModel)]="states.oShownFields[prop]"
 					(change)="onChangeShownField()"
 			>{{prop}}</mat-checkbox>
 		</span>
@@ -44,10 +44,10 @@
 				(click)="sortTable($event, prop)"
 				class="sorting hover-highlighted"
 				[ngClass]="{
-					'sorting_asc': search.sort.sortName.indexOf(prop)=== 0 && search.sort.sortAsc[0],
-					'sorting_desc': search.sort.sortName.indexOf(prop)=== 0 && !search.sort.sortAsc[0],
-					'sorting_asc_ii': search.sort.sortName.indexOf(prop)=== 1 && search.sort.sortAsc[1],
-					'sorting_desc_ii': search.sort.sortName.indexOf(prop)=== 1 && !search.sort.sortAsc[1]
+					'sorting_asc': states.sort.sortName.indexOf(prop)=== 0 && states.sort.sortAsc[0],
+					'sorting_desc': states.sort.sortName.indexOf(prop)=== 0 && !states.sort.sortAsc[0],
+					'sorting_asc_ii': states.sort.sortName.indexOf(prop)=== 1 && states.sort.sortAsc[1],
+					'sorting_desc_ii': states.sort.sortName.indexOf(prop)=== 1 && !states.sort.sortAsc[1]
 					}"
 		>&nbsp;</span>
 
@@ -65,13 +65,13 @@
 			<th
 					*ngFor='let prop of fNames'
 					[ngClass]="{
-						'excludedItem': search.oShownFields[prop]===false
+						'excludedItem': states.oShownFields[prop]===false
 						}"
 			>
 
 				<mat-checkbox
 						class="example-margin"
-						[(ngModel)]="search.oShownFields[prop]"
+						[(ngModel)]="states.oShownFields[prop]"
 						(change)="onChangeShownField()"
 				>{{prop}}
 				</mat-checkbox>
@@ -79,10 +79,10 @@
 						(click)="sortTable($event, prop)"
 						class="sorting"
 						[ngClass]="{
-						'sorting_asc': search.sort.sortName.indexOf(prop)=== 0 && search.sort.sortAsc[0],
-						'sorting_desc': search.sort.sortName.indexOf(prop)=== 0 && !search.sort.sortAsc[0],
-						'sorting_asc_ii': search.sort.sortName.indexOf(prop)=== 1 && search.sort.sortAsc[1],
-						'sorting_desc_ii': search.sort.sortName.indexOf(prop)=== 1 && !search.sort.sortAsc[1]
+						'sorting_asc': states.sort.sortName.indexOf(prop)=== 0 && states.sort.sortAsc[0],
+						'sorting_desc': states.sort.sortName.indexOf(prop)=== 0 && !states.sort.sortAsc[0],
+						'sorting_asc_ii': states.sort.sortName.indexOf(prop)=== 1 && states.sort.sortAsc[1],
+						'sorting_desc_ii': states.sort.sortName.indexOf(prop)=== 1 && !states.sort.sortAsc[1]
 						}"
 				>&nbsp;</span>
 
@@ -90,19 +90,19 @@
 		</tr>
 		<tr>
 			<th>
-				<button class="btn btn-info" (click)="consoleLog(search)">Log Search</button>
+				<button class="btn btn-info" (click)="consoleLog(states)">Log Search</button>
 				<button class="btn btn-danger" (click)="clearSearch()">Clear Search</button>
 				<button class="btn btn-success" (click)="addModel()">Add</button>
 			</th>
 			<!--region Search Fields-->
 			<th *ngFor='let prop of fNames'
 			    [ngClass]="{
-					'excludedItem': search.oShownFields[prop]===false
+					'excludedItem': states.oShownFields[prop]===false
 				}"
 			>
-				<div *ngIf="search.oShownFields[prop]">
+				<div *ngIf="states.oShownFields[prop]">
 					<input
-							[(ngModel)]="search[prop]"
+							[(ngModel)]="states.searchParams[prop]"
 							placeholder="{{prop}}"
 							(keyup)="onChangeSearch($event, prop)"
 					>
@@ -126,10 +126,10 @@
 			</td>
 			<td *ngFor='let prop of fNames'
 			    [ngClass]="{
-						'excludedItem': search.oShownFields[prop]===false
+						'excludedItem': states.oShownFields[prop]===false
 						}"
 			>&nbsp;
-				<div *ngIf="search.oShownFields[prop]">
+				<div *ngIf="states.oShownFields[prop]">
 					<b>{{prop}}:</b><br>
 					<span *ngIf="isType(item[prop], 'string')">{{item[prop]}}</span>
 					<div *ngIf="isType(item[prop], 'string') && item.editMode">
@@ -168,21 +168,21 @@
 	<div class="pager">
 
 
-		<button mat-mini-fab color="black" (click)="onGoToPager(1)"> <<<</button>
+		<button mat-mini-fab color="black" (click)="onGoToPage(1)"> <<<</button>
 		<button
 				mat-mini-fab color="black"
-				*ngFor='let pageN of search.pager.pagesTotalArray'
-				(click)="onGoToPager(pageN)"
+				*ngFor="let pageN of states.pager.pagesTotalArray"
+				(click)="onGoToPage(pageN)"
 				[ngClass]="{
-						'active': pageN == search.pager.pageCurrentNumber
+						'active': pageN == states.pager.pageCurrentNumber
 						}"
 		>
 			{{pageN}}
 		</button>
-		<button mat-mini-fab color="black" (click)="onGoToPager(search.pager.pagesTotal)"> >>></button>
+		<button mat-mini-fab color="black" (click)="onGoToPage(states.pager.pagesTotal)"> >>></button>
 		&nbsp;
 		<mat-form-field>
-			<mat-select placeholder="Page Size" [(ngModel)]="search.pager.pageSize" (change)="onChangePager()">
+			<mat-select placeholder="Page Size" [(ngModel)]="states.pager.pageSize" (change)="onChangePageSize()">
 				<mat-option value="2">2</mat-option>
 				<mat-option value="3">3</mat-option>
 				<mat-option value="5">5</mat-option>

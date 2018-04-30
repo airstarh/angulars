@@ -7,6 +7,10 @@ thead {
     background-color: #CFD8DC;
 }
 
+.even {
+    background-color: #e4ecf0;
+}
+
 thead th {
     white-space: nowrap; /* Chrome */
 }
@@ -77,7 +81,8 @@ thead th {
 }
 
 .mat-black.active {
-    background-color: green;
+    background-color: #DDDDDD;
+    color: black;
 }
 
 .hover-highlighted:hover
