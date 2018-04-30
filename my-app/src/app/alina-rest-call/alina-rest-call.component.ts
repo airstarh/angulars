@@ -243,9 +243,12 @@ export class AlinaRestCallComponent implements OnInit {
 
     /*region Search*/
     clearSearch() {
-        this.states       = {};
         this.states.sort  = this.getDefaultSortObject();
         this.states.pager = this.getDefaultPagerObject();
+        this.states.searchParams = {};
+        for (let i = 0; i < this.fNames.length; i++) {
+            this.states.oShownFields[this.fNames[i]] = true;
+        }
         this.rememberSearch();
         this.reFetch();
     }

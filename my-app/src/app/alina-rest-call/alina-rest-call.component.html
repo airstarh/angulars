@@ -77,7 +77,7 @@
 				</mat-checkbox>
 				<span
 						(click)="sortTable($event, prop)"
-						class="sorting"
+						class="sorting hover-highlighted"
 						[ngClass]="{
 						'sorting_asc': states.sort.sortName.indexOf(prop)=== 0 && states.sort.sortAsc[0],
 						'sorting_desc': states.sort.sortName.indexOf(prop)=== 0 && !states.sort.sortAsc[0],
