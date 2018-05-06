@@ -5,8 +5,8 @@ export class GlobalDataStorageService {
 
 	constructor() { }
 
-	public httpSearchParams: any = {};
-	public currentUser: any = {};
+    public currentUser: any       = {};
+    public TablesStatesStore: any = {};
 
 
 }

@@ -253,11 +253,11 @@ export class AlinaRestCallComponent implements OnInit {
     }
 
     rememberSearch() {
-        this._GlobalDataStorageService.httpSearchParams[this.tableName] = this.states;
+        this._GlobalDataStorageService.TablesStatesStore[this.tableName] = this.states;
     }
 
     recallSearch() {
-        this.states = this._GlobalDataStorageService.httpSearchParams[this.tableName] || {};
+        this.states = this._GlobalDataStorageService.TablesStatesStore[this.tableName] || {};
         if (!this.states.searchParams) {
             this.states.searchParams = {};
         }
