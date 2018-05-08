@@ -130,7 +130,10 @@
 						}"
 			>&nbsp;
 				<div *ngIf="states.oShownFields[prop]">
-					<b>{{prop}}:</b><br>
+					<span class="btn btn-sm btn-info" (click)="editAsHtml($event, item, prop)">HTML</span>
+					<br>
+					<b>{{prop}}:</b>
+					<br>
 					<span *ngIf="isType(item[prop], 'string')">{{item[prop]}}</span>
 					<div *ngIf="isType(item[prop], 'string') && item.editMode">
 						<input type="text" [(ngModel)]="item[prop]">
@@ -148,9 +151,22 @@
 		</tbody>
 	</table>
 </div>
+
 <div>&nbsp;</div>
 <ng-container *ngTemplateOutlet="pager"></ng-container>
 <div>&nbsp;</div>
+
+
+<div>&nbsp;</div>
+<app-alina-text-edit
+		[(stateVisible)]="editAsHtmlStateVisible"
+		[(passedItem)]="editAsHtmlItem"
+		[(passedProp)]="editAsHtmlProp"
+		[(passedValue)]="editAsHtmlValue"
+></app-alina-text-edit>
+<div>&nbsp;</div>
+
+
 
 <!--region ng-template-->
 <ng-template #loading>

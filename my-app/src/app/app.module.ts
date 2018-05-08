@@ -21,13 +21,17 @@ import {AlinaModModule}            from "./alina-mod/alina-mod.module";
 import {BrowserAnimationsModule}   from "@angular/platform-browser/animations";
 import {GlobalDataStorageService}  from "./services/global-data-storage.service";
 import {MatButtonModule}           from "@angular/material";
-import {MatCheckboxModule}         from "@angular/material";
-import {MatDatepickerModule}       from "@angular/material";
-import {MatNativeDateModule}       from "@angular/material";
-import {MatInputModule}            from "@angular/material";
-import {MatAutocompleteModule}     from "@angular/material";
-import {MatSelectModule}           from "@angular/material";
-import {MatIconModule}           from "@angular/material";
+import {MatCheckboxModule}        from "@angular/material";
+import {MatDatepickerModule}      from "@angular/material";
+import {MatNativeDateModule}      from "@angular/material";
+import {MatInputModule}           from "@angular/material";
+import {MatAutocompleteModule}    from "@angular/material";
+import {MatSelectModule}          from "@angular/material";
+import {MatIconModule}            from "@angular/material";
+import { AlinaTextEditComponent } from './components/alina-text-edit/alina-text-edit.component';
+import {EditorModule}             from "primeng/editor";
+import {PrimeTemplate}            from "primeng/shared";
+import { HtmlRealPipe } from './pipes/html-real.pipe';
 
 @NgModule({
     imports: [
@@ -45,8 +49,9 @@ import {MatIconModule}           from "@angular/material";
         MatInputModule,
         MatAutocompleteModule,
         MatSelectModule,
-        MatIconModule
+        MatIconModule,
 
+        EditorModule,
 
         // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
         // and returns simulated server responses.
@@ -64,7 +69,9 @@ import {MatIconModule}           from "@angular/material";
         HeroSearchComponent,
         AlinaRestCallComponent,
         AlinaFormBuildComponent,
-        ValuesPipe
+        ValuesPipe,
+        AlinaTextEditComponent,
+        HtmlRealPipe
     ],
     providers: [HeroService, MessageService, AlinaHttpRequestService, GlobalDataStorageService],
     bootstrap: [AppComponent]

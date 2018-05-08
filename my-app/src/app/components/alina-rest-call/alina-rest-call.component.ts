@@ -122,29 +122,45 @@ export class AlinaRestCallComponent implements OnInit {
         this.rememberSearch()
     }
 
-    moveEarlier(prop){
+    moveEarlier(prop) {
         let i = this.fNames.indexOf(prop);
         if (i === -1) {return;}
         if (i === 0) {return;}
 
-        let to = i-1;
-        let tmp = this.fNames[to];
+        let to          = i - 1;
+        let tmp         = this.fNames[to];
         this.fNames[to] = this.fNames[i];
-        this.fNames[i] = tmp;
+        this.fNames[i]  = tmp;
         this.onChangeShownField();
     }
 
-    moveLater(prop){
+    moveLater(prop) {
         let i = this.fNames.indexOf(prop);
         if (i === -1) {return;}
-        if (i === this.fNames.length-1) {return;}
+        if (i === this.fNames.length - 1) {return;}
 
-        let to = i+1;
-        let tmp = this.fNames[to];
+        let to          = i + 1;
+        let tmp         = this.fNames[to];
         this.fNames[to] = this.fNames[i];
-        this.fNames[i] = tmp;
+        this.fNames[i]  = tmp;
         this.onChangeShownField();
     }
+
+    /*region EditAsHtml*/
+    editAsHtmlItem: any = {};
+    editAsHtmlProp: string = 'default';
+    editAsHtmlValue: string = '';
+    editAsHtmlStateVisible = false;
+
+    editAsHtml(event, item, prop) {
+
+        this.editAsHtmlItem         = item;
+        this.editAsHtmlProp         = prop;
+        this.editAsHtmlValue        = item[prop];
+        this.editAsHtmlStateVisible = true;
+    }
+
+    /*endregion EditAsHtml*/
 
     /*endregion Event Handlers */
 
@@ -155,7 +171,7 @@ export class AlinaRestCallComponent implements OnInit {
     };
 
     getModels() {
-        let getString:any = {
+        let getString: any = {
             cmd:    "model",
             isAjax: true,
             m:      this.tableName,
@@ -242,8 +258,8 @@ export class AlinaRestCallComponent implements OnInit {
 
     /*region Search*/
     clearSearch() {
-        this.states.sort  = this.getDefaultSortObject();
-        this.states.pager = this.getDefaultPagerObject();
+        this.states.sort         = this.getDefaultSortObject();
+        this.states.pager        = this.getDefaultPagerObject();
         this.states.searchParams = {};
         for (let i = 0; i < this.fNames.length; i++) {
             this.states.oShownFields[this.fNames[i]] = true;

@@ -1,7 +1,7 @@
 <div
-		id="popupContainerFixed"
-		tabindex="0"
 		*ngIf="_MessageService.messages.length"
+		class="popupContainerFixed"
+		tabindex="0"
 		[@mStateEmpty]="_MessageService.stateEmpty"
 		(click)="_MessageService.clear()"
 >

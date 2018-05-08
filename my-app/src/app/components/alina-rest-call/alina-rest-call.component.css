@@ -15,10 +15,6 @@ thead th {
     white-space: nowrap; /* Chrome */
 }
 
-.excludedItem{
-    display: none;
-}
-
 /*region SORTing*/
 .sorting:after {
     display: inline-block;

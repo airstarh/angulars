@@ -1,6 +1,21 @@
 /* Master Styles */
+
+/*region Bootstrap*/
 @import "~bootstrap/dist/css/bootstrap.css";
+/*endregion Bootstrap*/
+
+/*region Angular Material*/
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+/*endregion Angular Material*/
+
+/*region PrimeNG*/
+@import "~font-awesome/css/font-awesome.min.css";
+@import "~primeng/resources/themes/omega/theme.css";
+@import "~primeng/resources/primeng.min.css";
+/*//*/
+@import  "~quill/dist/quill.core.css";
+@import  "~quill/dist/quill.snow.css";
+/*endregion PrimeNG*/
 
 /*region Bootstrap Framework definitions. */
 /**
@@ -45,16 +60,6 @@ body #div-body {
 }
 /*endregion Bootstrap Framework definitions. */
 
-pre {
-    margin: 0;
-    word-break: break-all; /* webkit */
-    word-wrap: break-word;
-    white-space: pre;
-    white-space: -moz-pre-wrap; /* fennec */
-    white-space: pre-wrap;
-    white-space: pre \9; /* IE7+ */
-}
-
 /**region Table with Fixed Header*/
 /** ToDo ;-) */
 /**endregion Table with Fixed Header*/
@@ -66,8 +71,55 @@ pre {
 mat-icon {
     cursor: pointer;
 }
+/*endregion MAT*/
 
+/*region Fixes*/
+
+/*MAT Fix...*/
 label {
     margin: 0;
 }
-/*endregion MAT*/
+
+/*endregion Fixes*/
+
+/*region Alina Styles*/
+pre {
+    margin: 0;
+    word-break: break-all; /* webkit */
+    word-wrap: break-word;
+    white-space: pre;
+    white-space: -moz-pre-wrap; /* fennec */
+    white-space: pre-wrap;
+    white-space: pre \9; /* IE7+ */
+}
+
+.excludedItem{
+    display: none !important;
+}
+
+/*region Alina PopUp*/
+.popupContainerFixed {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.2);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    align-content: center;
+}
+
+.popupItems {
+    display: inline-block;
+    margin: 0 auto 5px auto;
+    max-width: 95%;
+    background-color: #fff;
+}
+/*endregion Alina PopUp*/
+/*endregion Alina Styles*/
