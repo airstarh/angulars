@@ -18,7 +18,7 @@
 		</mat-form-field>
 		&nbsp;currently it is&nbsp;
 		<mat-form-field>
-			<mat-select placeholder="Select Current Table" [(ngModel)]="tableName" (change)="onChangeTable()">
+			<mat-select placeholder="Select Current Table" [(ngModel)]="tableName" (selectionChange)="onChangeTable()">
 				<mat-option *ngFor="let m of models" [value]="m">
 					{{m}}
 				</mat-option>
@@ -198,7 +198,7 @@
 		<button mat-mini-fab color="black" (click)="onGoToPage(states.pager.pagesTotal)"> >>></button>
 		&nbsp;
 		<mat-form-field>
-			<mat-select placeholder="Page Size" [(ngModel)]="states.pager.pageSize" (change)="onChangePageSize()">
+			<mat-select placeholder="Page Size" [(ngModel)]="states.pager.pageSize" (selectionChange)="onChangePageSize()">
 				<mat-option value="2">2</mat-option>
 				<mat-option value="3">3</mat-option>
 				<mat-option value="5">5</mat-option>

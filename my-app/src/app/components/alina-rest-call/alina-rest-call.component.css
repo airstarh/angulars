@@ -81,15 +81,6 @@ thead th {
     color: black;
 }
 
-.hover-highlighted:hover
-, .hover-highlighted:hover:after
-, .hover-highlighted:hover:before
-{
-    background-color: yellow;
-    color: black;
-    cursor: pointer;
-}
-
 .fields {
     background-color: skyblue;
     margin-right: 2px;

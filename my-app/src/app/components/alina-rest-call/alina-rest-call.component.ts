@@ -1,16 +1,14 @@
+///<reference path="../../../../node_modules/rxjs/internal/operators/startWith.d.ts"/>
 import {Component, OnInit}        from '@angular/core';
 import {AlinaHttpRequestService}  from "../../services/alina-http-request.service";
 import {ValuesPipe}               from "../../pipes/values-pipe";
 import {GlobalDataStorageService} from "../../services/global-data-storage.service";
-import {Subject}                  from 'rxjs/Subject';
+import {Subject, Observable}                  from 'rxjs';
 import {
     debounceTime, distinctUntilChanged, startWith
     , map
 }                                 from "rxjs/operators";
-import {_switch}                  from "rxjs/operator/switch";
-import {forEach}                  from "@angular/router/src/utils/collection";
 import {FormControl}              from "@angular/forms";
-import {Observable}               from "rxjs/Observable";
 
 
 @Component({
@@ -63,7 +61,7 @@ export class AlinaRestCallComponent implements OnInit {
 
     /*endregion Init*/
 
-    /*region  Autocomplete Field for Models List*/
+    /*region  AutoComplete Field for Models List*/
     initFilteredOptions() {
         this.filteredOptions = this.myControl.valueChanges
             .pipe(
@@ -77,7 +75,7 @@ export class AlinaRestCallComponent implements OnInit {
             option.toLowerCase().indexOf(val.toLowerCase()) !== -1);
     }
 
-    /*endregion Autocomplete Field for Models List*/
+    /*endregion AutoComplete Field for Models List*/
 
 
     /*region Event Handlers */
@@ -87,6 +85,10 @@ export class AlinaRestCallComponent implements OnInit {
     }
 
     onChangeTable() {
+
+        console.log("xxx ++++++++++");
+        console.log(arguments);
+
         this.recallSearch();
         this.fNames = [];
         this.reFetch();

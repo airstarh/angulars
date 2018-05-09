@@ -1,18 +1,21 @@
-<div [ngClass]="{'excludedItem':!stateVisible}" class="popupContainerFixed">
-	<div class="popupItems">
-		<p-editor [(ngModel)]="passedItem[passedProp]" [style]="{'height':'320px'}"></p-editor>
+<div [ngClass]="{'excludedItem':!stateVisible}" class="popupContainerFixed" (click)="onCancel()">
+	<div class="popupItems alert-light">
+		<div class="buttons">
+			<button class="btn btn-warning" (click)="onSave()">Save</button>
+			<button class="btn btn-danger" (click)="onCancel()">Cancel</button>
+		</div>
+		<p-editor [(ngModel)]="passedItem[passedProp]" [style]="{'height':'320px', 'width':'1000px'}"></p-editor>
 		<br>
 		<hr>
-		<br>
-		{{passedItem[passedProp]}}
-		<br>
-		<hr>
-		<br>
 		<div class="ql-editor" [innerHTML] = "passedItem[passedProp] | htmlReal"></div>
+		<br>
+		<hr>
+		<pre>{{passedItem[passedProp]}}</pre>
 
-		<div>
-			<button (click)="onSave()">Save</button>
-			<button (click)="onCancel()">Cancel</button>
+
+		<div class="buttons">
+			<button class="btn btn-warning" (click)="onSave()">Save</button>
+			<button class="btn btn-danger" (click)="onCancel()">Cancel</button>
 		</div>
 	</div>
 </div>
