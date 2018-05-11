@@ -1,21 +1,23 @@
-import {Injectable}     from '@angular/core';
-import {HttpClient}     from '@angular/common/http';
-import {Observable, of}     from 'rxjs';
+import {Injectable}               from '@angular/core';
+import {HttpClient}               from '@angular/common/http';
+import {Observable, of}           from 'rxjs';
 import {
 	catchError
 	, debounceTime
 	, throttleTime
 	, map
 	, tap
-}                       from 'rxjs/operators';
-import {MessageService} from "./message.service";
+}                                 from 'rxjs/operators';
+import {MessageService}           from "./message.service";
+import {GlobalDataStorageService} from "./global-data-storage.service";
 
 @Injectable()
 export class AlinaHttpRequestService {
 
 	constructor(
-		private _HttpClient: HttpClient,
-		public _MessageService: MessageService,
+		private srvHttpClient: HttpClient,
+		public srvMessage: MessageService,
+        public srvGlobalDataStorage: GlobalDataStorageService
 	) {
 	}
 
@@ -35,7 +37,8 @@ export class AlinaHttpRequestService {
 		data: any      = false,
 		options: any   = {}
 	): Observable<any> {
-		let _HttpClient: HttpClient   = this._HttpClient;
+        this.srvGlobalDataStorage.spinner = true;
+		let _HttpClient: HttpClient   = this.srvHttpClient;
 		let _Observable: Observable<any>;
 		const httpRequestOptions: any = {};
 		httpRequestOptions.headers    = this.httpHeaders;
@@ -74,11 +77,12 @@ export class AlinaHttpRequestService {
 				//throttleTime(1500),
 				tap(
 					resp => {
+                        this.srvGlobalDataStorage.spinner = false;
 						console.log("Alina Response From Server ++++++++++");
 						console.log(resp);
 						if (resp.messages) {
 							resp.messages.forEach(item => {
-								this._MessageService.add(item);
+								this.srvMessage.add(item);
 							});
 						}
 					}

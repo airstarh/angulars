@@ -32,6 +32,7 @@ import { AlinaTextEditComponent } from './components/alina-text-edit/alina-text-
 import {EditorModule}             from "primeng/editor";
 import {PrimeTemplate}            from "primeng/shared";
 import { HtmlRealPipe } from './pipes/html-real.pipe';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
     imports: [
@@ -71,7 +72,8 @@ import { HtmlRealPipe } from './pipes/html-real.pipe';
         AlinaFormBuildComponent,
         ValuesPipe,
         AlinaTextEditComponent,
-        HtmlRealPipe
+        HtmlRealPipe,
+        SpinnerComponent
     ],
     providers: [HeroService, MessageService, AlinaHttpRequestService, GlobalDataStorageService],
     bootstrap: [AppComponent]

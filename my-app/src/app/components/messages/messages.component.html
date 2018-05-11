@@ -1,14 +1,14 @@
 <div
-		*ngIf="_MessageService.messages.length"
-		class="popupContainerFixed"
+		*ngIf="srvMessages.messages.length"
+		class="popupBackgroundFixed"
 		tabindex="0"
-		[@mStateEmpty]="_MessageService.stateEmpty"
-		(click)="_MessageService.clear()"
+		[@mStateEmpty]="srvMessages.stateEmpty"
+		(click)="srvMessages.clear()"
 >
 	<div
-			*ngFor="let message of _MessageService.messages"
+			*ngFor="let message of srvMessages.messages"
 			class="popupItems {{message.status}}"
 	>
-		<pre>{{message.text ? message.text : _MessageService.messages | json}}</pre>
+		<pre>{{message.text ? message.text : srvMessages.messages | json}}</pre>
 	</div>
 </div>

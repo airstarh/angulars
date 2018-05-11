@@ -102,12 +102,12 @@ pre {
 , .hover-highlighted:hover:before
 {
     background-color: yellow;
-    color: black;
+    color: black !important;
     cursor: pointer;
 }
 
 /*region Alina PopUp*/
-.popupContainerFixed {
+.popupBackgroundFixed {
     position: fixed;
     left: 0;
     top: 0;
@@ -130,7 +130,25 @@ pre {
     padding: 25px;
     max-width: 1100px;
 
-    overflow-y:scroll;
+    overflow-y:auto;
+}
+
+.popupOneItem {
+    position: fixed;
+
+    width: 1000px;
+    left: 50%;
+    margin-left: -500px;
+
+    top: 5%;
+    height: 90%;
+
+    background: #fff;
+
+    box-sizing: border-box;
+    overflow: auto;
+    padding: 5px;
+
 }
 /*endregion Alina PopUp*/
 /*endregion Alina Styles*/

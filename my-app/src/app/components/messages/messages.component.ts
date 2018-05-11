@@ -27,7 +27,7 @@ import {
 })
 export class MessagesComponent implements OnInit {
 
-    constructor(public _MessageService: MessageService) {
+    constructor(public srvMessages: MessageService) {
     }
 
     ngOnInit() {
@@ -37,7 +37,7 @@ export class MessagesComponent implements OnInit {
     handleKeyboardEvent(event: KeyboardEvent) {
         event.stopPropagation();
         if (event.key === 'Escape') {
-            this._MessageService.clear();
+            this.srvMessages.clear();
         }
     }
 }

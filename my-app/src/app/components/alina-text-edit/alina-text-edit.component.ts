@@ -5,7 +5,7 @@
 *  @link https://stackblitz.com/edit/angular-ksz4ml?file=src%2Fapp%2Fdialog%2Fdialog.component.html
 * */
 import {
-    Component, EventEmitter, Input, OnInit, Output,
+    Component, EventEmitter, HostListener, Input, OnInit, Output,
     ViewEncapsulation
 } from '@angular/core';
 
@@ -29,14 +29,30 @@ export class AlinaTextEditComponent implements OnInit {
     ngOnInit() {
     }
 
-    onCancel() {
+    @HostListener('document:keydown', ['$event'])
+    handleKeyboardEvent(event: KeyboardEvent) {
+        event.stopPropagation();
+        if (event.key === 'Escape') {
+            this.onCancel(event);
+        }
+    }
+
+
+    onCancel(event) {
+        event.stopPropagation();
         this.passedItem[this.passedProp] = this.passedValue;
         this.stateVisible = false;
         this.stateVisibleChange.emit(this.stateVisible);
     }
 
-    onSave(){
+    onSave(event){
+        event.stopPropagation();
         this.stateVisible = false;
         this.stateVisibleChange.emit(this.stateVisible);
+    }
+
+    /*fix*/
+    stopEventBubbling(event){
+        event.stopPropagation();
     }
 }

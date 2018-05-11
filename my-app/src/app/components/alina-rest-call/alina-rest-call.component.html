@@ -33,7 +33,7 @@
 <div class="nav">
 	<span *ngFor='let prop of fNames' class="fields rounded">
 		<span class="hover-highlighted"><mat-icon aria-label="Move Earlier" (click)="moveEarlier(prop)">◂</mat-icon></span>
-		<span>
+		<span class="hover-highlighted">
 			<mat-checkbox
 					[(ngModel)]="states.oShownFields[prop]"
 					(change)="onChangeShownField()"
@@ -159,10 +159,11 @@
 
 <div>&nbsp;</div>
 <app-alina-text-edit
+		*ngIf="editAsHtmlStateVisible"
 		[(stateVisible)]="editAsHtmlStateVisible"
-		[(passedItem)]="editAsHtmlItem"
-		[(passedProp)]="editAsHtmlProp"
-		[(passedValue)]="editAsHtmlValue"
+		[passedItem]="editAsHtmlItem"
+		[passedProp]="editAsHtmlProp"
+		[passedValue]="editAsHtmlValue"
 ></app-alina-text-edit>
 <div>&nbsp;</div>
 
@@ -170,7 +171,7 @@
 
 <!--region ng-template-->
 <ng-template #loading>
-	<div><h1>Loading...</h1></div>
+	<div><h1>No data...</h1></div>
 </ng-template>
 
 <ng-template #noData>

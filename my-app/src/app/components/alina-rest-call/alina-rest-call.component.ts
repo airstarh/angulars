@@ -31,29 +31,29 @@ export class AlinaRestCallComponent implements OnInit {
     ];
 
     states: any      = {};
-    private _Subject = new Subject<any>();
+    private SubjectSearch = new Subject<any>();
 
     myControl: FormControl = new FormControl();
     filteredOptions: Observable<string[]>;
 
 
     constructor(
-        private _AlinaHttpRequestService: AlinaHttpRequestService
-        , public _GlobalDataStorageService: GlobalDataStorageService
+        private srvHttpRequest: AlinaHttpRequestService
+        , public srvGlobalDataStorage: GlobalDataStorageService
     ) { }
 
     ngOnInit() {
         this.states.seatchFilter = {};
         this.initFilteredOptions();
-        this.initSearchSubject();
+        this.initSubjectSearch();
         this.recallSearch();
         this.reFetch();
     }
 
-    initSearchSubject() {
-        this._Subject
+    initSubjectSearch() {
+        this.SubjectSearch
             .pipe(
-                debounceTime(1500),
+                debounceTime(1000),
                 //distinctUntilChanged(),
             )
             .subscribe({next: (v) => this.reFetch()})
@@ -104,7 +104,7 @@ export class AlinaRestCallComponent implements OnInit {
         }
         this.states.pager.pageCurrentNumber = 1;
         this.rememberSearch();
-        this._Subject.next(value);
+        this.SubjectSearch.next(value);
     }
 
     onChangePageSize() {
@@ -168,7 +168,7 @@ export class AlinaRestCallComponent implements OnInit {
 
     /*region CRUD*/
     reFetch = () => {
-        //this.ownData = [];
+        this.ownData = [];
         this.getModels();
     };
 
@@ -187,7 +187,7 @@ export class AlinaRestCallComponent implements OnInit {
 
         getString = Object.assign(getString, this.states.searchParams);
 
-        this._AlinaHttpRequestService.send('get', getString)
+        this.srvHttpRequest.send('get', getString)
             .subscribe(resp => {
                 this.processResponse(resp);
             });
@@ -213,7 +213,7 @@ export class AlinaRestCallComponent implements OnInit {
             m:      this.tableName
         };
 
-        this._AlinaHttpRequestService.send(method, data, options)
+        this.srvHttpRequest.send(method, data, options)
             .subscribe(resp => {
                 item = Object.assign(item, resp.data);
             });
@@ -238,7 +238,7 @@ export class AlinaRestCallComponent implements OnInit {
             mId:    item.id
         };
 
-        this._AlinaHttpRequestService.send(method, getString)
+        this.srvHttpRequest.send(method, getString)
             .subscribe(resp => {
                 item = Object.assign(item, resp.data);
             });
@@ -271,11 +271,11 @@ export class AlinaRestCallComponent implements OnInit {
     }
 
     rememberSearch() {
-        this._GlobalDataStorageService.TablesStatesStore[this.tableName] = this.states;
+        this.srvGlobalDataStorage.TablesStatesStore[this.tableName] = this.states;
     }
 
     recallSearch() {
-        this.states = this._GlobalDataStorageService.TablesStatesStore[this.tableName] || {};
+        this.states = this.srvGlobalDataStorage.TablesStatesStore[this.tableName] || {};
         if (!this.states.searchParams) {
             this.states.searchParams = {};
         }

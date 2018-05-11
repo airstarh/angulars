@@ -1,4 +1,6 @@
-import {Component}      from '@angular/core';
+import {Component}                from '@angular/core';
+import {MessageService}           from "./services/message.service";
+import {GlobalDataStorageService} from "./services/global-data-storage.service";
 
 @Component({
                selector:    'app-root',
@@ -7,4 +9,5 @@ import {Component}      from '@angular/core';
            })
 export class AppComponent {
     title = 'Alina Rest Call';
+    constructor(public srvGlobalDataStorage: GlobalDataStorageService) { }
 }
