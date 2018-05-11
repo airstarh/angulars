@@ -31,8 +31,11 @@ import {MatIconModule}            from "@angular/material";
 import { AlinaTextEditComponent } from './components/alina-text-edit/alina-text-edit.component';
 import {EditorModule}             from "primeng/editor";
 import {PrimeTemplate}            from "primeng/shared";
-import { HtmlRealPipe } from './pipes/html-real.pipe';
-import { SpinnerComponent } from './components/spinner/spinner.component';
+import { HtmlRealPipe }           from './pipes/html-real.pipe';
+import { SpinnerComponent }       from './components/spinner/spinner.component';
+import {DropdownModule}           from "primeng/primeng";
+import {TabViewModule}           from "primeng/primeng";
+import {CodeHighlighterModule}           from "primeng/primeng";
 
 @NgModule({
     imports: [
@@ -52,7 +55,13 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
         MatSelectModule,
         MatIconModule,
 
+        //PrimeNG
         EditorModule,
+        DropdownModule,
+        TabViewModule,
+        CodeHighlighterModule
+
+        //ebd PrimeNG
 
         // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
         // and returns simulated server responses.

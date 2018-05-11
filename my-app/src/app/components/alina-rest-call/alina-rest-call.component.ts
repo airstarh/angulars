@@ -3,12 +3,13 @@ import {Component, OnInit}        from '@angular/core';
 import {AlinaHttpRequestService}  from "../../services/alina-http-request.service";
 import {ValuesPipe}               from "../../pipes/values-pipe";
 import {GlobalDataStorageService} from "../../services/global-data-storage.service";
-import {Subject, Observable}                  from 'rxjs';
+import {Subject, Observable}      from 'rxjs';
 import {
     debounceTime, distinctUntilChanged, startWith
     , map
 }                                 from "rxjs/operators";
 import {FormControl}              from "@angular/forms";
+import {DropdownModule}           from 'primeng/primeng';
 
 
 @Component({
@@ -22,20 +23,15 @@ export class AlinaRestCallComponent implements OnInit {
     ownData: any     = [];
     fNames: string[] = [];
     tableName        = 'article';
-    models           = [
-        ' ',
-        'user',
-        'role',
-        'article',
-        'blablabla',
+    modelsObjs       = [
+        {label: 'article', value: 'article'},
+        {label: 'user', value: 'user'},
+        {label: 'role', value: 'role'},
+        {label: 'blablabla', value: 'blablabla'},
     ];
 
-    states: any      = {};
+    states: any           = {};
     private SubjectSearch = new Subject<any>();
-
-    myControl: FormControl = new FormControl();
-    filteredOptions: Observable<string[]>;
-
 
     constructor(
         private srvHttpRequest: AlinaHttpRequestService
@@ -44,7 +40,6 @@ export class AlinaRestCallComponent implements OnInit {
 
     ngOnInit() {
         this.states.seatchFilter = {};
-        this.initFilteredOptions();
         this.initSubjectSearch();
         this.recallSearch();
         this.reFetch();
@@ -61,29 +56,7 @@ export class AlinaRestCallComponent implements OnInit {
 
     /*endregion Init*/
 
-    /*region  AutoComplete Field for Models List*/
-    initFilteredOptions() {
-        this.filteredOptions = this.myControl.valueChanges
-            .pipe(
-                startWith(''),
-                map(val => this.filter(val))
-            );
-    }
-
-    filter(val: string): string[] {
-        return this.models.filter(option =>
-            option.toLowerCase().indexOf(val.toLowerCase()) !== -1);
-    }
-
-    /*endregion AutoComplete Field for Models List*/
-
-
     /*region Event Handlers */
-    onSelectionChanged(event) {
-        this.tableName = event.option.value;
-        this.onChangeTable();
-    }
-
     onChangeTable() {
 
         console.log("xxx ++++++++++");
@@ -149,10 +122,10 @@ export class AlinaRestCallComponent implements OnInit {
     }
 
     /*region EditAsHtml*/
-    editAsHtmlItem: any = {};
-    editAsHtmlProp: string = 'default';
+    editAsHtmlItem: any     = {};
+    editAsHtmlProp: string  = 'default';
     editAsHtmlValue: string = '';
-    editAsHtmlStateVisible = false;
+    editAsHtmlStateVisible  = false;
 
     editAsHtml(event, item, prop) {
 

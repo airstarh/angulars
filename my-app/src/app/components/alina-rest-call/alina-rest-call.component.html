@@ -5,26 +5,21 @@
 </div>
 <div>&nbsp;</div>
 <div>
-	<div>
-		<mat-form-field class="example-full-width">
-			<input type="text" placeholder="Type in a Current Table" aria-label="Number" matInput
-			       [formControl]="myControl"
-			       [matAutocomplete]="auto">
-			<mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)">
-				<mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-					{{ option }}
-				</mat-option>
-			</mat-autocomplete>
-		</mat-form-field>
-		&nbsp;currently it is&nbsp;
-		<mat-form-field>
-			<mat-select placeholder="Select Current Table" [(ngModel)]="tableName" (selectionChange)="onChangeTable()">
-				<mat-option *ngFor="let m of models" [value]="m">
-					{{m}}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
-	</div>
+	<p-dropdown
+			[(ngModel)]="tableName"
+			[options]="modelsObjs"
+			placeholder="..."
+			[showClear]="true"
+			[filter]="true"
+			(onChange)="onChangeTable()"
+	>
+		<ng-template let-itm pTemplate="selectedItem">
+			<span>{{itm.label}}</span>
+		</ng-template>
+		<ng-template let-itm pTemplate="item">
+			<div>{{itm.label}}</div>
+		</ng-template>
+	</p-dropdown>
 </div>
 <div>&nbsp;</div>
 <ng-container *ngTemplateOutlet="pager"></ng-container>
