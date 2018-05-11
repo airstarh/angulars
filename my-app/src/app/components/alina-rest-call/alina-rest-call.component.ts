@@ -58,10 +58,6 @@ export class AlinaRestCallComponent implements OnInit {
 
     /*region Event Handlers */
     onChangeTable() {
-
-        console.log("xxx ++++++++++");
-        console.log(arguments);
-
         this.recallSearch();
         this.fNames = [];
         this.reFetch();
@@ -299,7 +295,7 @@ export class AlinaRestCallComponent implements OnInit {
         let pager: any          = {};
         pager.rowsTotal         = 0;
         pager.pageCurrentNumber = 1;
-        pager.pageSize          = 2;
+        pager.pageSize          = 5;
         return pager;
     }
 

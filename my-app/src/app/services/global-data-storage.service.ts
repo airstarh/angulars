@@ -6,7 +6,7 @@ export class GlobalDataStorageService {
 	constructor() { }
 
     public currentUser: any       = {};
-    public spinner: boolean       = false;
+    public spinner: boolean       = true;
     public TablesStatesStore: any = {};
 
 

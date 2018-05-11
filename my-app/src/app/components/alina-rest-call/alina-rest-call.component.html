@@ -125,14 +125,16 @@
 						}"
 			>&nbsp;
 				<div *ngIf="states.oShownFields[prop]">
+					<div *ngIf="isType(item[prop], 'string') && item.editMode">
+						<input type="text" [(ngModel)]="item[prop]">
+					</div>
+					<br>
 					<span class="btn btn-sm btn-info" (click)="editAsHtml($event, item, prop)">HTML</span>
 					<br>
 					<b>{{prop}}:</b>
 					<br>
 					<span *ngIf="isType(item[prop], 'string')">{{item[prop]}}</span>
-					<div *ngIf="isType(item[prop], 'string') && item.editMode">
-						<input type="text" [(ngModel)]="item[prop]">
-					</div>
+
 					<ul *ngIf="isType(item[prop], 'array')">
 						<li *ngFor='let subItem of item[prop]'>
 							<div *ngFor='let p of subItem | pArrayOfKeys'>
