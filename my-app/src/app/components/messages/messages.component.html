@@ -1,13 +1,13 @@
 <div
 		*ngIf="srvMessages.messages.length"
-		class="popupBackgroundFixed"
+		class="popup-background-fixed"
 		tabindex="0"
 		[@mStateEmpty]="srvMessages.stateEmpty"
 		(click)="srvMessages.clear()"
 >
 	<div
 			*ngFor="let message of srvMessages.messages"
-			class="popupItems {{message.status}}"
+			class="popup-items {{message.status}}"
 	>
 		<pre>{{message.text ? message.text : srvMessages.messages | json}}</pre>
 	</div>

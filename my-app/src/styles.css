@@ -107,7 +107,7 @@ pre {
 }
 
 /*region Alina PopUp*/
-.popupBackgroundFixed {
+.popup-background-fixed {
     position: fixed;
     left: 0;
     top: 0;
@@ -124,7 +124,7 @@ pre {
     align-content: center;
 }
 
-.popupItems {
+.popup-items {
     display: block;
     margin: 0 auto 5px auto;
     padding: 25px;
@@ -133,7 +133,7 @@ pre {
     overflow-y:auto;
 }
 
-.popupOneItem {
+.popup-one-item {
     position: fixed;
 
     width: 1000px;

@@ -28,51 +28,47 @@ export class AlinaHttpRequestService {
 		//ToDo: Auth Token here.
 	};
 
-	public set(anObject: {}, propertyName: string, value: any) {
-		anObject[propertyName] = value;
-	};
-
 	public send(
 		method: string = 'get',
 		data: any      = false,
 		options: any   = {}
 	): Observable<any> {
         this.srvGlobalDataStorage.spinner = true;
-		let _HttpClient: HttpClient   = this.srvHttpClient;
-		let _Observable: Observable<any>;
-		const httpRequestOptions: any = {};
-		httpRequestOptions.headers    = this.httpHeaders;
-		httpRequestOptions.params     = {};
-		options.headers ? Object.assign(httpRequestOptions.headers, options.headers) : null;
-		options.params ? Object.assign(httpRequestOptions.params, options.params) : null;
+		let srvHTTP: HttpClient     = this.srvHttpClient;
+		let obsHTTP: Observable<any>;
+		const objHttpOpts: any     = {};
+		objHttpOpts.headers        = this.httpHeaders;
+		objHttpOpts.params         = {};
+		options.headers ? Object.assign(objHttpOpts.headers, options.headers) : null;
+		options.params ? Object.assign(objHttpOpts.params, options.params) : null;
 
 		switch (method) {
 			// POST
 			case 'post':
-				_Observable = _HttpClient.post(this.URL, data, httpRequestOptions);
+				obsHTTP = srvHTTP.post(this.URL, data, objHttpOpts);
 				break;
 			// PUT
 			case 'put':
-				_Observable = _HttpClient.put(this.URL, data, httpRequestOptions);
+				obsHTTP = srvHTTP.put(this.URL, data, objHttpOpts);
 				break;
 			// DELETE
 			case 'delete':
 				if (data) {
-					httpRequestOptions.params = typeof data === 'number' ? {"id": data} : data;
+					objHttpOpts.params = typeof data === 'number' ? {"id": data} : data;
 				}
-				_Observable = _HttpClient.delete(this.URL, httpRequestOptions);
+				obsHTTP = srvHTTP.delete(this.URL, objHttpOpts);
 				break;
-
+			//GET
 			case 'get':
 			default:
 				if (data) {
-					httpRequestOptions.params = data;
+					objHttpOpts.params = data;
 				}
-				_Observable = _HttpClient.get(this.URL, httpRequestOptions);
+				obsHTTP = srvHTTP.get(this.URL, objHttpOpts);
 				break;
 		}
 
-		return _Observable
+		return obsHTTP
 			.pipe(
 				//throttleTime(1500),
 				tap(
