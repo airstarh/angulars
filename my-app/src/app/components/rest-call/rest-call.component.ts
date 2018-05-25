@@ -13,11 +13,11 @@ import {DropdownModule}           from 'primeng/primeng';
 
 
 @Component({
-    selector:    'app-alina-rest-call',
-    templateUrl: './alina-rest-call.component.html',
-    styleUrls:   ['./alina-rest-call.component.css']
+    selector:    'app-rest-call',
+    templateUrl: './rest-call.component.html',
+    styleUrls:   ['./rest-call.component.css']
 })
-export class AlinaRestCallComponent implements OnInit {
+export class RestCallComponent implements OnInit {
 
     /*region Init*/
     ownData: any     = [];

@@ -13,7 +13,7 @@ import {HeroSearchComponent}       from './components/hero-search/hero-search.co
 import {HeroService}               from './services/hero.service';
 import {MessageService}            from './services/message.service';
 import {MessagesComponent}         from './components/messages/messages.component';
-import {AlinaRestCallComponent}    from './components/alina-rest-call/alina-rest-call.component';
+import {RestCallComponent}         from './components/rest-call/rest-call.component';
 import {AlinaHttpRequestService}   from "./services/alina-http-request.service";
 import { AlinaFormBuildComponent } from './components/alina-form-build/alina-form-build.component';
 import {ValuesPipe}                from "./pipes/values-pipe";
@@ -77,7 +77,7 @@ import {CodeHighlighterModule}           from "primeng/primeng";
         HeroDetailComponent,
         MessagesComponent,
         HeroSearchComponent,
-        AlinaRestCallComponent,
+        RestCallComponent,
         AlinaFormBuildComponent,
         ValuesPipe,
         AlinaTextEditComponent,

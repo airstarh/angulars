@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AlinaRestCallComponent } from './alina-rest-call.component';
+import { RestCallComponent } from './rest-call.component';
 
-describe('AlinaRestCallComponent', () => {
-  let component: AlinaRestCallComponent;
-  let fixture: ComponentFixture<AlinaRestCallComponent>;
+describe('RestCallComponent', () => {
+  let component: RestCallComponent;
+  let fixture: ComponentFixture<RestCallComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AlinaRestCallComponent ]
+      declarations: [RestCallComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AlinaRestCallComponent);
+    fixture = TestBed.createComponent(RestCallComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
