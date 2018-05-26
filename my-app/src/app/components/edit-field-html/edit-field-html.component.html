@@ -11,7 +11,8 @@
 
 	<br>
 	<hr>
-	<div class="ql-editor" [innerHTML]="passedItem[passedProp] | htmlReal"></div>
+	<h1>Result:</h1>
+	<div class="ql-editor result" [innerHTML]="passedItem[passedProp] | htmlReal"></div>
 
 	<div class="buttons">
 		<button class="btn btn-warning" (click)="onSave($event)">Save</button>

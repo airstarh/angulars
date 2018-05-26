@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AlinaTextEditComponent } from './alina-text-edit.component';
+import { EditFieldHtmlComponent } from './edit-field-html.component';
 
-describe('AlinaTextEditComponent', () => {
-  let component: AlinaTextEditComponent;
-  let fixture: ComponentFixture<AlinaTextEditComponent>;
+describe('EditFieldHtmlComponent', () => {
+  let component: EditFieldHtmlComponent;
+  let fixture: ComponentFixture<EditFieldHtmlComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AlinaTextEditComponent ]
+      declarations: [EditFieldHtmlComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AlinaTextEditComponent);
+    fixture = TestBed.createComponent(EditFieldHtmlComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

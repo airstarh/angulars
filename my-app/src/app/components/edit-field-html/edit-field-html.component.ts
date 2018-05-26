@@ -11,11 +11,11 @@ import {
 
 @Component({
     encapsulation: ViewEncapsulation.None,
-    selector:      'app-alina-text-edit',
-    templateUrl:   './alina-text-edit.component.html',
-    styleUrls:     ['./alina-text-edit.component.css'],
+    selector:      'app-edit-field-html',
+    templateUrl:   './edit-field-html.component.html',
+    styleUrls:     ['./edit-field-html.component.css'],
 })
-export class AlinaTextEditComponent implements OnInit {
+export class EditFieldHtmlComponent implements OnInit {
 
     @Input('stateVisible') stateVisible: boolean = false;
     @Output() stateVisibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();

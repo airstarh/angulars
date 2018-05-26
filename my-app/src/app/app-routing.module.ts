@@ -1,9 +1,9 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { DashboardComponent }  from './components/dashboard/dashboard.component';
-import { HeroesComponent }     from './components/heroes/heroes.component';
-import { HeroDetailComponent } from './components/hero-detail/hero-detail.component';
+import { DashboardComponent }  from './modules/hero/components/dashboard/dashboard.component';
+import { HeroesComponent }     from './modules/hero/components/heroes/heroes.component';
+import { HeroDetailComponent } from './modules/hero/components/hero-detail/hero-detail.component';
 import {RestCallComponent}     from "./components/rest-call/rest-call.component";
 
 const routes: Routes = [

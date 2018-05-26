@@ -82,6 +82,11 @@ label {
 
 /*endregion Fixes*/
 
+/*region PrimeNG*/
+.ql-editor.result{
+    height:auto;
+}
+/*endregion PrimeNG*/
 /*region Alina Styles*/
 pre {
     margin: 0;
