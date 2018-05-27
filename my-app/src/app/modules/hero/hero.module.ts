@@ -38,5 +38,3 @@ import {HeroRoutingModule}                from './hero-routing.module';
     providers:    [HeroService]
 })
 export class HeroModule {}
-
-alert(132);

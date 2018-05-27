@@ -9,5 +9,5 @@ import {GlobalDataStorageService} from "./modules/core/services/global-data-stor
            })
 export class AppComponent {
     title = 'Alina Rest Call';
-    constructor(public srvGlobalDataStorage: GlobalDataStorageService) { }
+    constructor() { }
 }

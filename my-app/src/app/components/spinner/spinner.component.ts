@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {MessageService}    from "../../modules/core/services/message.service";
+import {Component, OnInit}        from '@angular/core';
+import {GlobalDataStorageService} from "../../modules/core/services/global-data-storage.service";
 
 @Component({
     selector:    'app-spinner',
@@ -8,7 +8,7 @@ import {MessageService}    from "../../modules/core/services/message.service";
 })
 export class SpinnerComponent implements OnInit {
 
-    constructor() { }
+    constructor(private srvGlobalDataStorage: GlobalDataStorageService) { }
 
     ngOnInit() {
     }
