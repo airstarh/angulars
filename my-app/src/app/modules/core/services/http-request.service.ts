@@ -12,7 +12,7 @@ import {MessageService}           from "./message.service";
 import {GlobalDataStorageService} from "./global-data-storage.service";
 
 @Injectable()
-export class AlinaHttpRequestService {
+export class HttpRequestService {
 
 	constructor(
 		private srvHttpClient: HttpClient,

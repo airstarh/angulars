@@ -6,37 +6,35 @@ import {AppRoutingModule}                 from './app-routing.module';
 import {AppComponent}                     from './app.component';
 
 
-import {MessageService}           from './services/message.service';
-import {MessagesComponent}        from './components/messages/messages.component';
-import {RestCallComponent}        from './components/rest-call/rest-call.component';
-import {AlinaHttpRequestService}  from "./services/alina-http-request.service";
-import {AlinaFormBuildComponent}  from './components/alina-form-build/alina-form-build.component';
-import {ValuesPipe}               from "./pipes/values-pipe";
-import {AlinaModModule}           from "./alina-mod/alina-mod.module";
-import {BrowserAnimationsModule}  from "@angular/platform-browser/animations";
-import {GlobalDataStorageService} from "./services/global-data-storage.service";
-import {MatButtonModule}          from "@angular/material";
-import {MatCheckboxModule}        from "@angular/material";
-import {MatDatepickerModule}      from "@angular/material";
-import {MatNativeDateModule}      from "@angular/material";
-import {MatInputModule}           from "@angular/material";
-import {MatAutocompleteModule}    from "@angular/material";
-import {MatSelectModule}          from "@angular/material";
-import {MatIconModule}            from "@angular/material";
-import {EditFieldHtmlComponent}   from './components/edit-field-html/edit-field-html.component';
-import {HtmlRealPipe}             from './pipes/html-real.pipe';
-import {SpinnerComponent}         from './components/spinner/spinner.component';
-import {EditorModule}             from "primeng/editor";
-import {PrimeTemplate}            from "primeng/shared";
-import {DropdownModule}           from "primeng/primeng";
-import {TabViewModule}            from "primeng/primeng";
-import {CodeHighlighterModule}    from "primeng/primeng";
-import {HeroModule}               from "./modules/hero/hero.module";
+import {MessagesComponent} from './components/messages/messages.component';
+import {RestCallComponent} from './components/rest-call/rest-call.component';
+
+import {AlinaFormBuildComponent} from './components/alina-form-build/alina-form-build.component';
+import {ValuesPipe}              from "./pipes/values-pipe";
+import {AlinaModModule}          from "./alina-mod/alina-mod.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatButtonModule}         from "@angular/material";
+import {MatCheckboxModule}       from "@angular/material";
+import {MatDatepickerModule}     from "@angular/material";
+import {MatNativeDateModule}     from "@angular/material";
+import {MatInputModule}          from "@angular/material";
+import {MatAutocompleteModule}   from "@angular/material";
+import {MatSelectModule}         from "@angular/material";
+import {MatIconModule}           from "@angular/material";
+import {EditFieldHtmlComponent}  from './components/edit-field-html/edit-field-html.component';
+import {HtmlRealPipe}            from './pipes/html-real.pipe';
+import {SpinnerComponent}        from './components/spinner/spinner.component';
+import {EditorModule}            from "primeng/editor";
+import {PrimeTemplate}           from "primeng/shared";
+import {DropdownModule}          from "primeng/primeng";
+import {TabViewModule}           from "primeng/primeng";
+import {CodeHighlighterModule}   from "primeng/primeng";
+import {CoreModule}              from "./modules/core/core.module";
 
 @NgModule({
     imports:      [
         AlinaModModule,
-        HeroModule,
+        CoreModule,
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
@@ -73,7 +71,7 @@ import {HeroModule}               from "./modules/hero/hero.module";
         HtmlRealPipe,
         SpinnerComponent
     ],
-    providers:    [MessageService, AlinaHttpRequestService, GlobalDataStorageService],
+    providers:    [],
     bootstrap:    [AppComponent]
 })
 export class AppModule {

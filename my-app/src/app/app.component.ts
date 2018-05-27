@@ -1,6 +1,6 @@
 import {Component}                from '@angular/core';
-import {MessageService}           from "./services/message.service";
-import {GlobalDataStorageService} from "./services/global-data-storage.service";
+import {MessageService}           from "./modules/core/services/message.service";
+import {GlobalDataStorageService} from "./modules/core/services/global-data-storage.service";
 
 @Component({
                selector:    'app-root',

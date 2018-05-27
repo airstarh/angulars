@@ -1,8 +1,8 @@
 ///<reference path="../../../../node_modules/rxjs/internal/operators/startWith.d.ts"/>
 import {Component, OnInit}        from '@angular/core';
-import {AlinaHttpRequestService}  from "../../services/alina-http-request.service";
+import {HttpRequestService}       from "../../modules/core/services/http-request.service";
 import {ValuesPipe}               from "../../pipes/values-pipe";
-import {GlobalDataStorageService} from "../../services/global-data-storage.service";
+import {GlobalDataStorageService} from "../../modules/core/services/global-data-storage.service";
 import {Subject, Observable}      from 'rxjs';
 import {
     debounceTime, distinctUntilChanged, startWith
@@ -34,7 +34,7 @@ export class RestCallComponent implements OnInit {
     private SubjectSearch = new Subject<any>();
 
     constructor(
-        private srvHttpRequest: AlinaHttpRequestService
+        private srvHttpRequest: HttpRequestService
         , public srvGlobalDataStorage: GlobalDataStorageService
     ) { }
 
