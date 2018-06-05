@@ -19,6 +19,7 @@ export class HttpRequestService {
         public srvMessage: MessageService,
         public srvGlobalDataStorage: GlobalDataStorageService
     ) {
+        console.log("HttpRequestService Initialized ++++++++++");
     }
 
     public URL: string = 'http://alinazero/alinaRestAccept/index';
