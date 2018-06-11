@@ -10,44 +10,24 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 //endregion Vendors' Modules
 //region Custom Modules
 import {CoreModule}              from "./modules/core/core.module";
+import {AdminModule}             from "./modules/admin/admin.module";
 //endregion Custom Modules
 //endregion Modules
 
 //region Components
 //region Vendors' Components
+//------------------------ import {FormControl,FormGroup} from '@angular/forms';
 import {AppComponent}            from './app.component';
 //endregion Vendors' Components
 
 //region Custom Components
-import {RestCallComponent}      from './components/rest-call/rest-call.component';
-import {EditFieldHtmlComponent} from './components/edit-field-html/edit-field-html.component';
+//
 //endregion Custom Components
 //endregion Components
 
 //region Pipes
-import {ValuesPipe}            from "./pipes/values-pipe";
-import {HtmlRealPipe}          from './pipes/html-real.pipe';
+//
 //endregion Pipes
-
-//region Libraries
-//region Material
-import {MatButtonModule}       from "@angular/material";
-import {MatCheckboxModule}     from "@angular/material";
-import {MatDatepickerModule}   from "@angular/material";
-import {MatNativeDateModule}   from "@angular/material";
-import {MatInputModule}        from "@angular/material";
-import {MatAutocompleteModule} from "@angular/material";
-import {MatSelectModule}       from "@angular/material";
-import {MatIconModule}         from "@angular/material";
-//endregion Material
-//region PrimeNG
-import {EditorModule}          from "primeng/editor";
-import {PrimeTemplate}         from "primeng/shared";
-import {DropdownModule}        from "primeng/primeng";
-import {TabViewModule}         from "primeng/primeng";
-import {CodeHighlighterModule} from "primeng/primeng";
-//endregion PrimeNG
-//endregion Libraries
 
 @NgModule({
   imports:      [
@@ -58,33 +38,11 @@ import {CodeHighlighterModule} from "primeng/primeng";
     HttpClientModule,
     ReactiveFormsModule,
     CoreModule,
+    AdminModule,
 
-    // Material Design
-    MatButtonModule,
-    MatCheckboxModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    MatSelectModule,
-    MatIconModule,
-    //end Material Design
-
-    //PrimeNG
-    EditorModule,
-    DropdownModule,
-    TabViewModule,
-    CodeHighlighterModule
-    //end PrimeNG
   ],
   declarations: [
     AppComponent,
-
-    RestCallComponent,
-    ValuesPipe,
-    EditFieldHtmlComponent,
-    HtmlRealPipe,
-
   ],
   providers:    [],
   bootstrap:    [AppComponent]

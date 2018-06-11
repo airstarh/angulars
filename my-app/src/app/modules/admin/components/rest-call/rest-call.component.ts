@@ -1,8 +1,8 @@
-///<reference path="../../../../node_modules/rxjs/internal/operators/startWith.d.ts"/>
+///<reference path="../../../../../../node_modules/rxjs/internal/operators/startWith.d.ts"/>
 import {Component, OnInit}        from '@angular/core';
-import {HttpRequestService}       from "../../modules/core/services/http-request.service";
-import {ValuesPipe}               from "../../pipes/values-pipe";
-import {GlobalDataStorageService} from "../../modules/core/services/global-data-storage.service";
+import {HttpRequestService}       from "../../../core/services/http-request.service";
+import {ValuesPipe}               from "../../../shared/pipes/values-pipe";
+import {GlobalDataStorageService} from "../../../core/services/global-data-storage.service";
 import {Subject, Observable}      from 'rxjs';
 import {
   debounceTime, distinctUntilChanged, startWith

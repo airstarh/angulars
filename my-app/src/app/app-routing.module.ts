@@ -1,6 +1,6 @@
 import {NgModule}             from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {RestCallComponent}    from "./components/rest-call/rest-call.component";
+import {RestCallComponent}    from "./modules/admin/components/rest-call/rest-call.component";
 
 const routes: Routes = [
     {path: '', redirectTo: '/list', pathMatch: 'full'},
