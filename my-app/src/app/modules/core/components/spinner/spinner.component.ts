@@ -1,5 +1,5 @@
 import {Component, OnInit}        from '@angular/core';
-import {GlobalDataStorageService} from "../../modules/core/services/global-data-storage.service";
+import {GlobalDataStorageService} from "../../services/global-data-storage.service";
 
 @Component({
     selector:    'app-spinner',

@@ -1,78 +1,93 @@
-import {NgModule}                         from '@angular/core';
-import {BrowserModule}                    from '@angular/platform-browser';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule}                 from '@angular/common/http';
-import {AppRoutingModule}                 from './app-routing.module';
-import {AppComponent}                     from './app.component';
-
-
-import {MessagesComponent} from './components/messages/messages.component';
-import {RestCallComponent} from './components/rest-call/rest-call.component';
-
-import {AlinaFormBuildComponent} from './components/alina-form-build/alina-form-build.component';
-import {ValuesPipe}              from "./pipes/values-pipe";
-import {AlinaModModule}          from "./alina-mod/alina-mod.module";
+//region Modules
+//region Vendors' Modules
+import {NgModule}                from '@angular/core';
+import {BrowserModule}           from '@angular/platform-browser';
+import {FormsModule}             from '@angular/forms';
+import {ReactiveFormsModule}     from '@angular/forms';
+import {HttpClientModule}        from '@angular/common/http';
+import {AppRoutingModule}        from './app-routing.module';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {MatButtonModule}         from "@angular/material";
-import {MatCheckboxModule}       from "@angular/material";
-import {MatDatepickerModule}     from "@angular/material";
-import {MatNativeDateModule}     from "@angular/material";
-import {MatInputModule}          from "@angular/material";
-import {MatAutocompleteModule}   from "@angular/material";
-import {MatSelectModule}         from "@angular/material";
-import {MatIconModule}           from "@angular/material";
-import {EditFieldHtmlComponent}  from './components/edit-field-html/edit-field-html.component';
-import {HtmlRealPipe}            from './pipes/html-real.pipe';
-import {SpinnerComponent}        from './components/spinner/spinner.component';
-import {EditorModule}            from "primeng/editor";
-import {PrimeTemplate}           from "primeng/shared";
-import {DropdownModule}          from "primeng/primeng";
-import {TabViewModule}           from "primeng/primeng";
-import {CodeHighlighterModule}   from "primeng/primeng";
+//endregion Vendors' Modules
+//region Custom Modules
 import {CoreModule}              from "./modules/core/core.module";
+//endregion Custom Modules
+//endregion Modules
+
+//region Components
+//region Vendors' Components
+import {AppComponent}            from './app.component';
+//endregion Vendors' Components
+
+//region Custom Components
+import {RestCallComponent}      from './components/rest-call/rest-call.component';
+import {EditFieldHtmlComponent} from './components/edit-field-html/edit-field-html.component';
+//endregion Custom Components
+//endregion Components
+
+//region Pipes
+import {ValuesPipe}            from "./pipes/values-pipe";
+import {HtmlRealPipe}          from './pipes/html-real.pipe';
+//endregion Pipes
+
+//region Libraries
+//region Material
+import {MatButtonModule}       from "@angular/material";
+import {MatCheckboxModule}     from "@angular/material";
+import {MatDatepickerModule}   from "@angular/material";
+import {MatNativeDateModule}   from "@angular/material";
+import {MatInputModule}        from "@angular/material";
+import {MatAutocompleteModule} from "@angular/material";
+import {MatSelectModule}       from "@angular/material";
+import {MatIconModule}         from "@angular/material";
+//endregion Material
+//region PrimeNG
+import {EditorModule}          from "primeng/editor";
+import {PrimeTemplate}         from "primeng/shared";
+import {DropdownModule}        from "primeng/primeng";
+import {TabViewModule}         from "primeng/primeng";
+import {CodeHighlighterModule} from "primeng/primeng";
+//endregion PrimeNG
+//endregion Libraries
 
 @NgModule({
-    imports:      [
-        AlinaModModule,
-        CoreModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        AppRoutingModule,
-        HttpClientModule,
-        ReactiveFormsModule,
+  imports:      [
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    CoreModule,
 
-        // Material Design
-        MatButtonModule,
-        MatCheckboxModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatInputModule,
-        MatAutocompleteModule,
-        MatSelectModule,
-        MatIconModule,
-        //end Material Design
+    // Material Design
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatSelectModule,
+    MatIconModule,
+    //end Material Design
 
-        //PrimeNG
-        EditorModule,
-        DropdownModule,
-        TabViewModule,
-        CodeHighlighterModule
+    //PrimeNG
+    EditorModule,
+    DropdownModule,
+    TabViewModule,
+    CodeHighlighterModule
+    //end PrimeNG
+  ],
+  declarations: [
+    AppComponent,
 
-        //end PrimeNG
-    ],
-    declarations: [
-        AppComponent,
-        MessagesComponent,
-        RestCallComponent,
-        AlinaFormBuildComponent,
-        ValuesPipe,
-        EditFieldHtmlComponent,
-        HtmlRealPipe,
-        SpinnerComponent
-    ],
-    providers:    [],
-    bootstrap:    [AppComponent]
+    RestCallComponent,
+    ValuesPipe,
+    EditFieldHtmlComponent,
+    HtmlRealPipe,
+
+  ],
+  providers:    [],
+  bootstrap:    [AppComponent]
 })
 export class AppModule {
 }

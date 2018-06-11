@@ -1,3 +1,4 @@
+//@deprecated
 ///<reference path="../../../../node_modules/@angular/forms/src/validators.d.ts"/>
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";

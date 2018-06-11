@@ -15,26 +15,26 @@ import {HeroRoutingModule}                from './hero-routing.module';
 /*endregion Hero Tour*/
 
 @NgModule({
-    imports:      [
-        CommonModule
-        , HttpClientModule
-        , FormsModule
-        , ReactiveFormsModule
-        , HeroRoutingModule
+  imports:      [
+    CommonModule
+    , HttpClientModule
+    , FormsModule
+    , ReactiveFormsModule
+    , HeroRoutingModule
 
-        // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
-        // and returns simulated server responses.
-        // Remove it when a real server is ready to receive requests.
-        // HttpClientInMemoryWebApiModule.forRoot(
-        //   InMemoryDataService, { dataEncapsulation: false }
-        // )
-    ],
-    declarations: [
-        DashboardComponent
-        , HeroesComponent
-        , HeroDetailComponent
-        , HeroSearchComponent,
-    ],
-    providers:    [HeroService]
+    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+    // and returns simulated server responses.
+    // Remove it when a real server is ready to receive requests.
+    // HttpClientInMemoryWebApiModule.forRoot(
+    //   InMemoryDataService, { dataEncapsulation: false }
+    // )
+  ],
+  declarations: [
+    DashboardComponent
+    , HeroesComponent
+    , HeroDetailComponent
+    , HeroSearchComponent,
+  ],
+  providers:    [HeroService]
 })
 export class HeroModule {}
