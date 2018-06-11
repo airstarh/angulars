@@ -1,16 +1,12 @@
-///<reference path="../../../../../../node_modules/rxjs/internal/operators/startWith.d.ts"/>
 import {Component, OnInit}        from '@angular/core';
 import {HttpRequestService}       from "../../../core/services/http-request.service";
 import {ValuesPipe}               from "../../../shared/pipes/values-pipe";
 import {GlobalDataStorageService} from "../../../core/services/global-data-storage.service";
-import {Subject, Observable}      from 'rxjs';
+import {Subject}                  from 'rxjs';
 import {
-  debounceTime, distinctUntilChanged, startWith
-  , map
+  debounceTime
+  , distinctUntilChanged
 }                                 from "rxjs/operators";
-import {FormControl}              from "@angular/forms";
-import {DropdownModule}           from 'primeng/primeng';
-
 
 @Component({
   selector:    'app-rest-call',

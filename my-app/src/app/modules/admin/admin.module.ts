@@ -20,7 +20,6 @@ import {MatIconModule}           from "@angular/material";
 //endregion Material
 //region PrimeNG
 import {EditorModule}            from "primeng/editor";
-import {PrimeTemplate}           from "primeng/shared";
 import {DropdownModule}          from "primeng/primeng";
 import {TabViewModule}           from "primeng/primeng";
 import {CodeHighlighterModule}   from "primeng/primeng";

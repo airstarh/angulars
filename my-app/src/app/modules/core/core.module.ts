@@ -7,10 +7,12 @@ import {MessageService}           from "./services/message.service";
 //Components
 import {MessagesComponent}        from './components/messages/messages.component';
 import {SpinnerComponent}         from './components/spinner/spinner.component';
+import {HttpClientModule}         from "@angular/common/http";
 
 @NgModule({
   imports:      [
     CommonModule
+    , HttpClientModule
   ],
   exports: [
     MessagesComponent
