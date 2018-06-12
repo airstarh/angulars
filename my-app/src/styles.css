@@ -4,10 +4,6 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 /*endregion Bootstrap*/
 
-/*region Angular Material*/
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-/*endregion Angular Material*/
-
 /*region PrimeNG*/
 @import "~font-awesome/css/font-awesome.min.css";
 @import "~primeng/resources/themes/omega/theme.css";
