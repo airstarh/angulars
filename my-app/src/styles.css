@@ -106,9 +106,9 @@ pre {
 , .hover-highlighted:hover:after
 , .hover-highlighted:hover:before
 {
-    background-color: yellow;
+    background-color: yellow !important;
     color: black !important;
-    cursor: pointer;
+    cursor: pointer !important;
 }
 
 /*region Alina PopUp*/

@@ -1,11 +1,11 @@
-<div>&nbsp;</div>
+<div class="clearfix"></div>
 <div>
-	<button mat-raised-button color="green" type="button" (click)="consoleLog(ownData)">Log ownData</button>&nbsp;
-	<button mat-raised-button color="green" type="button" (click)="consoleLog()">Log Component</button>
+	<button  class="btn btn-info" (click)="consoleLog(ownData)">Log ownData</button>&nbsp;
+	<button  class="btn btn-info" (click)="consoleLog()">Log Component</button>
 </div>
-<div>&nbsp;</div>
+<div class="clearfix"></div>
 <div>
-	<p-dropdown
+	<label>Table:&nbsp;<p-dropdown
 			[(ngModel)]="tableName"
 			[options]="modelsObjs"
 			placeholder="..."
@@ -19,20 +19,17 @@
 		<ng-template let-itm pTemplate="item">
 			<div>{{itm.label}}</div>
 		</ng-template>
-	</p-dropdown>
+	</p-dropdown></label>
 </div>
-<div>&nbsp;</div>
+<div class="clearfix"></div>
 <ng-container *ngTemplateOutlet="pager"></ng-container>
-<div>&nbsp;</div>
+<div class="clearfix"></div>
 <!--region Shown Fields-->
 <div class="nav">
-	<span *ngFor='let prop of fNames' class="fields rounded">
-		<span class="hover-highlighted"><mat-icon aria-label="Move Earlier" (click)="moveEarlier(prop)">◂</mat-icon></span>
+	<span *ngFor='let prop of fNames' class="shown-fields-menu rounded">
+		<span class="hover-highlighted"><span (click)="moveEarlier(prop)">&nbsp;◂&nbsp;</span></span>
 		<span class="hover-highlighted">
-			<mat-checkbox
-					[(ngModel)]="states.oShownFields[prop]"
-					(change)="onChangeShownField()"
-			>{{prop}}</mat-checkbox>
+      <p-checkbox [(ngModel)]="states.oShownFields[prop]" binary="true" label="{{prop}}" onchange="onChangeShownField()"></p-checkbox>
 		</span>
 
 		<span
@@ -44,12 +41,12 @@
 					'sorting_asc_ii': states.sort.sortName.indexOf(prop)=== 1 && states.sort.sortAsc[1],
 					'sorting_desc_ii': states.sort.sortName.indexOf(prop)=== 1 && !states.sort.sortAsc[1]
 					}"
-		>&nbsp;</span>
+		></span>
 
-		<span class="hover-highlighted"><mat-icon aria-label="Move Later" (click)="moveLater(prop)">▸</mat-icon></span>
+		<span class="hover-highlighted"><span (click)="moveLater(prop)">&nbsp;▸&nbsp;</span></span>
 	</span>
 </div>
-<div>&nbsp;</div>
+<div class="clearfix"></div>
 <!--endregion Shown Fields-->
 
 <div class="table-responsive" *ngIf="fNames.length > 0; else loading">
@@ -63,13 +60,7 @@
 						'excludedItem': states.oShownFields[prop]===false
 						}"
 			>
-
-				<mat-checkbox
-						class="example-margin"
-						[(ngModel)]="states.oShownFields[prop]"
-						(change)="onChangeShownField()"
-				>{{prop}}
-				</mat-checkbox>
+        <p-checkbox [(ngModel)]="states.oShownFields[prop]" binary="true" label="{{prop}}" onchange="onChangeShownField()"></p-checkbox>
 				<span
 						(click)="sortTable($event, prop)"
 						class="sorting hover-highlighted"
@@ -79,7 +70,7 @@
 						'sorting_asc_ii': states.sort.sortName.indexOf(prop)=== 1 && states.sort.sortAsc[1],
 						'sorting_desc_ii': states.sort.sortName.indexOf(prop)=== 1 && !states.sort.sortAsc[1]
 						}"
-				>&nbsp;</span>
+				></span>
 
 			</th>
 		</tr>
@@ -123,16 +114,16 @@
 			    [ngClass]="{
 						'excludedItem': states.oShownFields[prop]===false
 						}"
-			>&nbsp;
+			>
+        <div class="cell-header"><b>{{prop}}:</b></div>
+        <div class="clearfix"></div>
 				<div *ngIf="states.oShownFields[prop]">
 					<div *ngIf="isType(item[prop], 'string') && item.editMode">
 						<input type="text" [(ngModel)]="item[prop]">
 					</div>
-					<br>
+          <div class="clearfix"></div>
 					<span class="btn btn-sm btn-info" (click)="editAsHtml($event, item, prop)">HTML</span>
-					<br>
-					<b>{{prop}}:</b>
-					<br>
+          <div class="clearfix"></div>
 					<span *ngIf="isType(item[prop], 'string')">{{item[prop]}}</span>
 
 					<ul *ngIf="isType(item[prop], 'array')">
@@ -149,12 +140,12 @@
 	</table>
 </div>
 
-<div>&nbsp;</div>
+<div class="clearfix"></div>
 <ng-container *ngTemplateOutlet="pager"></ng-container>
-<div>&nbsp;</div>
+<div class="clearfix"></div>
 
 
-<div>&nbsp;</div>
+<div class="clearfix"></div>
 <app-edit-field-html
 		*ngIf="editAsHtmlStateVisible"
 		[(stateVisible)]="editAsHtmlStateVisible"
@@ -162,7 +153,7 @@
 		[passedProp]="editAsHtmlProp"
 		[passedValue]="editAsHtmlValue"
 ></app-edit-field-html>
-<div>&nbsp;</div>
+<div class="clearfix"></div>
 
 
 
@@ -182,33 +173,48 @@
 	<div class="pager">
 
 
-		<button mat-mini-fab color="black" (click)="onGoToPage(1)"> <<<</button>
-		<button
-				mat-mini-fab color="black"
+    <button pButton type="button" (click)="onGoToPage(1)" label="<<<" class="ui-button-success hover-highlighted"></button>
+
+    <button
+        pButton
+        type="button"
+        class="ui-button-success hover-highlighted"
 				*ngFor="let pageN of states.pager.pagesTotalArray"
+        label="{{pageN}}"
 				(click)="onGoToPage(pageN)"
 				[ngClass]="{
 						'active': pageN == states.pager.pageCurrentNumber
 						}"
-		>
-			{{pageN}}
-		</button>
-		<button mat-mini-fab color="black" (click)="onGoToPage(states.pager.pagesTotal)"> >>></button>
-		&nbsp;
-		<mat-form-field>
-			<mat-select placeholder="Page Size" [(ngModel)]="states.pager.pageSize" (selectionChange)="onChangePageSize()">
-				<mat-option value="2">2</mat-option>
-				<mat-option value="3">3</mat-option>
-				<mat-option value="5">5</mat-option>
-				<mat-option value="10">10</mat-option>
-				<mat-option value="15">15</mat-option>
-				<mat-option value="20">20</mat-option>
-				<mat-option value="25">25</mat-option>
-				<mat-option value="50">50</mat-option>
-				<mat-option value="100">100</mat-option>
-				<mat-option value="1000000">All</mat-option>
-			</mat-select>
-		</mat-form-field>
+		></button>
+    <button pButton type="button" (click)="onGoToPage(states.pager.pagesTotal)" label=">>>" class="ui-button-success hover-highlighted"></button>
+    &nbsp;
+    <p-dropdown
+      [(ngModel)]="states.pager.pageSize"
+      [options]="[
+        {label: '2', value: '2'}
+        , {label: '3', value: '3'}
+        , {label: '5', value: '5'}
+        , {label: '10', value: '10'}
+        , {label: '15', value: '15'}
+        , {label: '20', value: '20'}
+        , {label: '25', value: '25'}
+        , {label: '50', value: '50'}
+        , {label: '100', value: '100'}
+        , {label: '1000', value: '1000'}
+      ]"
+      placeholder="Page Size"
+      [showClear]="false"
+      [filter]="false"
+      (onChange)="onChangePageSize()"
+    >
+      <ng-template let-itm pTemplate="selectedItem">
+        <span>{{itm.label}}</span>
+      </ng-template>
+      <ng-template let-itm pTemplate="item">
+        <div>{{itm.label}}</div>
+      </ng-template>
+    </p-dropdown>
+
 	</div>
 </ng-template>
 <!--endregion Pages-->

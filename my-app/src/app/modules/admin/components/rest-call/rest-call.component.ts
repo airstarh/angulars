@@ -16,19 +16,20 @@ import {
 export class RestCallComponent implements OnInit {
 
   /*region Init*/
-  ownData: any     = [];
-  fNames: string[] = [];
-  tableName        = 'article';
-  modelsObjs       = [
+  protected ownData: any     = [];
+  protected fNames: string[] = [];
+  protected tableName        = 'article';
+  protected modelsObjs       = [
     {label: 'article', value: 'article'},
     {label: 'user', value: 'user'},
     {label: 'role', value: 'role'},
     {label: 'blablabla', value: 'blablabla'},
   ];
 
-  states: any           = {};
-  private SubjectSearch = new Subject<any>();
+  protected states: any    = {};
+  protected SubjectSearch  = new Subject<any>();
   protected modelMetaInfo: any;
+  protected pkName: string = 'id';
 
   constructor(
     private srvHttpRequest: HttpRequestService
@@ -194,14 +195,12 @@ export class RestCallComponent implements OnInit {
       return;
     }
 
-    //ToDo: Abstract model pkName!!!
-
     let method    = 'get';
     let getString = {
       cmd:    "modelOne",
       isAjax: true,
       m:      this.tableName,
-      mId:    item.id
+      mId:    item[this.pkName]
     };
 
     this.srvHttpRequest.send(method, getString)
@@ -359,6 +358,7 @@ export class RestCallComponent implements OnInit {
 
       if (resp.meta.modelMetaInfo) {
         let modelMetaInfo = this.modelMetaInfo = resp.meta.modelMetaInfo;
+        this.pkName = modelMetaInfo.pkName ? modelMetaInfo.pkName : 'id';
       }
     }
   }
