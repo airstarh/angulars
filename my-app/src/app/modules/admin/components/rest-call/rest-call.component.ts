@@ -7,6 +7,10 @@ import {
   debounceTime
   , distinctUntilChanged
 }                                 from "rxjs/operators";
+import {IfsSomeData}              from "@app/app/modules/core/utils/interfaces/ifs-some-data";
+import {ifsStates}                from "@app/app/modules/core/utils/interfaces/ifs-states";
+import {IfsSorter}                from "@app/app/modules/core/utils/interfaces/ifs-sorter";
+import {IfsPager}                 from "@app/app/modules/core/utils/interfaces/ifs-pager";
 
 @Component({
   selector:    'app-rest-call',
@@ -16,28 +20,29 @@ import {
 export class RestCallComponent implements OnInit {
 
   /*region Init*/
-  protected ownData: any     = [];
-  protected fNames: string[] = [];
-  protected tableName        = 'article';
-  protected modelsObjs       = [
+  protected ownData: Array<IfsSomeData> = [];
+  protected fNames: string[]            = [];
+  protected tableName                   = 'article';
+  protected modelsObjs                  = [
     {label: 'article', value: 'article'},
     {label: 'user', value: 'user'},
     {label: 'role', value: 'role'},
     {label: 'blablabla', value: 'blablabla'},
   ];
 
-  protected states: any    = {};
-  protected SubjectSearch  = new Subject<any>();
-  protected modelMetaInfo: any;
+  protected states: ifsStates;
+  protected SubjectSearch  = new Subject<string>();
+  protected modelMetaInfo: IfsSomeData;
   protected pkName: string = 'id';
 
   constructor(
-    private srvHttpRequest: HttpRequestService
-    , public srvGlobalDataStorage: GlobalDataStorageService
+    protected srvHttpRequest: HttpRequestService
+    , protected srvGlobalDataStorage: GlobalDataStorageService
   ) { }
 
   ngOnInit() {
-    this.states.seatchFilter = {};
+    this.states              = Object.create({}) as ifsStates;
+    this.states.searchParams = Object.create({});
     this.initSubjectSearch();
     this.recallSearch();
     this.reFetch();
@@ -116,10 +121,10 @@ export class RestCallComponent implements OnInit {
   }
 
   /*region EditAsHtml*/
-  editAsHtmlItem: any     = {};
-  editAsHtmlProp: string  = 'default';
-  editAsHtmlValue: string = '';
-  editAsHtmlStateVisible  = false;
+  editAsHtmlItem: IfsSomeData = Object.create({}) as IfsSomeData;
+  editAsHtmlProp: string      = 'default';
+  editAsHtmlValue: string     = '';
+  editAsHtmlStateVisible      = false;
 
   editAsHtml(event, item, prop) {
 
@@ -140,7 +145,7 @@ export class RestCallComponent implements OnInit {
   };
 
   getModels() {
-    let getString: any = {
+    let getString: IfsSomeData = {
       cmd:    "model",
       isAjax: true,
       m:      this.tableName,
@@ -161,7 +166,7 @@ export class RestCallComponent implements OnInit {
   }
 
   addModel() {
-    let newEmptyModel: any = {};
+    let newEmptyModel = Object.create({}) as IfsSomeData;
     this.fNames.forEach(function (v) {
       newEmptyModel[v] = '';
     });
@@ -171,10 +176,10 @@ export class RestCallComponent implements OnInit {
   }
 
   saveModel(item) {
-    let data         = item;
-    let options: any = {};
-    let method       = item.isNew ? 'post' : 'put';
-    options.params   = {
+    let data       = item;
+    let options    = Object.create({}) as IfsSomeData;
+    let method     = item.isNew ? 'post' : 'put';
+    options.params = {
       cmd:    "model",
       isAjax: true,
       m:      this.tableName
@@ -227,7 +232,7 @@ export class RestCallComponent implements OnInit {
   clearSearch() {
     this.states.sort         = this.getDefaultSortObject();
     this.states.pager        = this.getDefaultPagerObject();
-    this.states.searchParams = {};
+    this.states.searchParams = Object.create({}) as IfsSomeData;
     for (let i = 0; i < this.fNames.length; i++) {
       this.states.oShownFields[this.fNames[i]] = true;
     }
@@ -242,7 +247,7 @@ export class RestCallComponent implements OnInit {
   recallSearch() {
     this.states = this.srvGlobalDataStorage.TablesStatesStore[this.tableName] || {};
     if (!this.states.searchParams) {
-      this.states.searchParams = {};
+      this.states.searchParams = Object.create({}) as IfsSomeData;
     }
     if (!this.states.sort) {
       this.states.sort = this.getDefaultSortObject();
@@ -276,11 +281,11 @@ export class RestCallComponent implements OnInit {
   }
 
   getDefaultSortObject() {
-    let sort: any    = {};
-    sort.sortName    = [];
-    sort.sortAsc     = [];
-    sort.sortName[0] = 'id';
-    sort.sortAsc[0]  = true;
+    let sort: IfsSorter = Object.create({});
+    sort.sortName       = [];
+    sort.sortAsc        = [];
+    sort.sortName[0]    = this.pkName;
+    sort.sortAsc[0]     = true;
     return sort;
   }
 
@@ -288,14 +293,14 @@ export class RestCallComponent implements OnInit {
 
   /*region Page*/
   getDefaultPagerObject() {
-    let pager: any          = {};
+    let pager: IfsPager     = Object.create({});
     pager.rowsTotal         = 0;
     pager.pageCurrentNumber = 1;
     pager.pageSize          = 5;
     return pager;
   }
 
-  calcPagesTotal() {
+  calcPagesTotal( ) {
     let rowsTotal = this.states.pager.rowsTotal;
     let pageSize  = this.states.pager.pageSize;
     if (pageSize <= 0) {pageSize = this.states.pager.pageSize = rowsTotal}
@@ -341,7 +346,7 @@ export class RestCallComponent implements OnInit {
 
       /*region Shown Fields*/
       if (!this.states.oShownFields) {
-        this.states.oShownFields = {};
+        this.states.oShownFields = [];
         for (let i = 0; i < this.fNames.length; i++) {
           this.states.oShownFields[this.fNames[i]] = true;
         }

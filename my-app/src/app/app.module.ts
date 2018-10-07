@@ -1,18 +1,18 @@
 //region Modules
 //region Vendors' Modules
-import {NgModule}                from '@angular/core';
-import {BrowserModule}           from '@angular/platform-browser';
-import {AppRoutingModule}        from './app-routing.module';
+import {NgModule}         from '@angular/core';
+import {BrowserModule}    from '@angular/platform-browser';
+import {AppRoutingModule} from './app-routing.module';
 //endregion Vendors' Modules
 //region Custom Modules
-import {CoreModule}              from "./modules/core/core.module";
-import {AdminModule}             from "./modules/admin/admin.module";
+import {CoreModule}       from "./modules/core/core.module";
+import {AdminModule}      from "./modules/admin/admin.module";
 //endregion Custom Modules
 //endregion Modules
 
 //region Components
 //region Vendors' Components
-import {AppComponent}            from './app.component';
+import {AppComponent}     from './app.component';
 //endregion Vendors' Components
 
 //region Custom Components

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AlinaFormBuildComponent } from './alina-form-build.component';
+import { ModelDetailComponent } from './model-detail.component';
 
-describe('AlinaFormBuildComponent', () => {
-  let component: AlinaFormBuildComponent;
-  let fixture: ComponentFixture<AlinaFormBuildComponent>;
+describe('ModelDetailComponent', () => {
+  let component: ModelDetailComponent;
+  let fixture: ComponentFixture<ModelDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AlinaFormBuildComponent ]
+      declarations: [ ModelDetailComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AlinaFormBuildComponent);
+    fixture = TestBed.createComponent(ModelDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

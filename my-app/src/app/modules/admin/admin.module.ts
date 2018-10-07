@@ -19,6 +19,7 @@ import {CodeHighlighterModule}   from "primeng/primeng";
 //endregion Libraries
 //
 import {RestCallComponent}       from './components/rest-call/rest-call.component';
+import { ModelDetailComponent } from './components/model-detail/model-detail.component';
 
 
 @NgModule({
@@ -40,9 +41,11 @@ import {RestCallComponent}       from './components/rest-call/rest-call.componen
   ],
   exports:      [
     RestCallComponent
+    , ModelDetailComponent
   ],
   declarations: [
     RestCallComponent
+    , ModelDetailComponent
   ]
 })
 export class AdminModule {}
